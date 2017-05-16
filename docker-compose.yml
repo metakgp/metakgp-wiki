@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  mysql:
+    image: 'mysql:5.7'
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=metakgp_wiki_db
+      - MYSQL_USER=metakgp_user
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  nginx:
+    build: './nginx'
+    links:
+      - php:php-docker
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+    ports:
+      - "8080:80"
+  php:
+    build: './php'
+    links:
+      - mysql:mysql-docker
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+  mediawiki:
+    build: './mediawiki'
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+
+volumes:
+  mediawiki-volume:
