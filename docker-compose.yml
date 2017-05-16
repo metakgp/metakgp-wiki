@@ -22,6 +22,12 @@ services:
       - mysql:mysql-docker
     volumes:
       - mediawiki-volume:/srv/mediawiki
+    environment:
+      - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
+      - RECAPTCHA_SECRET_KEY=$RECAPTCHA_SECRET_KEY
+      - WG_SECRET_KEY=$WG_SECRET_KEY
+      - SITE_UPGRADE_KEY=$SITE_UPGRADE_KEY
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
   mediawiki:
     build: './mediawiki'
     volumes:
