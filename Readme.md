@@ -6,6 +6,9 @@ Dockerized for fun and profit.
 
 ## Setup
 - Create a `.env` file at the repo root with all the required secrets.
+```
+cp .env.template .env # now modify .env
+```
 - Run:
 ```
 docker-compose up
@@ -22,5 +25,5 @@ Make sure that your changes are actually being picked up. If you don't mind *del
 
 ## Todo
 - Enable remaining extensions
-- Restore images, peqp, logos
+- Restore images, peqp
 - Measure performance
