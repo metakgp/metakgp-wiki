@@ -35,7 +35,7 @@ $wgUsePathInfo = true;
 
 ## The protocol and server name to use in fully-qualified URLs
 # $wgServer = "https://wiki.metakgp.org";
-$wgServer = "http://localhost:8080";
+$wgServer = getenv('SERVER_NAME');
 
 ## The relative URL path to the skins directory
 $wgStylePath = "$wgScriptPath/skins";
