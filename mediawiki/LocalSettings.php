@@ -79,9 +79,11 @@ $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
+$wgTmpDirectory = "$wgScriptPath/images/temp";
 $wgEnableUploads = true;
 $wgUseImageMagick = true;
-$wgImageMagickConvertCommand = "/usr/bin/convert";
+$wgImageMagickConvertCommand = "/usr/bin/gm";
+$wgThumbnailEpoch = "1494964293000";
 
 # InstantCommons allows wiki to use images from http://commons.wikimedia.org
 $wgUseInstantCommons = true;
@@ -124,14 +126,14 @@ $wgDiff3 = "/usr/bin/diff3";
 
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'vector', 'monobook':
-# $wgDefaultSkin = "vector";
+$wgDefaultSkin = "vector";
 
 # Enabled skins.
 # The following skins were automatically enabled:
 #require_once "$IP/skins/CologneBlue/CologneBlue.php";
-#require_once "$IP/skins/Modern/Modern.php";
+require_once "$IP/skins/Modern/Modern.php";
 #require_once "$IP/skins/MonoBook/MonoBook.php";
-require_once "$IP/skins/Vector/Vector.php";
+#require_once "$IP/skins/Vector/Vector.php";
 #require_once "$IP/skins/brlcad/brlcad.php";
 
 # End of automatically generated settings.
@@ -149,8 +151,8 @@ $wgSMTP = array(
 
 require_once "$IP/extensions/ParserFunctions/ParserFunctions.php";
 require_once "$IP/extensions/Cite/Cite.php";
-# require_once "$IP/extensions/RecentPages/RecentPages.php";
-# require_once "$IP/extensions/WikimediaMessages/WikimediaMessages.php";
+require_once "$IP/extensions/RecentPages/RecentPages.php";
+wfLoadExtension("WikimediaMessages");
 
 require_once "$IP/extensions/WikiEditor/WikiEditor.php";
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
@@ -158,8 +160,9 @@ $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 $wgDefaultUserOptions['wikieditor-preview'] = 1;
 #$wgDefaultUserOptions['wikieditor-publish'] = 1;
 
-# require_once "$IP/extensions/Scribunto/Scribunto.php";
+require_once "$IP/extensions/Scribunto/Scribunto.php";
 $wgScribuntoDefaultEngine = 'luastandalone';
+$wgScribuntoUseGeSHi = true;
 
 $wgLocaltimezone = "Asia/Kolkata";
 date_default_timezone_set( $wgLocaltimezone );
@@ -196,7 +199,7 @@ $wgContribScoreReports = array(
     array(0,50));
 
 # Uncomment to start logging for debugging
-#$wgDebugLogFile = "/var/log/metakgp_wiki/debug.log";
+$wgDebugLogFile = "/dev/stderr";
 $wgMaxShellMemory = 307200;
 $wgMaxImageArea = 1250000000; // 1.25e9
 
@@ -207,10 +210,9 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
 	'client' => 6 * 60 * 60, // six hours
 );*/
 
-error_reporting( -1 );
-ini_set('display_errors', 1);
-$wgShowExceptionDetails = true;
-
+# error_reporting( -1 );
+# ini_set('display_errors', 1);
+# $wgShowExceptionDetails = true;
 
 wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
 $wgCaptchaClass = 'ReCaptchaNoCaptcha';
@@ -358,4 +360,4 @@ wfLoadExtension( 'Renameuser' );
 
 $wgReadOnly = "This wiki is currently experiencing an outage. We will resume accepting contributions shortly. For more information see https://github.com/metakgp/metakgp/issues/17.";
 
-$wgShowDBErrorBacktrace = true;
+# $wgDebugToolbar = true;
