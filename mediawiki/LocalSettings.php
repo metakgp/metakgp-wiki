@@ -35,7 +35,7 @@ $wgUsePathInfo = true;
 
 ## The protocol and server name to use in fully-qualified URLs
 # $wgServer = "https://wiki.metakgp.org";
-$wgServer = getenv('SERVER_NAME');
+$wgServer = getenv('SERVER_NAME', true);
 
 ## The relative URL path to the skins directory
 $wgStylePath = "$wgScriptPath/skins";
@@ -62,7 +62,7 @@ $wgDBtype = "mysql";
 $wgDBserver = "mysql-docker";
 $wgDBname = "metakgp_wiki_db";
 $wgDBuser = "metakgp_user";
-$wgDBpassword = getenv('MYSQL_PASSWORD');
+$wgDBpassword = getenv('MYSQL_PASSWORD', true);
 
 # MySQL specific settings
 $wgDBprefix = "";
@@ -107,11 +107,11 @@ $wgCacheDirectory = "$IP/cache";
 # Site language code, should be one of the list in ./languages/Names.php
 $wgLanguageCode = "en";
 
-$wgSecretKey = getenv("WG_SECRET_KEY");
+$wgSecretKey = getenv("WG_SECRET_KEY", true);
 
 # Site upgrade key. Must be set to a string (default provided) to turn on the
 # web installer while LocalSettings.php is in place
-$wgUpgradeKey = getenv("SITE_UPGRADE_KEY");
+$wgUpgradeKey = getenv("SITE_UPGRADE_KEY", true);
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
@@ -145,7 +145,7 @@ $wgSMTP = array(
     'IDHost' => 'username.mailgun.org',
     'port' => 587,
     'username' => 'postmaster@wiki.metakgp.org',
-    'password' => getenv('MAILGUN_PASSWORD'),
+    'password' => getenv('MAILGUN_PASSWORD', true),
     'auth' => true
 );
 
@@ -217,7 +217,7 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
 wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
 $wgCaptchaClass = 'ReCaptchaNoCaptcha';
 $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
-$wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY');
+$wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 $ceAllowConfirmedEmail = true;
 
 $wgJobRunRate = 0;

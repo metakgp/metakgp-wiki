@@ -18,7 +18,7 @@
 ##
 
 server {
-	listen 8080 default_server;
+        # listen 8080 default_server;
 	listen 80 default_server;
 	# listen [::]:80 default_server ipv6only=on;
 
@@ -26,8 +26,8 @@ server {
 	index index.php index.html;
         autoindex off;
 
-	# Make site accessible from http://localhost/
-	server_name localhost;
+	# Make site accessible from everywhere
+	server_name _;
 
 	# Location for the wiki's root
 	location / {
