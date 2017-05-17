@@ -8,6 +8,8 @@ services:
       - MYSQL_DATABASE=metakgp_wiki_db
       - MYSQL_USER=metakgp_user
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - db-volume:/var/lib/mysql
   nginx:
     build: './nginx'
     links:
@@ -35,3 +37,4 @@ services:
 
 volumes:
   mediawiki-volume:
+  db-volume:
