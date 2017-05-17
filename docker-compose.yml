@@ -30,6 +30,7 @@ services:
       - WG_SECRET_KEY=$WG_SECRET_KEY
       - SITE_UPGRADE_KEY=$SITE_UPGRADE_KEY
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - SERVER_NAME=$SERVER_NAME
   mediawiki:
     build: './mediawiki'
     volumes:
