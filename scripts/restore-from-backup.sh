@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -xe
+
 source .env
 MYSQL_CONTAINER=$(docker ps --format '{{ .Names }}' | grep mysql)
 docker cp $1 $MYSQL_CONTAINER:metakgp_wiki_db.sql

@@ -35,6 +35,15 @@ services:
     build: './mediawiki'
     volumes:
       - mediawiki-volume:/srv/mediawiki
+  backup:
+    build: './backup'
+    links:
+      - mysql:mysql-docker
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+    environment:
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
 
 volumes:
   mediawiki-volume:

@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:jessie
 WORKDIR /tmp
 RUN apt-get update && apt-get install -y \
       wget unzip
