@@ -1,4 +1,6 @@
 # Metakgp Wiki Setup
+[![Build Status](https://travis-ci.org/amrav/metakgp-wiki.svg?branch=master)](https://travis-ci.org/amrav/metakgp-wiki)
+
 Dockerized for fun and profit.
 
 ## Prerequisites
