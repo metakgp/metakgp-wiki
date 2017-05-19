@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+language: generic
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+
+install: true
+
+script:
+  - docker-compose build
