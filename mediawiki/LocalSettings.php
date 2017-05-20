@@ -199,7 +199,7 @@ $wgContribScoreReports = array(
     array(0,50));
 
 # Uncomment to start logging for debugging
-$wgDebugLogFile = "/dev/stderr";
+# $wgDebugLogFile = "/var/log/mediawiki/debug.log";
 $wgMaxShellMemory = 307200;
 $wgMaxImageArea = 1250000000; // 1.25e9
 

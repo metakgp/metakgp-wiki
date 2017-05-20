@@ -13,3 +13,7 @@ RUN apt-get update && apt-get install -y \
       && docker-php-ext-enable apcu \
       && apt-get purge
 COPY php.ini /usr/local/etc/php/
+RUN mkdir -p /var/log/mediawiki \
+      && touch /var/log/mediawiki/debug.log \
+      && chown -R www-data:www-data /var/log/mediawiki
+VOLUME /var/log
