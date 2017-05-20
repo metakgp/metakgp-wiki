@@ -2,5 +2,5 @@
 
 set -xe
 
-cd /srv/mediawiki/maintainence && php update.php
+cd /srv/mediawiki/maintenance && php update.php
 chown -R www-data:www-data /srv/mediawiki
