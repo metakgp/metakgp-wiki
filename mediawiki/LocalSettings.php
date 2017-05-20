@@ -199,6 +199,7 @@ $wgContribScoreReports = array(
 
 # Uncomment to start logging for debugging
 # $wgDebugLogFile = "/var/log/mediawiki/debug.log";
+# $wgDebugToolbar = true;
 $wgMaxShellMemory = 307200;
 $wgMaxImageArea = 1250000000; // 1.25e9
 
@@ -356,7 +357,3 @@ wfLoadExtension( 'Renameuser' );
 #wfLoadExtension('PageDisqus');
 #$wgPageDisqusShortname = 'metakgp';
 #$wgPageDisqusExclude = array("Main Page");
-
-$wgReadOnly = "This wiki is currently experiencing an outage. We will resume accepting contributions shortly. For more information see https://github.com/metakgp/metakgp/issues/17.";
-
-# $wgDebugToolbar = true;
