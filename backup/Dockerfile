@@ -17,4 +17,4 @@ RUN pip install -r requirements.txt
 
 VOLUME /var/log
 
-CMD ./run_cron.sh
+CMD ["./run_cron.sh"]
