@@ -130,9 +130,9 @@ $wgDefaultSkin = "vector";
 # Enabled skins.
 # The following skins were automatically enabled:
 #require_once "$IP/skins/CologneBlue/CologneBlue.php";
-require_once "$IP/skins/Modern/Modern.php";
+#require_once "$IP/skins/Modern/Modern.php";
 #require_once "$IP/skins/MonoBook/MonoBook.php";
-#require_once "$IP/skins/Vector/Vector.php";
+require_once "$IP/skins/Vector/Vector.php";
 #require_once "$IP/skins/brlcad/brlcad.php";
 
 # End of automatically generated settings.
@@ -167,9 +167,9 @@ $wgLocaltimezone = "Asia/Kolkata";
 date_default_timezone_set( $wgLocaltimezone );
 
 require_once "$IP/extensions/Gadgets/Gadgets.php";
-# require_once "$IP/extensions/Echo/Echo.php";
+require_once "$IP/extensions/Echo/Echo.php";
 
-# require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
+require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
 $wgGoogleAnalyticsAccount = 'UA-62532508-2';
 
 // Optional configuration (for defaults see googleAnalytics.php)
@@ -183,10 +183,10 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 # $wgSquidServers = array('127.0.0.1');
 # $wgUsePrivateIPs = true;
 
-# require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
+require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
 $wgMFAutodetectMobileView = true;
 
-# require_once "$IP/extensions/ContributionScores/ContributionScores.php";
+require_once "$IP/extensions/ContributionScores/ContributionScores.php";
 $wgContribScoreIgnoreBots = true;          // Exclude Bots from the reporting - Can be omitted.
 $wgContribScoreIgnoreBlockedUsers = true;  // Exclude Blocked Users from the reporting - Can be omitted.
 $wgContribScoresUseRealName = true;        // Use real user names when available - Can be omitted. Only for MediaWiki 1.19 and later.
@@ -267,8 +267,9 @@ $wgAllowUserCss = true;
 
 require_once("$IP/extensions/OpenGraphMeta/OpenGraphMeta.php");
 */
-# require_once "$IP/extensions/MultimediaViewer/MultimediaViewer.php";
-# require_once "$IP/extensions/Poem/Poem.php";
+wfLoadExtension( 'CommonsMetadata' );
+require_once "$IP/extensions/MultimediaViewer/MultimediaViewer.php";
+require_once "$IP/extensions/Poem/Poem.php";
 
 # File upload permissions
 $wgGroupPermissions['user']['upload'] = false;
@@ -345,7 +346,7 @@ wfLoadExtension('Nuke');
 wfLoadExtension('InputBox');
 
 # Sandbox extension;
-# wfLoadExtension('SandboxLink');
+wfLoadExtension('SandboxLink');
 
 # Change username extension 
 wfLoadExtension( 'Renameuser' );
