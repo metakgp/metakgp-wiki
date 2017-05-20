@@ -20,4 +20,5 @@ RUN wget https://extdist.wmflabs.org/dist/extensions/WikimediaMessages-REL1_28-d
       && unzip master.zip -d RecentPages \
       && mv RecentPages/RecentPages-master /srv/mediawiki/extensions/RecentPages
 COPY assets/* /srv/mediawiki/resources/assets/
+RUN mkdir -p /srv/mediawiki/images/temp
 ENTRYPOINT chown -R www-data:www-data /srv/mediawiki

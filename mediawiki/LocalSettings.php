@@ -79,11 +79,10 @@ $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-$wgTmpDirectory = "$wgScriptPath/images/temp";
+$wgTmpDirectory = "$IP/images/temp";
 $wgEnableUploads = true;
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/gm";
-$wgThumbnailEpoch = "1494964293000";
 
 # InstantCommons allows wiki to use images from http://commons.wikimedia.org
 $wgUseInstantCommons = true;
