@@ -22,6 +22,11 @@ echo -e '\n$wgReadOnly = "Automatic backup in progress; access will be restored 
 mysqldump -h mysql-docker -u metakgp_user -p$MYSQL_PASSWORD metakgp_wiki_db > "$backups_path/$backup_dir/metakgp_wiki_db.sql"
 sed -i '$ d' $file
 
+# backup images on the 21st of every month
+if [[ $(date '+%d') == "21" ]]; then
+    cp -r "$wiki_root/images" "$backups_path/$backup_dir/"
+fi
+
 cd $backups_path
 tar -czvf $backup_file $backup_dir
 rm -rf $backup_dir
