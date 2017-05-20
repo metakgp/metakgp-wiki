@@ -18,7 +18,7 @@ backup_dir="metakgp_wiki_${timestamp}"
 backup_file="${backup_dir}.tar.gz"
 mkdir -p "$backups_path/$backup_dir"
 
-echo "\n"'$wgReadOnly'" = 'Automatic backup in progress; access will be restored in a few seconds.';" >> $file
+echo -e '\n$wgReadOnly = "Automatic backup in progress; access will be restored in a few seconds.";' >> $file
 mysqldump -h mysql-docker -u metakgp_user -p$MYSQL_PASSWORD metakgp_wiki_db > "$backups_path/$backup_dir/metakgp_wiki_db.sql"
 sed -i '$ d' $file
 
