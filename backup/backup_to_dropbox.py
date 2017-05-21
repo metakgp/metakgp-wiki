@@ -14,7 +14,7 @@ file_name = sys.argv[1]
 with open(file_name, 'rb') as f:
     try:
         if os.path.getsize(file_name) < 32 * 1024 * 1024:
-            client.files_upload(f.read(), file_name)
+            client.files_upload(f.read(), "/" + file_name)
         else:
             chunksize = 32 * 1024 * 1024
             next_chunk = f.read(chunksize)
@@ -31,7 +31,7 @@ with open(file_name, 'rb') as f:
 
                 next_chunk = f.read(chunksize)
 
-            commit_info = dropbox.files.CommitInfo(path='/' + file_name)
+            commit_info = dropbox.files.CommitInfo(path="/" + file_name)
             result = client.files_upload_session_finish(f.read(), cursor, commit_info)
             print result
     except Exception as e:
