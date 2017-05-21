@@ -24,7 +24,7 @@ sed -i '$ d' $file
 
 # backup images on the 21st of every month
 if [[ $(date '+%d') == "21" ]]; then
-    cp -r "$wiki_root/images" "$backups_path/$backup_dir/"
+    rsync -a "$wiki_root/images" "$backups_path/$backup_dir/" --exclude thumb --exclude temp
 fi
 
 cd $backups_path
