@@ -14,7 +14,8 @@ file_name = sys.argv[1]
 with open(file_name, 'rb') as f:
     try:
         if os.path.getsize(file_name) < 32 * 1024 * 1024:
-            client.files_upload(f.read(), "/" + file_name)
+            result = client.files_upload(f.read(), "/" + file_name)
+            print result
         else:
             chunksize = 32 * 1024 * 1024
             next_chunk = f.read(chunksize)
