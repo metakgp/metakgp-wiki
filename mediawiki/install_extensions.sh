@@ -25,7 +25,12 @@ done
 # Get RecentPages from Github
 wget -q https://github.com/leucosticte/RecentPages/archive/master.zip \
     && unzip master.zip -d RecentPages \
-    && mv RecentPages/RecentPages-master /srv/mediawiki/extensions/RecentPages
+    && mv RecentPages/RecentPages-master /srv/mediawiki/extensions/RecentPages && rm master.zip
+
+# Get SlackIntegration from Github
+wget -q https://github.com/kulttuuri/slack_mediawiki/archive/master.zip \
+    && unzip master.zip -d slack_mediawiki \
+    && mv slack_mediawiki/slack_mediawiki-master/SlackNotifications /srv/mediawiki/extensions/SlackNotifications && rm master.zip
 
 # Make Lua executable
 chmod a+x /srv/mediawiki/extensions/Scribunto/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
