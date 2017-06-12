@@ -12,7 +12,7 @@
 
 # Protect against web entry
 if ( !defined( 'MEDIAWIKI' ) ) {
-	exit;
+  exit;
 }
 
 ## Uncomment this to disable output compression
@@ -206,8 +206,8 @@ $wgMaxImageArea = 1250000000; // 1.25e9
 require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
 
 /*$wgResourceLoaderMaxage['unversioned'] = array(
-	'server' => 7 * 24 * 60 * 60, // one week
-	'client' => 6 * 60 * 60, // six hours
+  'server' => 7 * 24 * 60 * 60, // one week
+  'client' => 6 * 60 * 60, // six hours
 );*/
 
 # error_reporting( -1 );
@@ -235,8 +235,8 @@ $wgEnableSidebarCache = true;
 #wfLoadExtension('VisualEditor');
 #$wgDefaultUserOptions['visualeditor-enable'] = 1;
 #$wgVisualEditorNamespaces = array_merge(
-#	$wgContentNamespaces,
-#	array(NS_USER, NS_HELP)
+# $wgContentNamespaces,
+# array(NS_USER, NS_HELP)
 #);
 #$wgVirtualRestConfig['modules']['parsoid'] = array(
   // URL to the Parsoid instance
@@ -285,8 +285,14 @@ $wgGroupPermissions['autopatrol']['autopatrol'] = true;
 # Maintainers
 $wgGroupPermissions['maintainers'] = $wgGroupPermissions['sysop'];
 
+# Rm-spam
+$wgGroupPermissions['rm-spam']['delete'] = true ;
+$wgGroupPermissions['rm-spam']['block'] = true ;
+$wgGroupPermissions['rm-spam']['blockemail'] = true ;
+
 # Allow CORS
 $wgCrossSiteAJAXdomains = array( '*' );
+
 /*
 # Slack integration
 require_once "$IP/extensions/Slack/Slack.php";
