@@ -289,6 +289,7 @@ $wgGroupPermissions['maintainers'] = $wgGroupPermissions['sysop'];
 $wgGroupPermissions['rm-spam']['delete'] = true ;
 $wgGroupPermissions['rm-spam']['block'] = true ;
 $wgGroupPermissions['rm-spam']['blockemail'] = true ;
+$wgGroupPermissions['rm-spam']['nuke'] = true;
 
 # Allow CORS
 $wgCrossSiteAJAXdomains = array( '*' );
