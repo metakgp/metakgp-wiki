@@ -368,3 +368,8 @@ wfLoadExtension( 'Renameuser' );
 # Emergency spam prevention
 $wgCaptchaTriggers['edit'] = true; 
 $wgCaptchaTriggers['create'] = true;
+
+# CheckUser for spam control
+wfLoadExtension( 'CheckUser' );
+$wgGroupPermissions['sysop']['checkuser'] = true;
+$wgGroupPermissions['sysop']['checkuser-log'] = true;
