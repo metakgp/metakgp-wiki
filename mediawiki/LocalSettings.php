@@ -197,9 +197,6 @@ $wgContribScoreReports = array(
     array(30,50),
     array(0,50));
 
-# Uncomment to start logging for debugging
-# $wgDebugLogFile = "/var/log/mediawiki/debug.log";
-# $wgDebugToolbar = true;
 $wgMaxShellMemory = 307200;
 $wgMaxImageArea = 1250000000; // 1.25e9
 
@@ -210,9 +207,13 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
   'client' => 6 * 60 * 60, // six hours
 );*/
 
+# Uncomment to start logging for debugging
+# $wgDebugLogFile = "/var/log/mediawiki/debug.log";
 # error_reporting( -1 );
 # ini_set('display_errors', 1);
 # $wgShowExceptionDetails = true;
+# $wgShowDBErrorBacktrace = true;
+# $wgDebugToolbar = true;
 
 wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
 $wgCaptchaClass = 'ReCaptchaNoCaptcha';
