@@ -364,3 +364,15 @@ wfLoadExtension( 'Renameuser' );
 #wfLoadExtension('PageDisqus');
 #$wgPageDisqusShortname = 'metakgp';
 #$wgPageDisqusExclude = array("Main Page");
+
+# Blocks edits links to list of blocked urls
+wfLoadExtension( 'SpamBlacklist' );
+
+# Use Mediawiki global block list and Wikipedia block list
+# see https://www.mediawiki.org/wiki/Extension:SpamBlacklist#Examples
+$wgSpamBlacklistFiles = array(
+   "[[m:Spam blacklist]]",
+   "https://en.wikipedia.org/wiki/MediaWiki:Spam-blacklist"
+);
+
+ini_set( 'pcre.backtrack_limit', '8M' );
