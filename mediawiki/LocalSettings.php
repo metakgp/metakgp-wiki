@@ -364,3 +364,7 @@ wfLoadExtension( 'Renameuser' );
 #wfLoadExtension('PageDisqus');
 #$wgPageDisqusShortname = 'metakgp';
 #$wgPageDisqusExclude = array("Main Page");
+
+# Emergency spam prevention
+$wgCaptchaTriggers['edit'] = true; 
+$wgCaptchaTriggers['create'] = true;
