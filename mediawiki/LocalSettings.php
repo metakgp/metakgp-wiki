@@ -364,3 +364,15 @@ wfLoadExtension( 'Renameuser' );
 #wfLoadExtension('PageDisqus');
 #$wgPageDisqusShortname = 'metakgp';
 #$wgPageDisqusExclude = array("Main Page");
+
+require_once "$IP/extensions/SlackNotifications/SlackNotifications.php";
+// Required. Your Slack incoming webhook URL. Read more from here: https://api.slack.com/incoming-webhooks
+$wgSlackIncomingWebhookUrl = "";
+// Required. Name the message will appear be sent from.
+$wgSlackFromName = "batman";
+// URL into your MediaWiki installation with the trailing /.
+$wgWikiUrl    = "https://wiki.metakgp.org/";
+// Wiki script name. Leave this to default one if you do not have URL rewriting enabled.
+$wgWikiUrlEnding = "w/";
+// What method will be used to send the data to Slack server. By default this is "curl" which only works if you have the curl extension enabled. This can be: "curl" or "file_get_contents". Default: "curl".
+$wgSlackSendMethod = "curl";
