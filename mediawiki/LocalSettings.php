@@ -219,7 +219,7 @@ $wgCaptchaClass = 'ReCaptchaNoCaptcha';
 $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
 $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 $ceAllowConfirmedEmail = true;
-
+$wmgEmergencyCaptcha = true;
 $wgJobRunRate = 0;
 
 $wgUseFileCache = false;
