@@ -378,3 +378,13 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 # DNS-based real-time spam blacklist
 $wgEnableDnsBlacklist = true;
 $wgDnsBlacklistUrls = array( 'dnsbl.spfbl.net.', 'zen.spamhaus.org.' );
+
+# AbuseFilter
+wfLoadExtension( 'AbuseFilter' );
+$wgGroupPermissions['sysop']['abusefilter-modify'] = true;
+$wgGroupPermissions['*']['abusefilter-log-detail'] = true;
+$wgGroupPermissions['*']['abusefilter-view'] = true;
+$wgGroupPermissions['*']['abusefilter-log'] = true;
+$wgGroupPermissions['sysop']['abusefilter-private'] = true;
+$wgGroupPermissions['sysop']['abusefilter-modify-restricted'] = true;
+$wgGroupPermissions['sysop']['abusefilter-revert'] = true;
