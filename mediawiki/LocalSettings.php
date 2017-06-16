@@ -374,3 +374,7 @@ $wgCaptchaTriggers['create'] = true;
 wfLoadExtension( 'CheckUser' );
 $wgGroupPermissions['sysop']['checkuser'] = true;
 $wgGroupPermissions['sysop']['checkuser-log'] = true;
+
+# DNS-based real-time spam blacklist
+$wgEnableDnsBlacklist = true;
+$wgDnsBlacklistUrls = array( 'dnsbl.spfbl.net.', 'zen.spamhaus.org.' );
