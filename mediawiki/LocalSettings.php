@@ -377,7 +377,7 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 
 # DNS-based real-time spam blacklist
 $wgEnableDnsBlacklist = true;
-$wgDnsBlacklistUrls = array( 'dnsbl.spfbl.net.', 'sbl.spamhaus.org.' );
+$wgDnsBlacklistUrls = array( 'sbl.spamhaus.org.' );
 
 # AbuseFilter
 wfLoadExtension( 'AbuseFilter' );
