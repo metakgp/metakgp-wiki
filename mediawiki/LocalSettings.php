@@ -243,9 +243,14 @@ $wgCaptchaQuestions[] = array (
     'question' => "What is the $myChallengePositionName digit (eg. <strong>3</strong> or <strong>three</strong>) of the number <strong>$myChallengeStringLong</strong>?",
     'answer' => array ( $myChallengeAnswer, $num_words->toWords($myChallengeAnswer) )
 );
-# Skip CAPTCHA for people who have confirmed emails
-$wgGroupPermissions['emailconfirmed']['skipcaptcha'] = true;
-$ceAllowConfirmedEmail = true;
+
+# Present captcha by default
+$wgCaptchaTriggers['edit'] = true;
+$wgCaptchaTriggers['create'] = true;
+
+# Skip CAPTCHA for the no-captcha group
+$wgGroupPermissions['no-captcha']['skipcaptcha'] = true;
+# $ceAllowConfirmedEmail = true;
 # $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
 # $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 
@@ -318,6 +323,17 @@ $wgGroupPermissions['maintainers'] = $wgGroupPermissions['sysop'];
 $wgGroupPermissions['rm-spam']['delete'] = true ;
 $wgGroupPermissions['rm-spam']['block'] = true ;
 $wgGroupPermissions['rm-spam']['blockemail'] = true ;
+
+# Autoconfirm
+$wgAutoConfirmAge = 3 * 24 * 3600;
+$wgAutoConfirmCount = 5;
+
+# No captcha
+$wgAutopromote['no-captcha'] = array(
+  APCOND_INGROUPS,
+  'autoconfirmed',
+  'emailconfirmed'
+);
 
 # Allow CORS
 $wgCrossSiteAJAXdomains = array( '*' );
@@ -393,10 +409,6 @@ wfLoadExtension( 'Renameuser' );
 #wfLoadExtension('PageDisqus');
 #$wgPageDisqusShortname = 'metakgp';
 #$wgPageDisqusExclude = array("Main Page");
-
-# Emergency spam prevention
-$wgCaptchaTriggers['edit'] = true; 
-$wgCaptchaTriggers['create'] = true;
 
 # CheckUser for spam control
 wfLoadExtension( 'CheckUser' );
