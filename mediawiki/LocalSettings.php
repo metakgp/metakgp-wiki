@@ -254,6 +254,10 @@ $wgGroupPermissions['no-captcha']['skipcaptcha'] = true;
 # $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
 # $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 
+# Rate limit to prevent brute-forcing captchas
+# 3 wrong captchas allowed every 10 minutes per IP
+$wgRateLimits['badcaptcha']['ip'] = array( 3, 10 * 60 );
+
 $wgJobRunRate = 0;
 
 $wgUseFileCache = false;
