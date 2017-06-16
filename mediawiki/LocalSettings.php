@@ -215,11 +215,38 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
 # $wgShowDBErrorBacktrace = true;
 # $wgDebugToolbar = true;
 
-wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
-$wgCaptchaClass = 'ReCaptchaNoCaptcha';
-$wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
-$wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
+wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/QuestyCaptcha' ) );
+$wgCaptchaClass = 'QuestyCaptcha';
+# Set number question for questy
+# http://pear.php.net/package-info.php?package=Numbers_Words
+require_once("Numbers/Words.php");
+$myChallengeNumber = rand(0, 899999999) + 100000000;
+$myChallengeString = (string)$myChallengeNumber;
+$num_words = new Numbers_Words();
+$myChallengeStringLong = $num_words->toWords($myChallengeNumber);
+$myChallengeIndex = rand(0, 8) + 1;
+$myChallengePositions = array (
+    'first',
+    'second',
+    'third',
+    'fourth',
+    'fifth',
+    'sixth',
+    'seventh',
+    'eighth',
+    'ninth'
+);
+$myChallengePositionName = $myChallengePositions[$myChallengeIndex - 1];
+$myChallengeAnswer = $myChallengeString[$myChallengeIndex - 1];
+$wgCaptchaQuestions[] = array (
+    'question' => "What is the $myChallengePositionName digit (eg. <strong>3</strong> or <strong>three</strong>) of the number <strong>$myChallengeStringLong</strong>?",
+    'answer' => array ( $myChallengeAnswer, $num_words->toWords($myChallengeAnswer) )
+);
+# Skip CAPTCHA for people who have confirmed emails
+$wgGroupPermissions['emailconfirmed']['skipcaptcha'] = true;
 $ceAllowConfirmedEmail = true;
+# $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
+# $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 
 $wgJobRunRate = 0;
 
