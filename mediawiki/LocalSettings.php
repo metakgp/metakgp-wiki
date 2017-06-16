@@ -215,6 +215,7 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
 # $wgShowDBErrorBacktrace = true;
 # $wgDebugToolbar = true;
 
+# Dynamic captcha adapted from https://github.com/thingles/wiki-farm/blob/master/LocalSettings.php
 wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/QuestyCaptcha' ) );
 $wgCaptchaClass = 'QuestyCaptcha';
 # Set number question for questy
