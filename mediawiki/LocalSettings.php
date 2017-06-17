@@ -367,7 +367,7 @@ $redis->pconnect('127.0.0.1');
 # Add subpages for main namespace
 $wgNamespacesWithSubpages[NS_MAIN] = true;
 
-// Do not uncomment this. Elasticsearch doesn't work well at 
+// Do not uncomment this. Elasticsearch doesn't work well at
 // our low scale; use the default search instead.
 /*
 # CirrusSearch
@@ -404,7 +404,7 @@ wfLoadExtension('InputBox');
 # Sandbox extension;
 wfLoadExtension('SandboxLink');
 
-# Change username extension 
+# Change username extension
 wfLoadExtension( 'Renameuser' );
 # JsonConfig extension
 # require_once "$IP/extensions/JsonConfig/JsonConfig.php";
@@ -414,6 +414,21 @@ wfLoadExtension( 'Renameuser' );
 #wfLoadExtension('PageDisqus');
 #$wgPageDisqusShortname = 'metakgp';
 #$wgPageDisqusExclude = array("Main Page");
+
+# Blocks edits with any link in the list of blocked urls
+wfLoadExtension( 'SpamBlacklist' );
+
+# Use Mediawiki global block list and Wikipedia block list
+# See https://www.mediawiki.org/wiki/Extension:SpamBlacklist#Examples
+$wgSpamBlacklistFiles = array(
+   "[[m:Spam blacklist]]",
+   "https://en.wikipedia.org/wiki/MediaWiki:Spam-blacklist"
+);
+
+# Bump the Perl Compatible Regular Expressions backtrack memory limit
+# (PHP 5.3.x default, 1000K, is too low for SpamBlacklist)
+# See https://www.mediawiki.org/wiki/Extension:SpamBlacklist#Issues
+ini_set( 'pcre.backtrack_limit', '8M' );
 
 # CheckUser for spam control
 wfLoadExtension( 'CheckUser' );
