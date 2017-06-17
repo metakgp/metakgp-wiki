@@ -197,9 +197,6 @@ $wgContribScoreReports = array(
     array(30,50),
     array(0,50));
 
-# Uncomment to start logging for debugging
-# $wgDebugLogFile = "/var/log/mediawiki/debug.log";
-# $wgDebugToolbar = true;
 $wgMaxShellMemory = 307200;
 $wgMaxImageArea = 1250000000; // 1.25e9
 
@@ -210,15 +207,56 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
   'client' => 6 * 60 * 60, // six hours
 );*/
 
+# Uncomment to start logging for debugging
+# $wgDebugLogFile = "/var/log/mediawiki/debug.log";
 # error_reporting( -1 );
 # ini_set('display_errors', 1);
 # $wgShowExceptionDetails = true;
+# $wgShowDBErrorBacktrace = true;
+# $wgDebugToolbar = true;
 
-wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
-$wgCaptchaClass = 'ReCaptchaNoCaptcha';
-$wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
-$wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
-$ceAllowConfirmedEmail = true;
+# Dynamic captcha adapted from https://github.com/thingles/wiki-farm/blob/master/LocalSettings.php
+wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/QuestyCaptcha' ) );
+$wgCaptchaClass = 'QuestyCaptcha';
+# Set number question for questy
+# http://pear.php.net/package-info.php?package=Numbers_Words
+require_once("Numbers/Words.php");
+$myChallengeNumber = rand(0, 899999999) + 100000000;
+$myChallengeString = (string)$myChallengeNumber;
+$num_words = new Numbers_Words();
+$myChallengeStringLong = $num_words->toWords($myChallengeNumber);
+$myChallengeIndex = rand(0, 8) + 1;
+$myChallengePositions = array (
+    'first',
+    'second',
+    'third',
+    'fourth',
+    'fifth',
+    'sixth',
+    'seventh',
+    'eighth',
+    'ninth'
+);
+$myChallengePositionName = $myChallengePositions[$myChallengeIndex - 1];
+$myChallengeAnswer = $myChallengeString[$myChallengeIndex - 1];
+$wgCaptchaQuestions[] = array (
+    'question' => "What is the $myChallengePositionName digit (eg. <strong>3</strong> or <strong>three</strong>) of the number <strong>$myChallengeStringLong</strong>?",
+    'answer' => array ( $myChallengeAnswer, $num_words->toWords($myChallengeAnswer) )
+);
+
+# Present captcha by default
+$wgCaptchaTriggers['edit'] = true;
+$wgCaptchaTriggers['create'] = true;
+
+# Skip CAPTCHA for the no-captcha group
+$wgGroupPermissions['no-captcha']['skipcaptcha'] = true;
+# $ceAllowConfirmedEmail = true;
+# $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
+# $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
+
+# Rate limit to prevent brute-forcing captchas
+# 3 wrong captchas allowed every 10 minutes per IP
+$wgRateLimits['badcaptcha']['ip'] = array( 3, 10 * 60 );
 
 $wgJobRunRate = 0;
 
@@ -289,6 +327,18 @@ $wgGroupPermissions['maintainers'] = $wgGroupPermissions['sysop'];
 $wgGroupPermissions['rm-spam']['delete'] = true ;
 $wgGroupPermissions['rm-spam']['block'] = true ;
 $wgGroupPermissions['rm-spam']['blockemail'] = true ;
+$wgGroupPermissions['rm-spam']['nuke'] = true;
+
+# Autoconfirm
+$wgAutoConfirmAge = 3 * 24 * 3600;
+$wgAutoConfirmCount = 5;
+
+# No captcha
+$wgAutopromote['no-captcha'] = array(
+  APCOND_INGROUPS,
+  'autoconfirmed',
+  'emailconfirmed'
+);
 
 # Allow CORS
 $wgCrossSiteAJAXdomains = array( '*' );
@@ -379,3 +429,22 @@ $wgSpamBlacklistFiles = array(
 # (PHP 5.3.x default, 1000K, is too low for SpamBlacklist)
 # See https://www.mediawiki.org/wiki/Extension:SpamBlacklist#Issues
 ini_set( 'pcre.backtrack_limit', '8M' );
+
+# CheckUser for spam control
+wfLoadExtension( 'CheckUser' );
+$wgGroupPermissions['sysop']['checkuser'] = true;
+$wgGroupPermissions['sysop']['checkuser-log'] = true;
+
+# DNS-based real-time spam blacklist
+$wgEnableDnsBlacklist = true;
+$wgDnsBlacklistUrls = array( 'sbl.spamhaus.org.' );
+
+# AbuseFilter
+wfLoadExtension( 'AbuseFilter' );
+$wgGroupPermissions['sysop']['abusefilter-modify'] = true;
+$wgGroupPermissions['*']['abusefilter-log-detail'] = true;
+$wgGroupPermissions['*']['abusefilter-view'] = true;
+$wgGroupPermissions['*']['abusefilter-log'] = true;
+$wgGroupPermissions['sysop']['abusefilter-private'] = true;
+$wgGroupPermissions['sysop']['abusefilter-modify-restricted'] = true;
+$wgGroupPermissions['sysop']['abusefilter-revert'] = true;
