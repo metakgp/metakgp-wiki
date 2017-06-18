@@ -1,0 +1,21 @@
+version: '2.1'
+
+services:
+  mysql:
+    volumes:
+      - db-test-volume:/var/lib/mysql
+  nginx:
+    volumes:
+      - mediawiki-test-volume:/srv/mediawiki
+    ports:
+      - "80"
+  php:
+    volumes:
+      - mediawiki-test-volume:/srv/mediawiki
+  mediawiki:
+    volumes:
+      - mediawiki-test-volume:/srv/mediawiki
+
+volumes:
+  mediawiki-test-volume:
+  db-test-volume:
