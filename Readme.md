@@ -14,7 +14,7 @@ cp .env.template .env
 
 Start all the basic services
 
-**Note:** Depending on who you installed docker, you might have to run the docker commands through `sudo`
+**Note:** Depending on how you installed docker, you might have to run the docker commands through `sudo`
 ```
 docker-compose up --build -d
 ```
