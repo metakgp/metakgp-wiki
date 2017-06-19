@@ -4,7 +4,7 @@
 Dockerized for fun and profit.
 
 ## Prerequisites
-- Install [Docker](https://www.docker.com/)
+- Install [Docker](https://docs.docker.com/engine/installation/)
 
 ## Quick start
 Create a `.env` file at the repo root and add all the required secrets.
@@ -13,6 +13,8 @@ cp .env.template .env
 ```
 
 Start all the basic services
+
+**Note:** Depending on who you installed docker, you might have to run the docker commands through `sudo`
 ```
 docker-compose up --build -d
 ```
