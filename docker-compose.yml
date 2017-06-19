@@ -8,22 +8,14 @@ services:
       - MYSQL_DATABASE=metakgp_wiki_db
       - MYSQL_USER=metakgp_user
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    volumes:
-      - db-volume:/var/lib/mysql
   nginx:
     build: './nginx'
     links:
       - php:php-docker
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
-    ports:
-      - "${SERVER_PORT:-8080}:80"
   php:
     build: './php'
     links:
       - mysql:mysql-docker
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
     environment:
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
       - RECAPTCHA_SECRET_KEY=$RECAPTCHA_SECRET_KEY
@@ -33,18 +25,3 @@ services:
       - SERVER_NAME=$SERVER_NAME
   mediawiki:
     build: './mediawiki'
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
-  backup:
-    build: './backup'
-    links:
-      - mysql:mysql-docker
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
-    environment:
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
-
-volumes:
-  mediawiki-volume:
-  db-volume:
