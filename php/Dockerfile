@@ -1,5 +1,5 @@
 FROM php:7-fpm
-RUN apt-get update && apt-get install -y \
+RUN apt-get -qq update && apt-get -qq install -y \
             build-essential \
             libfreetype6-dev \
             libjpeg62-turbo-dev \
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
       && docker-php-ext-install -j$(nproc) gd intl mysqli \
       && pecl install apcu \
       && docker-php-ext-enable apcu \
+      && pear install Numbers_Words-beta \
       && apt-get purge
 COPY php.ini /usr/local/etc/php/
 RUN mkdir -p /var/log/mediawiki \

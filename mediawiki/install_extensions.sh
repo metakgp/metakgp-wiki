@@ -12,6 +12,8 @@ declare -a extensions=( \
     CommonsMetadata-REL1_28-e3c0bbe \
     MultimediaViewer-REL1_28-b426dc3 \
     SandboxLink-REL1_28-aa109b7 \
+    CheckUser-REL1_28-95fe8e0 \
+    AbuseFilter-REL1_28-c3be1ce \
 )
 
 cd /tmp

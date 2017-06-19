@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+  backup:
+    build: './backup'
+    links:
+      - mysql:mysql-docker
+    environment:
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+
+volumes:
+  mediawiki-volume:
