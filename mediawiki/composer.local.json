@@ -1,0 +1,5 @@
+{
+  "require": {
+    "mediawiki/maps": "~4.3"
+  }
+}
