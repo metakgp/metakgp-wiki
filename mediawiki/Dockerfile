@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM php:7-fpm
 
 RUN apt-get update && apt-get install -y \
       wget unzip
@@ -8,7 +8,12 @@ RUN wget -q https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.g
       && tar -xzf mediawiki-1.28.2.tar.gz \
       && mkdir -p /srv \
       && mv /tmp/mediawiki-1.28.2 /srv/mediawiki
-COPY LocalSettings.php /srv/mediawiki/
+
+COPY LocalSettings.php install_composer.sh composer.local.json /srv/mediawiki/
+
+WORKDIR /srv/mediawiki
+RUN ./install_composer.sh \
+      && php composer.phar update
 
 COPY install_extensions.sh post_install.sh /tmp/
 RUN /tmp/install_extensions.sh
