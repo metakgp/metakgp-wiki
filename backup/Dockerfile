@@ -1,9 +1,7 @@
-FROM debian:jessie
+FROM python:2
 RUN apt-get -qq update && apt-get -qq install -y \
       cron \
       mysql-client \
-      python \
-      python-pip \
       rsync
 
 ENV TZ=Asia/Kolkata
