@@ -121,7 +121,7 @@ class SlackNotifications
 		}
 		
 		$message = sprintf(
-			"%s has %s article %s %s",
+			"%s %s article %s %s",
 			self::getSlackUserText($user),
 			$isMinor == true ? "made minor edit to" : "edited",
 			self::getSlackArticleText($article, true),
@@ -149,7 +149,7 @@ class SlackNotifications
 		if ($article->getTitle()->getNsText() == "File") return true;
 		
 		$message = sprintf(
-			"%s has created article %s %s",
+			"%s created article %s %s",
 			self::getSlackUserText($user),
 			self::getSlackArticleText($article),
 			$summary == "" ? "" : "Summary: $summary");
@@ -173,7 +173,7 @@ class SlackNotifications
 		if (!$wgSlackNotificationRemovedArticle) return;
 
 		$message = sprintf(
-			"%s has deleted article %s Reason: %s",
+			"%s deleted article %s. Reason: %s",
 			self::getSlackUserText($user),
 			self::getSlackArticleText($article),
 			$reason);
@@ -191,7 +191,7 @@ class SlackNotifications
 		if (!$wgSlackNotificationMovedArticle) return;
 
 		$message = sprintf(
-			"%s has moved article %s to %s. Reason: %s",
+			"%s moved article %s to %s. Reason: %s",
 			self::getSlackUserText($user),
 			self::getSlackTitleText($title),
 			self::getSlackTitleText($newtitle),
@@ -209,7 +209,7 @@ class SlackNotifications
 		global $wgSlackNotificationProtectedArticle;
 		if (!$wgSlackNotificationProtectedArticle) return;
 		$message = sprintf(
-			"%s has %s article %s. Reason: %s",
+			"%s %s article %s. Reason: %s",
 			self::getSlackUserText($user),
 			$protect ? "changed protection of" : "removed protection of",
 			self::getSlackArticleText($article),
@@ -262,7 +262,7 @@ class SlackNotifications
 
 		global $wgWikiUrl, $wgWikiUrlEnding, $wgUser;
 		$message = sprintf(
-			"%s has uploaded file <%s|%s> (format: %s, size: %s MB, summary: %s)",
+			"%s uploaded file <%s|%s> (format: %s, size: %s MB, summary: %s)",
 			self::getSlackUserText($wgUser->mName),
 			$wgWikiUrl . $wgWikiUrlEnding . $image->getLocalFile()->getTitle(),
 			$image->getLocalFile()->getTitle(),
@@ -285,7 +285,7 @@ class SlackNotifications
 
 		global $wgWikiUrl, $wgWikiUrlEnding, $wgWikiUrlEndingBlockList;
 		$message = sprintf(
-			"%s has blocked %s %s Block expiration: %s. %s",
+			"%s blocked %s %s. Block expiration: %s. %s",
 			self::getSlackUserText($user),
 			self::getSlackUserText($block->getTarget()),
 			$block->mReason == "" ? "" : "with reason '".$block->mReason."'.",
@@ -331,9 +331,9 @@ class SlackNotifications
 		}
 		
 		$post = sprintf('payload={"username": "%s",'.$optionalChannel.' "attachments": [ { "text": "%s", "color": "%s" } ]',
-		urlencode($slackFromName),
-		urlencode($message),
-		urlencode($slackColor));
+		$slackFromName,
+		$message,
+		$slackColor);
 		if ( $wgSlackEmoji != "" )
 		{
 			$post .= sprintf( ', "icon_emoji": "%s"', $wgSlackEmoji );
@@ -352,8 +352,11 @@ class SlackNotifications
 			$context = stream_context_create($extradata);
 			$result = file_get_contents($wgSlackIncomingWebhookUrl, false, $context);
 		}
-		// Call the Slack API through cURL (default way). Note that you will need to have cURL enabled for this to work.
-		else {
+        // exec curl for async post
+		else if ($wgSlackSendMethod == "exec_curl") {
+            self::exec_curl($wgSlackIncomingWebhookUrl, $post);
+        }
+        else {
 			$h = curl_init();
 			curl_setopt($h, CURLOPT_URL, $wgSlackIncomingWebhookUrl);
 			curl_setopt($h, CURLOPT_POST, 1);
@@ -371,5 +374,15 @@ class SlackNotifications
 			curl_close($h);
 		}
 	}
+
+    private static function exec_curl($url, $payload) {
+        $cmd = "curl -sS -X POST";
+        $cmd .= " --data-urlencode '" . $payload . "' ";
+        $cmd .= "'" . $url . "'";
+        $cmd .= " >> /var/log/mediawiki/curl.log 2>&1";
+        $cmd .= " &";
+
+        exec($cmd);
+    }
 }
 ?>
