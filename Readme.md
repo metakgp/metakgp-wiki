@@ -4,8 +4,9 @@
 Dockerized for fun and profit.
 
 ## Installation instructions for prerequisites
-- [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
-- [Docker compose](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04)
+
+- [Docker](https://docs.docker.com/engine/installation/)
+- [Docker compose](https://docs.docker.com/compose/install/)
 
 ## Quick start
 Create a `.env` file at the repo root and add all the required secrets.
@@ -54,7 +55,10 @@ docker-compose exec php php /srv/mediawiki/maintenance/update.php
 
 Reload http://localhost:8080, you should see the main page.
 
-### Restore from backup (This is for production, no need to run this for development)
+### Restore from backup
+
+**Note: This is for production, no need to run this for development**
+
 ```
 ./scripts/restore-from-backup.sh <path to backup>
 ```
