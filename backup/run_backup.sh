@@ -10,7 +10,7 @@ set +a
 
 wiki_root="/srv/mediawiki"
 file="$wiki_root/LocalSettings.php"
-backup_to_dropbox="python /root/backup_to_dropbox.py"
+backup_to_dropbox="/usr/local/bin/python /root/backup_to_dropbox.py"
 
 timestamp=$(date +%Y_%m_%d_%H_%M_%S)
 backups_path="/root/backups"
