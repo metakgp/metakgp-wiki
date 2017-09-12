@@ -3,8 +3,10 @@
 
 Dockerized for fun and profit.
 
-## Prerequisites
-- Install [Docker](https://docs.docker.com/engine/installation/)
+## Installation instructions for prerequisites
+
+- [Docker](https://docs.docker.com/engine/installation/)
+- [Docker compose](https://docs.docker.com/compose/install/)
 
 ## Quick start
 Create a `.env` file at the repo root and add all the required secrets.
@@ -20,6 +22,7 @@ docker-compose up --build -d
 ```
 
 Monitor the output to make sure nothing failed.
+
 ```
 docker-compose logs -f
 ```
@@ -53,6 +56,9 @@ docker-compose exec php php /srv/mediawiki/maintenance/update.php
 Reload http://localhost:8080, you should see the main page.
 
 ### Restore from backup
+
+**Note: This is for production, no need to run this for development**
+
 ```
 ./scripts/restore-from-backup.sh <path to backup>
 ```
