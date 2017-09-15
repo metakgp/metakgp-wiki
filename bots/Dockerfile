@@ -5,8 +5,10 @@ RUN apt-get -qq update && apt-get install -qq -y \
 
 WORKDIR /root
 RUN wget -qO- http://tools.wmflabs.org/pywikibot/core.tar.gz | tar xz \
-      && mv core pywikibot \
-      && pip install -q requests
+      && mv core pywikibot
+
+COPY requirements.txt ./
+RUN pip install -qr requirements.txt
 
 COPY scripts/* pywikibot/scripts/
 COPY user-config.py user-password.py pywikibot/
