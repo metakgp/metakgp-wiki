@@ -447,6 +447,9 @@ $wgGroupPermissions['sysop']['abusefilter-private'] = true;
 $wgGroupPermissions['sysop']['abusefilter-modify-restricted'] = true;
 $wgGroupPermissions['sysop']['abusefilter-revert'] = true;
 
+# Bots
+$wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
+
 # Maps extension; installed through composer
 $GLOBALS['egMapsGMaps3ApiKey'] = getenv('GOOGLE_MAPS_API_KEY', true);
 $GLOBALS['egMapsDefaultService'] = 'googlemaps3';
