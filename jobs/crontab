@@ -1,0 +1,3 @@
+# [second(s)] minute(s) hour(s) day(s)_of_month month(s) day(s)_of_week command
+
+11 * * * * /root/update_top_trending.sh

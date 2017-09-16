@@ -1,6 +1,7 @@
 import re
 from datetime import date
 import difflib
+import os
 
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
@@ -11,7 +12,7 @@ import json
 import pywikibot
 
 
-def get_service(api_name, api_version, scopes, key_file_location):
+def get_service(api_name, api_version, scopes, key_file_env):
     """Get a service that communicates to a Google API.
 
   Args:
@@ -25,8 +26,10 @@ def get_service(api_name, api_version, scopes, key_file_location):
     A service that is connected to the specified API.
   """
 
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        key_file_location, scopes=scopes)
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+      json.loads(os.getenv(key_file_env)),
+      scopes=scopes
+    )
 
     # Build the service object.
     service = build(api_name, api_version, credentials=credentials)
@@ -143,13 +146,10 @@ def update_list_of_pages(template, pages):
 def main():
     # Define the auth scopes to request.
     scope = ['https://www.googleapis.com/auth/analytics.readonly']
-
-    # Use the developer console and replace the values with your
-    # service account email and relative location of your key file.
-    key_file_location = 'ga_credentials.json'
+    key_file_env = 'GOOGLE_ANALYTICS_SERVICE_KEY'
 
     # Authenticate and construct service.
-    service = get_service('analytics', 'v3', scope, key_file_location)
+    service = get_service('analytics', 'v3', scope, key_file_env)
     profile = get_first_profile_id(service)
     popular_pages = get_popular_pages(service, profile)
     update_list_of_pages('Template:Popular_pages', popular_pages)

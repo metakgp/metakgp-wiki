@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+import os
 
 # This is an automatically generated file. You can find more configuration
 # parameters in 'config.py' file.
@@ -40,7 +41,7 @@ mylang = 'en'
 # The dictionary usernames should contain a username for each site where you
 # have a bot account. If you have a unique username for all languages of a
 # family , you can use '*'
-usernames['metakgp']['en'] = u'batman'
+usernames['metakgp']['en'] = os.getenv('METAKGP_BOT_NAME')
 password_file = "user-password.py"
 
 # ############# LOGFILE SETTINGS ##############
