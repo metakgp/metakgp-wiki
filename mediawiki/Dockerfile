@@ -18,7 +18,7 @@ WORKDIR /srv/mediawiki
 
 COPY extensions/ extensions/
 RUN ./install_composer.sh \
-      && php composer.phar update
+      && php composer.phar update --no-dev --optimize-autoloader --no-suggest --no-progress
 
 COPY assets/ resources/assets/
 RUN mkdir -p images/temp
