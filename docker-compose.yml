@@ -24,5 +24,6 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - SERVER_NAME=$SERVER_NAME
       - GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY
+      - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
   mediawiki:
     build: './mediawiki'

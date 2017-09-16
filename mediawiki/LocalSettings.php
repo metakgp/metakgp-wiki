@@ -208,12 +208,14 @@ require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
 );*/
 
 # Uncomment to start logging for debugging
-# $wgDebugLogFile = "/var/log/mediawiki/debug.log";
-# error_reporting( -1 );
-# ini_set('display_errors', 1);
-# $wgShowExceptionDetails = true;
-# $wgShowDBErrorBacktrace = true;
-# $wgDebugToolbar = true;
+/*
+$wgDebugLogFile = "/var/log/mediawiki/debug.log";
+error_reporting( -1 );
+ini_set('display_errors', 1);
+$wgShowExceptionDetails = true;
+$wgShowDBErrorBacktrace = true;
+$wgDebugToolbar = true;
+*/
 
 # Dynamic captcha adapted from https://github.com/thingles/wiki-farm/blob/master/LocalSettings.php
 wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/QuestyCaptcha' ) );
@@ -343,21 +345,17 @@ $wgAutopromote['no-captcha'] = array(
 # Allow CORS
 $wgCrossSiteAJAXdomains = array( '*' );
 
-/*
 # Slack integration
-require_once "$IP/extensions/Slack/Slack.php";
+wfLoadExtension('SlackNotifications/SlackNotifications');
 
 # Slack extension configuration options
-$wgSlackWebhookURL = "https://hooks.slack.com/services/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";
-$wgSlackUserName = "batman";
-$wgSlackChannel = "#recent-changes";
+$wgSlackIncomingWebhookUrl = getenv('SLACK_WEBHOOK_URL', true);
+$wgSlackFromName = "batman";
+$wgWikiUrl = $wgServer . "/";
 $wgSlackIconURL = "http://i.picresize.com/images/2015/09/20/tdpsU.jpg";
-$wgSlackLinkUsers = true;
+$wgSlackSendMethod = "exec_curl";
+$wgSlackIncludeUserUrls = false;
 
-# Redis
-$redis = new Redis();
-$redis->pconnect('127.0.0.1');
-*/
 # EmbedVideo
 # require_once "$IP/extensions/EmbedVideo/EmbedVideo.php";
 

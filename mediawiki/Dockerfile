@@ -1,7 +1,7 @@
 FROM php:7-fpm
 
-RUN apt-get update && apt-get install -y \
-      wget unzip
+RUN apt-get -qq update && apt-get -qq install -y \
+      git wget unzip
 
 WORKDIR /tmp
 RUN wget -q https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.gz \
@@ -11,14 +11,16 @@ RUN wget -q https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.g
 
 COPY LocalSettings.php install_composer.sh composer.local.json /srv/mediawiki/
 
-WORKDIR /srv/mediawiki
-RUN ./install_composer.sh \
-      && php composer.phar update
-
 COPY install_extensions.sh post_install.sh /tmp/
 RUN /tmp/install_extensions.sh
 
-COPY assets/* /srv/mediawiki/resources/assets/
-RUN mkdir -p /srv/mediawiki/images/temp
+WORKDIR /srv/mediawiki
+
+COPY extensions/ extensions/
+RUN ./install_composer.sh \
+      && php composer.phar update
+
+COPY assets/ resources/assets/
+RUN mkdir -p images/temp
 
 ENTRYPOINT /tmp/post_install.sh
