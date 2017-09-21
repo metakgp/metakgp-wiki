@@ -355,6 +355,9 @@ $wgWikiUrl = $wgServer . "/";
 $wgSlackIconURL = "http://i.picresize.com/images/2015/09/20/tdpsU.jpg";
 $wgSlackSendMethod = "exec_curl";
 $wgSlackIncludeUserUrls = false;
+$wgSlackShowNewUserEmail = false;
+$wgSlackShowNewUserFullName = false;
+$wgSlackShowNewUserIP = false;
 
 # EmbedVideo
 # require_once "$IP/extensions/EmbedVideo/EmbedVideo.php";

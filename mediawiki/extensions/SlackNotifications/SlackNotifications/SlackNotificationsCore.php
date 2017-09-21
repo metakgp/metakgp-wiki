@@ -95,6 +95,10 @@ class SlackNotifications
 		}
 	}
 
+    private static function isBot($user) {
+        return in_array("bot", $user->getGroups());
+    }
+
 	/**
 	 * Occurs after the save page request has been processed.
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentSaveComplete
@@ -104,6 +108,7 @@ class SlackNotifications
 		global $wgSlackNotificationEditedArticle;
 		global $wgSlackIgnoreMinorEdits, $wgSlackIncludeDiffSize;
 		if (!$wgSlackNotificationEditedArticle) return;
+        if (self::isBot($user)) return;
 
 		// Skip new articles that have view count below 1. Adding new articles is already handled in article_added function and
 		// calling it also here would trigger two notifications!
@@ -144,6 +149,7 @@ class SlackNotifications
 	{
 		global $wgSlackNotificationAddedArticle, $wgSlackIncludeDiffSize;
 		if (!$wgSlackNotificationAddedArticle) return;
+        if (self::isBot($user)) return;
 
 		// Do not announce newly added file uploads as articles...
 		if ($article->getTitle()->getNsText() == "File") return true;
@@ -171,6 +177,7 @@ class SlackNotifications
 	{
 		global $wgSlackNotificationRemovedArticle;
 		if (!$wgSlackNotificationRemovedArticle) return;
+        if (self::isBot($user)) return;
 
 		$message = sprintf(
 			"%s deleted article %s. Reason: %s",
@@ -189,6 +196,7 @@ class SlackNotifications
 	{
 		global $wgSlackNotificationMovedArticle;
 		if (!$wgSlackNotificationMovedArticle) return;
+        if (self::isBot($user)) return;
 
 		$message = sprintf(
 			"%s moved article %s to %s. Reason: %s",
