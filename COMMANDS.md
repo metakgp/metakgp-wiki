@@ -1,0 +1,43 @@
+## Commands
+
+> Docker is hard, let this file help you be your guide if your only goal is to
+> ensure the server is running
+
+* I just want everything to start and run like a normal server
+
+    ```sh
+    $ cd path/to/docker-compose.yml
+    $ docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+    $ docker ps # should show empty results
+    $ docker-compose up -d
+    $ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-recreate 
+    ```
+
+* I want to retrieve the latest backup
+
+    ```sh
+    # ensure that the backup container is running
+    $ docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec backup /bin/bash
+    # this will drop you into the container's bash
+    container $ ./run_backup.sh
+    container $ ls /root/backups # to ensure that the backup tar was created
+    container $ exit
+    # now copy the created tar file into the main file system
+    # docker cp doesn't take wildcard paths (??)
+    $ docker cp metakgpwiki_backup_1:/root/backups/metakgpwiki_2017_10_23_10_11_44.tar.gz .
+    $ pwd
+    ```
+
+    Now, `rsync` takes over. You need to `rsync` or `scp` this file back to your
+    computer. This step is out of the scope of this tutorial. Check out
+    [`rsync`'s man page](https://linux.die.net/man/1/rsync) for instructions.
+
+* I want to copy a file from the filesystem into a container
+
+    ```sh
+    # copy a file from the container to the main filesystem
+    $ docker cp metakgpwiki_nginx_1:/srv/mediawiki/LocalSettings.php .
+
+    # copy a file from the main file system to a container
+    $ docker cp Local.php metakgpwiki_nginx_1:/srv/mediawiki/LocalSettings.php
+    ```
