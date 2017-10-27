@@ -27,11 +27,11 @@ server {
         # autoindex off;
 
 	# Make site accessible from everywhere
-	server_name _;
+	server_name static.metakgp.org;
 
 	# Location for the wiki's root
 
-	location /peqp {
+	location / {
 		try_files $uri $uri/ =404;
 	}
 
