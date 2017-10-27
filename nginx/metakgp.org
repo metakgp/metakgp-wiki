@@ -27,7 +27,7 @@ server {
         autoindex off;
 
 	# Make site accessible from everywhere
-	server_name _;
+	server_name wiki.metakgp.org;
 
 	# Location for the wiki's root
 	location / {
