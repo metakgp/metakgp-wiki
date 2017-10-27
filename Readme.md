@@ -3,6 +3,17 @@
 
 Dockerized for fun and profit.
 
+## Contents
+
+- [Prerequisites](#installation-instructions-for-prerequisites)
+- [Quick Start](#quick-start)
+  - [Initializing the database](#option-1-run-the-web-installer)
+  - [Restoring database from a backup](#option-2-restore-from-backup)
+- [Development](#development)
+  - [Docker Compose Configuration](#compose-configuration)
+  - [Volumes](#volumes)
+- [TODO](#todo)
+
 ## Installation instructions for prerequisites
 
 - [Docker](https://docs.docker.com/engine/installation/)
