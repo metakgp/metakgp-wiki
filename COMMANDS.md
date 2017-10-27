@@ -7,17 +7,19 @@
 
     ```sh
     $ cd path/to/docker-compose.yml
-    $ docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
-    $ docker ps # should show empty results
-    $ docker-compose up -d
-    $ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-recreate 
+    # if something is already running, shut it all down
+    $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down
+    # check to see if anything else is running
+    $ docker ps
+    # start it up!
+    $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up -d --build
     ```
 
 * I want to retrieve the latest backup
 
     ```sh
     # ensure that the backup container is running
-    $ docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec backup /bin/bash
+    $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup /bin/bash
     # this will drop you into the container's bash
     container $ ./run_backup.sh
     container $ ls /root/backups # to ensure that the backup tar was created
