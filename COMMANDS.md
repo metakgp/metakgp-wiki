@@ -1,7 +1,7 @@
 ## Commands
 
-> Docker is hard, let this file help you be your guide if your only goal is to
-> ensure the server is running
+> Docker is hard, let this file be your guide if your only goal is to ensure the
+> server is running
 
 * I just want everything to start and run like a normal server
 

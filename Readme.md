@@ -3,6 +3,8 @@
 
 Dockerized for fun and profit.
 
+New to Docker? See [commands](./COMMANDS.md) for some useful recipes.
+
 ## Contents
 
 - [Prerequisites](#installation-instructions-for-prerequisites)
