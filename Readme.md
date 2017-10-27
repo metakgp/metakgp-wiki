@@ -18,7 +18,7 @@ Start all the basic services
 
 **Note:** Depending on how you installed docker, you might have to run the docker commands through `sudo`
 ```
-docker-compose up --build -d
+docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up --build -d
 ```
 
 Monitor the output to make sure nothing failed.
@@ -30,7 +30,7 @@ docker-compose logs -f
 Now you need to initialise the database. Pick one of the following
 options.
 
-### Run the web installer
+### Option 1: Run the web installer
 
 Remove LocalSettings.php
 ```
@@ -55,13 +55,16 @@ docker-compose exec php php /srv/mediawiki/maintenance/update.php
 
 Reload http://localhost:8080, you should see the main page.
 
-### Restore from backup
+### Option 2: Restore from backup
 
 **Note: This is for production, no need to run this for development**
 
 ```
-./scripts/restore-from-backup.sh <path to backup>
+./scripts/restore-from-backup.sh <path to backup.sql file>
 ```
+
+If you got a backup from an old server, then you have a tar.gz archive. Extract
+it and give the path of the SQL file to the script.
 
 Go to http://localhost:8080, you should see the main page.
 
@@ -113,5 +116,7 @@ docker-compose volume rm <volume name>
 
 ## Todo
 - Enable VisualEditor
-- Restore images, peqp
+- Restore images
+- Store peqp in a separate volume and make sure it comes along whenever a new
+    server is deployed
 - Measure performance
