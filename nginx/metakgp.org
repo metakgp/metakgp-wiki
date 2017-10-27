@@ -41,10 +41,6 @@ server {
 		}
 	}
 
-	location /peqp {
-		try_files $uri $uri/ =404;
-	}
-
 	location ~ ^/google557cb96b33ddc6b5\.html$ {}
 	
 	location /images {
