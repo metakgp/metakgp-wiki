@@ -1,4 +1,4 @@
-## Commands
+## Runbook
 
 > Docker is hard, let this file be your guide if your only goal is to ensure the
 > server is running
@@ -11,7 +11,7 @@
     $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down
     # check to see if anything else is running
     $ docker ps
-    # start it up!
+    # now, start all containers!
     $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up -d --build
     ```
 
@@ -24,7 +24,7 @@
     container $ ./run_backup.sh
     container $ ls /root/backups # to ensure that the backup tar was created
     container $ exit
-    # now copy the created tar file into the main file system
+    # now copy the created tar file into the host filesystem
     # docker cp doesn't take wildcard paths (??)
     $ docker cp metakgpwiki_backup_1:/root/backups/metakgpwiki_2017_10_23_10_11_44.tar.gz .
     $ pwd
@@ -37,9 +37,9 @@
 * I want to copy a file from the filesystem into a container
 
     ```sh
-    # copy a file from the container to the main filesystem
+    # copy a file from the container to the host filesystem
     $ docker cp metakgpwiki_nginx_1:/srv/mediawiki/LocalSettings.php .
 
-    # copy a file from the main file system to a container
+    # copy a file from the host filesystem to a container
     $ docker cp Local.php metakgpwiki_nginx_1:/srv/mediawiki/LocalSettings.php
     ```
