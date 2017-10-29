@@ -3,7 +3,10 @@
 
 Dockerized for fun and profit.
 
-New to Docker? See [commands](./COMMANDS.md) for some useful recipes.
+New to Docker? See the [Runbook](./RUNBOOK.md) for some useful recipes.
+
+**Note:** This readme is for development only, refer to the
+[Runbook](./RUNBOOK.md) for commands to use in production.
 
 ## Contents
 
@@ -31,7 +34,7 @@ Start all the basic services
 
 **Note:** Depending on how you installed docker, you might have to run the docker commands through `sudo`
 ```
-docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up --build -d
+docker-compose up --build -d
 ```
 
 Monitor the output to make sure nothing failed.
@@ -72,12 +75,9 @@ Reload http://localhost:8080, you should see the main page.
 
 **Note: This is for production, no need to run this for development**
 
-```
-./scripts/restore-from-backup.sh <path to backup.sql file>
-```
+Check the [Runbook](./RUNBOOK.md)
 
-If you got a backup from an old server, then you have a tar.gz archive. Extract
-it and give the path of the SQL file to the script.
+***
 
 Go to http://localhost:8080, you should see the main page.
 
@@ -128,8 +128,6 @@ docker-compose volume rm <volume name>
 ```
 
 ## Todo
-- Enable VisualEditor
-- Restore images
-- Store peqp in a separate volume and make sure it comes along whenever a new
-    server is deployed
-- Measure performance
+
+Check the [issues
+dashboard](https://github.com/metakgp/metakgp-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Afeature).

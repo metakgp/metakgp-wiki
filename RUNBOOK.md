@@ -34,6 +34,16 @@
     computer. This step is out of the scope of this tutorial. Check out
     [`rsync`'s man page](https://linux.die.net/man/1/rsync) for instructions.
 
+* I want to restore a MySql backup
+
+    ```sh
+    $ ./script/restore-from-backup.sh <path-to-sql-file>
+    ```
+
+    You have to `rsync` the tar.gz archive to the host filesystem and extract
+    it. Inside the archive, you will find the sql file whose path you must
+    supply to the `restore-from-backup.sh` script.
+
 * I want to copy a file from the filesystem into a container
 
     ```sh
