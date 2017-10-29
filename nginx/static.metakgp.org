@@ -4,8 +4,7 @@ server {
 	# listen [::]:80 default_server ipv6only=on;
 
 	root /srv/static;
-	# index index.php index.html;
-        # autoindex off;
+        autoindex off;
 
 	# Make site accessible from everywhere
 	server_name static.metakgp.org;
