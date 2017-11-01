@@ -3,6 +3,22 @@
 
 Dockerized for fun and profit.
 
+New to Docker? See the [Runbook](./RUNBOOK.md) for some useful recipes.
+
+**Note:** This readme is for development only, refer to the
+[Runbook](./RUNBOOK.md) for commands to use in production.
+
+## Contents
+
+- [Prerequisites](#installation-instructions-for-prerequisites)
+- [Quick Start](#quick-start)
+  - [Initializing the database](#option-1-run-the-web-installer)
+  - [Restoring database from a backup](#option-2-restore-from-backup)
+- [Development](#development)
+  - [Docker Compose Configuration](#compose-configuration)
+  - [Volumes](#volumes)
+- [TODO](#todo)
+
 ## Installation instructions for prerequisites
 
 - [Docker](https://docs.docker.com/engine/installation/)
@@ -30,7 +46,7 @@ docker-compose logs -f
 Now you need to initialise the database. Pick one of the following
 options.
 
-### Run the web installer
+### Option 1: Run the web installer
 
 Remove LocalSettings.php
 ```
@@ -55,13 +71,13 @@ docker-compose exec php php /srv/mediawiki/maintenance/update.php
 
 Reload http://localhost:8080, you should see the main page.
 
-### Restore from backup
+### Option 2: Restore from backup
 
 **Note: This is for production, no need to run this for development**
 
-```
-./scripts/restore-from-backup.sh <path to backup>
-```
+Check the [Runbook](./RUNBOOK.md)
+
+***
 
 Go to http://localhost:8080, you should see the main page.
 
@@ -112,6 +128,6 @@ docker-compose volume rm <volume name>
 ```
 
 ## Todo
-- Enable VisualEditor
-- Restore images, peqp
-- Measure performance
+
+Check the [issues
+dashboard](https://github.com/metakgp/metakgp-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Afeature).
