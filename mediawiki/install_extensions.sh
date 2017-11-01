@@ -2,25 +2,34 @@
 
 set -xe
 
-declare -a extensions=( \
-    WikimediaMessages-REL1_28-d742c36 \
-    Scribunto-REL1_28-a665621 \
-    Echo-REL1_28-f55bdd9 \
-    googleAnalytics-REL1_28-6dd4ae5 \
-    MobileFrontend-REL1_28-a0c8024 \
-    ContributionScores-REL1_28-703f4f3 \
-    CommonsMetadata-REL1_28-e3c0bbe \
-    MultimediaViewer-REL1_28-b426dc3 \
-    SandboxLink-REL1_28-aa109b7 \
-    CheckUser-REL1_28-95fe8e0 \
-    AbuseFilter-REL1_28-c3be1ce \
+declare -a extension_names=( \
+    AbuseFilter \
+    CheckUser \
+    CommonsMetadata \
+    ContributionScores \
+    Echo \
+    MobileFrontend \
+    MultimediaViewer \
+    SandboxLink \
+    Scribunto \
+    WikimediaMessages \
+    googleAnalytics \
 )
 
+MEDIAWIKI_RELEASE=REL1_29
+
+function fetch_extension_url() {
+    curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$MEDIAWIKI_RELEASE" \
+        | grep -oP 'https://extdist.wmflabs.org/dist/extensions/.*?.tar.gz' \
+        | head -1
+}
+
 cd /tmp
-for extension in "${extensions[@]}"; do
-    IFS=- read extension_name _ <<< "$extension"
-    wget -q "https://extdist.wmflabs.org/dist/extensions/$extension.tar.gz"
-    tar -xzf "$extension.tar.gz"
+for extension_name in "${extension_names[@]}"; do
+    versioned_extension_url=$(fetch_extension_url $extension_name)
+    versioned_extension_name=$(echo $versioned_extension_url | awk -F"/" '{print $(NF)}')
+    wget -q $versioned_extension_url
+    tar -xzf "$versioned_extension_name"
     mv $extension_name /srv/mediawiki/extensions/
 done
 
