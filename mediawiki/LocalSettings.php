@@ -148,12 +148,12 @@ $wgSMTP = array(
     'auth' => true
 );
 
-require_once "$IP/extensions/ParserFunctions/ParserFunctions.php";
-require_once "$IP/extensions/Cite/Cite.php";
+wfLoadExtension('ParserFunctions');
+wfLoadExtension('Cite');
 require_once "$IP/extensions/RecentPages/RecentPages.php";
-wfLoadExtension("WikimediaMessages");
+wfLoadExtension('WikimediaMessages');
 
-require_once "$IP/extensions/WikiEditor/WikiEditor.php";
+wfLoadExtension('WikiEditor');
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 $wgDefaultUserOptions['wikieditor-preview'] = 1;
@@ -166,8 +166,8 @@ $wgScribuntoUseGeSHi = true;
 $wgLocaltimezone = "Asia/Kolkata";
 date_default_timezone_set( $wgLocaltimezone );
 
-require_once "$IP/extensions/Gadgets/Gadgets.php";
-require_once "$IP/extensions/Echo/Echo.php";
+wfLoadExtension('Gadgets');
+wfLoadExtension('Echo');
 
 require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
 $wgGoogleAnalyticsAccount = 'UA-62532508-2';
@@ -183,7 +183,7 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 # $wgSquidServers = array('127.0.0.1');
 # $wgUsePrivateIPs = true;
 
-require_once "$IP/extensions/MobileFrontend/MobileFrontend.php";
+wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
 
 require_once "$IP/extensions/ContributionScores/ContributionScores.php";
@@ -200,7 +200,7 @@ $wgContribScoreReports = array(
 $wgMaxShellMemory = 307200;
 $wgMaxImageArea = 1250000000; // 1.25e9
 
-require_once "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php";
+wfLoadExtension('SyntaxHighlight_GeSHi');
 
 /*$wgResourceLoaderMaxage['unversioned'] = array(
   'server' => 7 * 24 * 60 * 60, // one week
@@ -309,7 +309,7 @@ require_once("$IP/extensions/OpenGraphMeta/OpenGraphMeta.php");
 */
 wfLoadExtension( 'CommonsMetadata' );
 require_once "$IP/extensions/MultimediaViewer/MultimediaViewer.php";
-require_once "$IP/extensions/Poem/Poem.php";
+wfLoadExtension('Poem');
 
 # File upload permissions
 $wgGroupPermissions['user']['upload'] = false;

@@ -4,15 +4,15 @@ RUN apt-get -qq update && apt-get -qq install -y \
       git wget unzip
 
 WORKDIR /tmp
-RUN wget -q https://releases.wikimedia.org/mediawiki/1.28/mediawiki-1.28.2.tar.gz \
-      && tar -xzf mediawiki-1.28.2.tar.gz \
+RUN wget -q https://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.1.tar.gz \
+      && tar -xzf mediawiki-1.29.1.tar.gz \
       && mkdir -p /srv \
-      && mv /tmp/mediawiki-1.28.2 /srv/mediawiki
-
-COPY LocalSettings.php install_composer.sh composer.local.json /srv/mediawiki/
+      && mv /tmp/mediawiki-1.29.1 /srv/mediawiki
 
 COPY install_extensions.sh post_install.sh /tmp/
 RUN /tmp/install_extensions.sh
+
+COPY LocalSettings.php install_composer.sh composer.local.json /srv/mediawiki/
 
 WORKDIR /srv/mediawiki
 
