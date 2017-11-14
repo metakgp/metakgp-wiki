@@ -1,6 +1,9 @@
 version: '2.1'
 
 services:
+  nginx:
+    volumes:
+      - static-volume:/srv/static
   backup:
     build: './backup'
     links:
@@ -18,3 +21,4 @@ services:
 
 volumes:
   mediawiki-volume:
+  static-volume:
