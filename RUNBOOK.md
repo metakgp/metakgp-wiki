@@ -1,4 +1,6 @@
-## Runbook
+# Runbook
+
+## Docker
 
 > Docker is hard, let this file be your guide if your only goal is to ensure the
 > server is running
@@ -52,4 +54,15 @@
 
     # copy a file from the host filesystem to a container
     $ docker cp Local.php metakgpwiki_nginx_1:/srv/mediawiki/LocalSettings.php
+    ```
+
+## Mediawiki
+
+* I want to upgrade to a new mediawiki version
+
+    You have to run `maintenance/update.php` after installing a new extension or 
+    upgrading mediawiki. This will update the database tables as necessary.
+    
+    ```
+    docker-compose exec php /srv/mediawiki/maintenance/update.php
     ```
