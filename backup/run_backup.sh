@@ -9,6 +9,7 @@ source .env
 set +a
 
 wiki_root="/srv/mediawiki"
+static_root="/srv/static"
 file="$wiki_root/LocalSettings.php"
 backup_to_dropbox="/usr/local/bin/python /root/backup_to_dropbox.py"
 
@@ -24,7 +25,7 @@ sed -i '$ d' $file
 
 # backup images on the 21st of every month
 if [[ $(date '+%d') == "21" ]]; then
-    rsync -a "$wiki_root/images" "$backups_path/$backup_dir/" --exclude thumb --exclude temp
+    rsync -a "$static_root/images" "$backups_path/$backup_dir/" --exclude thumb --exclude temp
 fi
 
 cd $backups_path
