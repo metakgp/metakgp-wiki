@@ -3,7 +3,7 @@ RUN apt-get -qq update && apt-get -qq install -y \
             build-essential \
             libfreetype6-dev \
             libjpeg62-turbo-dev \
-            libpng12-dev \
+            libpng-dev \
             libicu-dev \
             git-core \
             graphicsmagick \
