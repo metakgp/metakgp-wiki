@@ -262,7 +262,7 @@ $wgRateLimits['badcaptcha']['ip'] = array( 3, 10 * 60 );
 
 $wgJobRunRate = 0;
 
-$wgUseFileCache = false;
+$wgUseFileCache = true;
 $wgFileCacheDirectory = "$IP/cache";
 $wgShowIPInHeader = false;
 $wgDisableCounters = true;
