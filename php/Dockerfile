@@ -13,6 +13,10 @@ RUN apt-get -qq update && apt-get -qq install -y \
       && docker-php-ext-enable apcu \
       && pear install Numbers_Words-beta \
       && apt-get purge
+
+ENV TZ=Asia/Kolkata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY php.ini /usr/local/etc/php/
 RUN mkdir -p /var/log/mediawiki \
       && touch /var/log/mediawiki/debug.log \
