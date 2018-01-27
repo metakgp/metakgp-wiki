@@ -12,7 +12,7 @@ RUN wget -q https://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.1.tar.g
 COPY install_extensions.sh post_install.sh /tmp/
 RUN /tmp/install_extensions.sh
 
-COPY LocalSettings.php install_composer.sh composer.local.json /srv/mediawiki/
+COPY LocalSettings.php robots.txt install_composer.sh composer.local.json /srv/mediawiki/
 
 WORKDIR /srv/mediawiki
 

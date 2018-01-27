@@ -23,6 +23,7 @@ server {
 	}
 
 	location ~ ^/google557cb96b33ddc6b5\.html$ {}
+	location ~ ^/robots\.txt$ {}
 	
 	location /images {
 		# Separate location for images/ so .php execution won't apply
