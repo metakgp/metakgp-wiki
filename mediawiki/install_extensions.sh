@@ -16,7 +16,7 @@ declare -a extension_names=( \
     googleAnalytics \
 )
 
-MEDIAWIKI_RELEASE=REL1_29
+MEDIAWIKI_RELEASE=REL1_30
 
 function fetch_extension_url() {
     curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$MEDIAWIKI_RELEASE" \
