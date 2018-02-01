@@ -21,6 +21,8 @@ RUN ./install_composer.sh \
       && php composer.phar update --no-dev --optimize-autoloader --no-suggest --no-progress
 
 COPY assets/ resources/assets/
+
+RUN mkdir -p /srv/static/images && rm -rf images && ln -s /srv/static/images images
 RUN mkdir -p images/temp
 
 ENTRYPOINT /tmp/post_install.sh
