@@ -95,4 +95,9 @@ if [[ $CURL_OUTPUT != *"Powered by MediaWiki"* ]]; then
     error "Main page failed to load properly: "$CURL_OUTPUT
 fi
 
+MOBILE_CURL_OUTPUT=$(curl -sSL $NGINX_ADDR'/index.php?title=Main_Page&mobileaction=toggle_view_mobile')
+if [[ $MOBILE_CURL_OUTPUT != *"Special:MobileMenu"* ]]; then
+    error "Main page failed to load properly on mobile: "$MOBILE_CURL_OUTPUT
+fi
+
 info "Tests complete"
