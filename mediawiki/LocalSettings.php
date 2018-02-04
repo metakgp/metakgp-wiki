@@ -264,7 +264,7 @@ $wgJobRunRate = 1;
 $wgRunJobsAsync = true;
 
 $wgUseFileCache = true;
-$wgFileCacheDirectory = "$IP/cache";
+$wgFileCacheDirectory = "$IP/images/cache";
 $wgShowIPInHeader = false;
 $wgDisableCounters = true;
 $wgEnableSidebarCache = true;
