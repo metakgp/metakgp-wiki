@@ -10,7 +10,7 @@ RUN apt-get -qq update && apt-get -qq install -y \
             libpng-dev \
             wget \
       && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-      && docker-php-ext-install -j$(nproc) gd intl mysqli \
+      && docker-php-ext-install -j$(nproc) gd intl mysqli opcache \
       && pecl install apcu \
       && docker-php-ext-enable apcu \
       && pear install Numbers_Words-beta \
