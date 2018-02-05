@@ -3,10 +3,10 @@
 ## Deploying to prod
 
 0. Take a backup! Run `docker-compose exec backup run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
-1. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
-2. `docker-compose down` shuts down the server and removes containers. Now downtime has started ticking.
-3. `docker volume rm <mediawiki-volume>`, so that the mediawiki container can create a new volume with updates in the next step.
-4. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose exec php /srv/mediawiki/maintenance/update.php`.
+0. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
+0. `docker-compose down` shuts down the server and removes containers. Now downtime has started ticking.
+0. `docker volume rm <mediawiki-volume>`, so that the mediawiki container can create a new volume with updates in the next step.
+0. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose exec php /srv/mediawiki/maintenance/update.php`.
 
 ## Docker
 
