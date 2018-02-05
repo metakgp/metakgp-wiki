@@ -46,6 +46,18 @@
     computer. This step is out of the scope of this tutorial. Check out
     [`rsync`'s man page](https://linux.die.net/man/1/rsync) for instructions.
 
+* I want to spawn a metakgp server from a backup
+
+    **Note:** Currently, the backup contains of a single SQL file.
+
+    ```sh
+    $ # install docker and docker-compose
+    $ git clone https://github.com/metakgp/metakgp-wiki.git
+    $ cd metakgp-wiki
+    $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up --build -d
+    $ ./script/restore-from-backup.sh <path to sql file>
+    ```
+
 * I want to restore a MySql backup
 
     ```sh
@@ -64,6 +76,30 @@
 
     # copy a file from the host filesystem to a container
     $ docker cp Local.php metakgpwiki_nginx_1:/srv/mediawiki/LocalSettings.php
+    ```
+
+* I want to spawn a clone of the current metakgp server
+
+    ```txt
+    1. Get the backup from the current server
+    2. Copy this backup to the new server
+    3. Spawn a server from this backup
+    ```
+
+    **Note:** Visit `http://<NEW_SERVER_IP>/w/Main_Page>` to see your newly
+    installed wiki. Redirection from `http://<NEW_SERVER_IP/` to the Wiki's main
+    page may not work.
+
+* I want to clean up all the containers, images and volumes on a server
+
+    **NOTE:** This is a destructive operation. **DO NOT** do this in production.
+
+    ```sh
+    # shut down all the containers before doing this
+    $ docker-compose down
+    $ docker system prune
+    $ docker system prune -a
+    $ docker volume prune
     ```
 
 ## Mediawiki
