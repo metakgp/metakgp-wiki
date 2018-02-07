@@ -5,7 +5,7 @@ import std;
 import directors;
 
 backend server1 { # Define one backend
-  .host = "php-docker";    # IP or Hostname of backend
+  .host = "nginx-docker";    # IP or Hostname of backend
   .port = "80";           # Port Apache or whatever is listening
   .max_connections = 300; # That's it
 

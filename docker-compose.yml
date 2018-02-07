@@ -15,7 +15,7 @@ services:
   varnish:
     build: './varnish'
     links:
-      - php:php-docker
+      - nginx:nginx-docker
   php:
     build: './php'
     links:
