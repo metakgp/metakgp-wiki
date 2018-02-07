@@ -7,8 +7,9 @@ services:
   nginx:
     volumes:
       - mediawiki-volume:/srv/mediawiki
+  varnish:
     ports:
-      - "${SERVER_PORT:-8080}:80"
+      - "${SERVER_PORT:-8080}:6081"
   php:
     volumes:
       - mediawiki-volume:/srv/mediawiki

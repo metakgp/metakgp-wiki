@@ -12,6 +12,10 @@ services:
     build: './nginx'
     links:
       - php:php-docker
+  varnish:
+    build: './varnish'
+    links:
+      - php:php-docker
   php:
     build: './php'
     links:
