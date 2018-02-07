@@ -4,6 +4,12 @@ services:
   nginx:
     volumes:
       - static-volume:/srv/static
+  php:
+    volumes:
+      - static-volume:/srv/static
+  mediawiki:
+    volumes:
+      - static-volume:/srv/static
   backup:
     build: './backup'
     links:
@@ -13,6 +19,7 @@ services:
       - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
     volumes:
       - mediawiki-volume:/srv/mediawiki
+      - static-volume:/srv/static
   jobs:
     build: './jobs'
     environment:

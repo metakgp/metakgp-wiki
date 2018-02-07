@@ -254,10 +254,11 @@ $wgGroupPermissions['no-captcha']['skipcaptcha'] = true;
 # 3 wrong captchas allowed every 10 minutes per IP
 $wgRateLimits['badcaptcha']['ip'] = array( 3, 10 * 60 );
 
-$wgJobRunRate = 0;
+$wgJobRunRate = 1;
+$wgRunJobsAsync = true;
 
 $wgUseFileCache = true;
-$wgFileCacheDirectory = "$IP/cache";
+$wgFileCacheDirectory = "$IP/images/cache";
 $wgShowIPInHeader = false;
 $wgDisableCounters = true;
 $wgEnableSidebarCache = true;
