@@ -25,10 +25,18 @@ New to Docker? See the [Runbook](./RUNBOOK.md) for some useful recipes.
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 ## Quick start
-Create a `.env` file at the repo root and add all the required secrets.
+Create a `.env` file at the repo root and add all the secrets.
 ```
 cp .env.template .env
 ```
+
+**Note:** Required environment variables:
+
+- `MYSQL_PASSWORD`
+- `SERVER_NAME`
+- `SERVER_PORT`
+
+Other variables inside `.env.template` are optional.
 
 Start all the basic services
 
