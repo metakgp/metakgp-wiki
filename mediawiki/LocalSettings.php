@@ -22,6 +22,7 @@ $wgSitename = "Metakgp Wiki";
 $wgMetaNamespace = "Metakgp";
 
 wfLoadSkin('Vector');
+wfLoadSkin('MinervaNeue'); # mobile optimised
 
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
@@ -127,14 +128,6 @@ $wgDiff3 = "/usr/bin/diff3";
 ## names, ie 'vector', 'monobook':
 $wgDefaultSkin = "vector";
 
-# Enabled skins.
-# The following skins were automatically enabled:
-#require_once "$IP/skins/CologneBlue/CologneBlue.php";
-#require_once "$IP/skins/Modern/Modern.php";
-#require_once "$IP/skins/MonoBook/MonoBook.php";
-require_once "$IP/skins/Vector/Vector.php";
-#require_once "$IP/skins/brlcad/brlcad.php";
-
 # End of automatically generated settings.
 # Add more configuration options below.
 
@@ -185,6 +178,7 @@ $wgGroupPermissions['bot']['noanalytics'] = true;
 
 wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
+$wgMFDefaultSkinClass = 'SkinMinerva';
 
 require_once "$IP/extensions/ContributionScores/ContributionScores.php";
 $wgContribScoreIgnoreBots = true;          // Exclude Bots from the reporting - Can be omitted.
