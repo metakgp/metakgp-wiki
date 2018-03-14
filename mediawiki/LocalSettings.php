@@ -24,6 +24,8 @@ $wgMetaNamespace = "Metakgp";
 wfLoadSkin('Vector');
 wfLoadSkin('MinervaNeue'); # mobile optimised
 
+# $wgReadOnly = "This site is down for maintenance. You can view all pages. Please try your edits again after some time.";
+
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
 ## For more information on customizing the URLs
