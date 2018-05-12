@@ -165,8 +165,9 @@ def main():
     # Authenticate and construct service.
     service = get_service('analytics', 'v3', scope, key_file_env)
     profile = get_first_profile_id(service)
+
     popular_pages = get_popular_pages(service, profile)
-    #  update_list_of_pages('Template:Popular_pages', popular_pages)
+    update_list_of_pages('Template:Popular_pages', popular_pages)
 
     trending_pages = get_trending_pages(service, profile)
     trending_pages_deduped = deduplicate_lists( \
@@ -174,16 +175,7 @@ def main():
                                 popular_pages[:REQD_TEMPLATE_LEN] \
                             )
     
-    print
-    print
-    print "Popular"
-    print '\n'.join(popular_pages[:REQD_TEMPLATE_LEN])
-    print
-    print
-    print "Trending"
-    print '\n'.join(trending_pages_deduped[:REQD_TEMPLATE_LEN])
-
-    #  update_list_of_pages('Template:Trending_pages', trending_pages)
+    update_list_of_pages('Template:Trending_pages', trending_pages_deduped)
 
 if __name__ == '__main__':
     main()
