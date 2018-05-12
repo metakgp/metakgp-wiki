@@ -11,6 +11,7 @@ import json
 
 import pywikibot
 
+REQD_TEMPLATE_LEN = 10
 
 def get_service(api_name, api_version, scopes, key_file_env):
     """Get a service that communicates to a Google API.
@@ -88,11 +89,7 @@ def filter_main_ns(results):
         if match.group(1) in pages:
             continue
 
-        #print 'r: ', r
-
         pages.append(match.group(1))
-        if len(pages) == 10:
-            break
 
     return pages
 
@@ -126,7 +123,7 @@ def get_trending_pages(service, profile_id):
 def update_list_of_pages(template, pages):
     template_page = pywikibot.Page(pywikibot.Link(template), pywikibot.Site())
     text = " <noinclude>This page is automatically generated. Changes will be overwritten, so '''do not modify'''.</noinclude>\n"
-    for p in pages:
+    for p in pages[:REQD_TEMPLATE_LEN]:
         text += "*[[%s]]\n" % p
     text = text.rstrip()
     if template_page.text == text:
