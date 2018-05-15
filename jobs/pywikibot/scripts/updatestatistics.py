@@ -125,7 +125,7 @@ def get_trending_pages(service, profile_id):
 def update_list_of_pages(template, pages):
     template_page = pywikibot.Page(pywikibot.Link(template), pywikibot.Site())
     text = " <noinclude>This page is automatically generated. Changes will be overwritten, so '''do not modify'''.</noinclude>\n"
-    for p in pages[:REQD_TEMPLATE_LEN]:
+    for p in pages:
         text += "*[[%s]]\n" % p
     text = text.rstrip()
     if template_page.text == text:
@@ -167,13 +167,16 @@ def main():
     profile = get_first_profile_id(service)
 
     popular_pages = get_popular_pages(service, profile)
+    popular_pages = popular_pages[:REQD_TEMPLATE_LEN]
+
     update_list_of_pages('Template:Popular_pages', popular_pages)
 
     trending_pages = get_trending_pages(service, profile)
     trending_pages_deduped = deduplicate_lists( \
                                 trending_pages, \
-                                popular_pages[:REQD_TEMPLATE_LEN] \
+                                popular_pages \
                             )
+    trending_pages_deduped = trending_pages_deduped[:REQD_TEMPLATE_LEN]
     
     update_list_of_pages('Template:Trending_pages', trending_pages_deduped)
 
