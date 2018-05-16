@@ -148,18 +148,15 @@ def deduplicate_lists(list_to_dedup, base_list):
     base_list
 
     will maintain the order of elements in list_to_dedup
-
-    1. forms a dictionary of all the elements in list_to_dedup
-    2. iterates over the elements in base_list and removes them from
-    list_to_dedup if they are there in the dictionary
     '''
 
-    dict_from_list = OrderedDict.fromkeys(list_to_dedup)
-    for elem in base_list:
-        if elem in dict_from_list:
-            list_to_dedup.remove(elem)
+    deduped_list = [ ]
+    base_dict = OrderedDict.fromkeys(base_list)
+    for elem in list_to_dedup:
+        if not elem in base_dict:
+            deduped_list.append(elem)
 
-    return list_to_dedup
+    return deduped_list
 
 def main():
     # Define the auth scopes to request.
