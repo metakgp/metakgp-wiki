@@ -11,6 +11,7 @@ import json
 
 import pywikibot
 
+REQD_TEMPLATE_LEN = 10
 
 def get_service(api_name, api_version, scopes, key_file_env):
     """Get a service that communicates to a Google API.
@@ -88,11 +89,7 @@ def filter_main_ns(results):
         if match.group(1) in pages:
             continue
 
-        #print 'r: ', r
-
         pages.append(match.group(1))
-        if len(pages) == 10:
-            break
 
     return pages
 
@@ -143,6 +140,21 @@ def update_list_of_pages(template, pages):
         template_page.save('Updated on ' +
                            date.today().strftime('%B %d, %Y'))
 
+def deduplicate_lists(list_to_dedup, base_list):
+    '''
+    will return list_to_dedup after removing any element that exists in
+    base_list
+
+    will maintain the order of elements in list_to_dedup
+    '''
+
+    # convert to set for O(1) membership checking
+    base_set = set(base_list)
+
+    deduped_list = [x for x in list_to_dedup if not x in base_set]
+
+    return deduped_list
+
 def main():
     # Define the auth scopes to request.
     scope = ['https://www.googleapis.com/auth/analytics.readonly']
@@ -151,10 +163,20 @@ def main():
     # Authenticate and construct service.
     service = get_service('analytics', 'v3', scope, key_file_env)
     profile = get_first_profile_id(service)
+
     popular_pages = get_popular_pages(service, profile)
+    popular_pages = popular_pages[:REQD_TEMPLATE_LEN]
+
     update_list_of_pages('Template:Popular_pages', popular_pages)
+
     trending_pages = get_trending_pages(service, profile)
-    update_list_of_pages('Template:Trending_pages', trending_pages)
+    trending_pages_deduped = deduplicate_lists( \
+                                trending_pages, \
+                                popular_pages \
+                            )
+    trending_pages_deduped = trending_pages_deduped[:REQD_TEMPLATE_LEN]
+    
+    update_list_of_pages('Template:Trending_pages', trending_pages_deduped)
 
 if __name__ == '__main__':
     main()
