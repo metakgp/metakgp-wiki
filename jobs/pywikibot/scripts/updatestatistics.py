@@ -11,8 +11,6 @@ import json
 
 import pywikibot
 
-from collections import OrderedDict
-
 REQD_TEMPLATE_LEN = 10
 
 def get_service(api_name, api_version, scopes, key_file_env):
@@ -150,11 +148,10 @@ def deduplicate_lists(list_to_dedup, base_list):
     will maintain the order of elements in list_to_dedup
     '''
 
-    deduped_list = [ ]
-    base_dict = OrderedDict.fromkeys(base_list)
-    for elem in list_to_dedup:
-        if not elem in base_dict:
-            deduped_list.append(elem)
+    # convert to set for O(1) membership checking
+    base_set = set(base_list)
+
+    deduped_list = [x for x in list_to_dedup if not x in base_set]
 
     return deduped_list
 
