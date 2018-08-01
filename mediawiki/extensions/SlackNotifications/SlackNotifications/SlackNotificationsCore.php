@@ -384,7 +384,7 @@ class SlackNotifications
 	}
 
     private static function exec_curl($url, $payload) {
-        $cmd = "curl -sS -X POST";
+        $cmd = "curl --retry 8 -sS -X POST";
         $cmd .= " --data-urlencode '" . $payload . "' ";
         $cmd .= "'" . $url . "'";
         $cmd .= " >> /var/log/mediawiki/curl.log 2>&1";
