@@ -12,6 +12,7 @@ declare -a extension_names=( \
     MultimediaViewer \
     SandboxLink \
     Scribunto \
+    VisualEditor \
     WikimediaMessages \
     googleAnalytics \
 )
