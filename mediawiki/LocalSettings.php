@@ -266,27 +266,23 @@ $wgDisableCounters = true;
 $wgEnableSidebarCache = true;
 
 
-/*# Visual Editor
-#require_once "$IP/extensions/UniversalLanguageSelector/UniversalLanguageSelector.php";
-#$wgULSEnable = false;
-#wfLoadExtension('VisualEditor');
-#$wgDefaultUserOptions['visualeditor-enable'] = 1;
-#$wgVisualEditorNamespaces = array_merge(
-# $wgContentNamespaces,
-# array(NS_USER, NS_HELP)
-#);
-#$wgVirtualRestConfig['modules']['parsoid'] = array(
+# Visual Editor
+wfLoadExtension( 'VisualEditor' );
+
+// Enable by default for everybody
+$wgDefaultUserOptions['visualeditor-enable'] = 1;
+
+$wgVisualEditorAvailableNamespaces = [
+    "Help" => true
+];
+
+$wgVirtualRestConfig['modules']['parsoid'] = array(
   // URL to the Parsoid instance
   // Use port 8142 if you use the Debian package
-  'url' => 'http://localhost:8142',
+  'url' => 'parsoid-docker:8000',
   // Parsoid "domain", see below (optional)
-  'domain' => 'wiki.metakgp.org',
-  // Parsoid "prefix", see below (optional)
-  'prefix' => 'metakgp_wiki'
+  'domain' => 'wiki.metakgp.org'
 );
-// OPTIONAL: Enable VisualEditor's experimental code features
-$wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
- */
 
 # Default user options
 $wgDefaultUserOptions['enotifusertalkpages'] = 1;
@@ -391,7 +387,7 @@ NS_CATEGORY_TALK => true
 # require_once "$IP/extensions/Math/Math.php";
 // Set MathML as default rendering option;
 $wgDefaultUserOptions['math'] = 'mathml';
-$wgMathFullRestbaseURL= 'http://127.0.0.1:10044';
+# $wgMathFullRestbaseURL= 'http://127.0.0.1:10044';
 
 # Nuke extension for mass deleting pages
 wfLoadExtension('Nuke');
