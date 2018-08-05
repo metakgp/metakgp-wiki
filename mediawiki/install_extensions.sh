@@ -4,6 +4,7 @@ set -xe
 
 declare -a extension_names=( \
     AbuseFilter \
+    ArticleFeedbackv5 \
     CheckUser \
     CommonsMetadata \
     ContributionScores \

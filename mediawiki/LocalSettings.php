@@ -449,3 +449,7 @@ $wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
 # Maps extension; installed through composer
 $GLOBALS['egMapsGMaps3ApiKey'] = getenv('GOOGLE_MAPS_API_KEY', true);
 $GLOBALS['egMapsDefaultService'] = 'googlemaps3';
+
+# ArticleFeedbackv5
+wfLoadExtension( 'ArticleFeedbackv5' );
+$wgArticleFeedbackv5LotteryOdds = 100;
