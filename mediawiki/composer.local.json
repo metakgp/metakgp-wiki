@@ -14,6 +14,7 @@
       "pimple/pimple": "~2.1",
       "ruflin/elastica": "~3.1",
       "symfony/process": "~3.0",
-      "wikimedia/textcat": "~1.1"
+      "wikimedia/textcat": "~1.1",
+      "mediawiki/simple-batch-upload": "~1.3"
   }
 }
