@@ -1,7 +1,7 @@
 FROM php:7-fpm
 
 RUN apt-get -qq update && apt-get -qq install -y \
-      git wget unzip
+      git wget unzip graphicsmagick
 
 WORKDIR /tmp
 RUN wget -q https://releases.wikimedia.org/mediawiki/1.30/mediawiki-1.30.0.tar.gz \
