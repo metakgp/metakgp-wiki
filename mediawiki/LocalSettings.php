@@ -82,10 +82,17 @@ $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-$wgTmpDirectory = "$IP/images/temp";
+// $wgTmpDirectory = "$IP/images/temp";
 $wgEnableUploads = true;
-$wgUseImageMagick = true;
-$wgImageMagickConvertCommand = "/usr/bin/gm";
+
+$wgUseImageMagick = false;
+$wgCustomConvertCommand = "/usr/bin/gm convert %s -resize %wx%h %d";
+
+$wgSVGConverters['GraphicMagick'] = '/usr/bin/gm convert -background none -thumbnail $widthx$height\! $input PNG:$output';
+$wgSVGConverter = 'GraphicMagick';
+
+# For extension PdfHandler
+$wgPdfPostProcessor = "/opt/gmconvert.sh";
 
 # InstantCommons allows wiki to use images from http://commons.wikimedia.org
 $wgUseInstantCommons = true;
