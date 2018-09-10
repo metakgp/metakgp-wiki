@@ -88,9 +88,6 @@ $wgEnableUploads = true;
 $wgUseImageMagick = false;
 $wgCustomConvertCommand = "/usr/bin/gm convert %s -resize %wx%h %d";
 
-$wgSVGConverters['GraphicMagick'] = '/usr/bin/gm convert -background none -thumbnail $widthx$height\! $input PNG:$output';
-$wgSVGConverter = 'GraphicMagick';
-
 # For extension PdfHandler
 $wgPdfPostProcessor = "/opt/gmconvert.sh";
 
