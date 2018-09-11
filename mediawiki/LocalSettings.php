@@ -82,7 +82,7 @@ $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-// $wgTmpDirectory = "$IP/images/temp";
+$wgTmpDirectory = "$IP/images/temp";
 $wgEnableUploads = true;
 
 $wgUseImageMagick = false;
