@@ -22,6 +22,8 @@ RUN ./install_composer.sh \
 
 COPY assets/ resources/assets/
 
+COPY gmconvert.sh /opt/
+
 RUN mkdir -p /srv/static/images && rm -rf images && ln -s /srv/static/images images
 RUN mkdir -p images/temp
 

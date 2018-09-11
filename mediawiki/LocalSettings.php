@@ -84,8 +84,12 @@ $wgMemCachedServers = [];
 ## is writable, then set this to true:
 $wgTmpDirectory = "$IP/images/temp";
 $wgEnableUploads = true;
-$wgUseImageMagick = true;
-$wgImageMagickConvertCommand = "/usr/bin/gm";
+
+$wgUseImageMagick = false;
+$wgCustomConvertCommand = "/usr/bin/gm convert %s -resize %wx%h %d";
+
+# For extension PdfHandler
+$wgPdfPostProcessor = "/opt/gmconvert.sh";
 
 # InstantCommons allows wiki to use images from http://commons.wikimedia.org
 $wgUseInstantCommons = true;
@@ -442,6 +446,8 @@ $wgGroupPermissions['*']['abusefilter-log'] = true;
 $wgGroupPermissions['sysop']['abusefilter-private'] = true;
 $wgGroupPermissions['sysop']['abusefilter-modify-restricted'] = true;
 $wgGroupPermissions['sysop']['abusefilter-revert'] = true;
+
+wfLoadExtension( 'SimpleBatchUpload' );
 
 # Bots
 $wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
