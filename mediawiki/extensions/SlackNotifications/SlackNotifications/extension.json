@@ -48,7 +48,12 @@
 			[
 				"SlackNotifications::slack_article_protected"
 			]
-		]
+		],
+                "aftv5-newLogEntry": [
+			[
+				"SlackNotifications::slack_article_feedback_added"
+			]
+                ]
 	},
 	"config": {
 		"SlackIncomingWebhookUrl": "",

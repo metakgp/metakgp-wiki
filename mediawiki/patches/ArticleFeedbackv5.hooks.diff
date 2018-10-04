@@ -1,0 +1,15 @@
+diff --git a/ArticleFeedbackv5.log.php b/ArticleFeedbackv5.log.php
+index ab3982b..2664671 100644
+--- a/ArticleFeedbackv5.log.php
++++ b/ArticleFeedbackv5.log.php
+@@ -75,6 +75,10 @@ class ArticleFeedbackv5Log {
+ 		$wiki = false;
+ 		ArticleFeedbackv5Utils::$written[$wiki] = true;
+ 
++        if ($logType == 'articlefeedbackv5') {
++            Hooks::run('aftv5-newLogEntry', [&$doer, &$pageTitle, &$target]);
++        }
++
+ 		return $logId;
+ 	}
+ }

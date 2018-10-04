@@ -303,6 +303,18 @@ class SlackNotifications
 		return true;
 	}
 
+    static function slack_article_feedback_added($user, $title, $feedbackTitle)
+    {
+        $message = sprintf(
+            "%s provided %s about %s.",
+            self::getSlackUserText($user),
+            "<".$feedbackTitle->getCanonicalUrl()."|feedback>",
+            "<".$title->getCanonicalUrl()."|".$title->getText().">"
+        );
+        self::push_slack_notify($message, "green", $user);
+        return true;
+    }
+
 	/**
 	 * Sends the message into Slack room.
 	 * @param message Message to be sent.

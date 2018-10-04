@@ -60,3 +60,6 @@ wget -q https://github.com/leucosticte/RecentPages/archive/master.zip \
 
 # Make Lua executable
 chmod a+x /srv/mediawiki/extensions/Scribunto/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
+
+# Apply custom patches
+git apply --unsafe-paths --directory /srv/mediawiki/extensions/ArticleFeedbackv5 /tmp/ArticleFeedbackv5.hooks.diff

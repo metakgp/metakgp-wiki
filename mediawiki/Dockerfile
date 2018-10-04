@@ -9,7 +9,7 @@ RUN wget -q https://releases.wikimedia.org/mediawiki/1.30/mediawiki-1.30.0.tar.g
       && mkdir -p /srv \
       && mv /tmp/mediawiki-1.30.0 /srv/mediawiki
 
-COPY install_extensions.sh post_install.sh /tmp/
+COPY install_extensions.sh post_install.sh patches /tmp/
 RUN /tmp/install_extensions.sh
 
 COPY LocalSettings.php robots.txt install_composer.sh composer.local.json /srv/mediawiki/
@@ -27,4 +27,4 @@ COPY gmconvert.sh /opt/
 RUN mkdir -p /srv/static/images && rm -rf images && ln -s /srv/static/images images
 RUN mkdir -p images/temp
 
-ENTRYPOINT /tmp/post_install.sh
+CMD /tmp/post_install.sh
