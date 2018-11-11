@@ -3,6 +3,13 @@ version: '2.1'
 services:
   mysql:
     image: 'mysql:5.7'
+    networks:
+      mysql_network:
+        aliases:
+          - mysql-docker
+      data_network:
+        aliases:
+          - mysql-docker
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_DATABASE=metakgp_wiki_db
@@ -10,13 +17,15 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
   nginx:
     build: './nginx'
-    links:
-      - php:php-docker
+    networks:
+      main_network:
   php:
     build: './php'
-    links:
-      - mysql:mysql-docker
-      - parsoid:parsoid-docker
+    networks:
+      data_network:
+      main_network:
+        aliases:
+          - php-docker
     environment:
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
       - RECAPTCHA_SECRET_KEY=$RECAPTCHA_SECRET_KEY
@@ -31,3 +40,12 @@ services:
     build: './mediawiki'
   parsoid:
     build: './parsoid'
+    networks:
+      data_network:
+        aliases:
+          - parsoid-docker
+
+networks:
+  main_network:
+  mysql_network:
+  data_network:
