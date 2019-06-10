@@ -20,7 +20,7 @@ If an issue is not assigned; follow through the comments, ask queries about it a
 
 ## Creating issues
 
-If you face any reproducable problem while launching the docker containers or any feature you think should be there, file an issue in the github repository.
+If you face any reproducable problem while launching the docker containers please create an issue. If you feel like there is a feature missing or our documentation is not upto the mark, please make a PR adding or updating the same respectively.
 
 It is expected that you will follow the below guidelines while creating issues:
 
