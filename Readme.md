@@ -10,14 +10,17 @@ New to Docker? See the [Runbook](./RUNBOOK.md) for some useful recipes.
 
 ## Contents
 
-- [Prerequisites](#installation-instructions-for-prerequisites)
-- [Quick Start](#quick-start)
-  - [Initializing the database](#option-1-run-the-web-installer)
-  - [Restoring database from a backup](#option-2-restore-from-backup)
-- [Development](#development)
-  - [Docker Compose Configuration](#compose-configuration)
-  - [Volumes](#volumes)
-- [TODO](#todo)
+- [Metakgp Wiki Setup](#metakgp-wiki-setup)
+    - [Contents](#contents)
+    - [Installation instructions for prerequisites](#installation-instructions-for-prerequisites)
+    - [Quick start](#quick-start)
+        - [Option 1: Run the web installer](#option-1-run-the-web-installer)
+        - [Option 2: Restore from backup](#option-2-restore-from-backup)
+    - [Development](#development)
+        - [Compose configuration](#compose-configuration)
+        - [Volumes](#volumes)
+    - [Todo](#todo)
+    - [Contributing](#contributing)
 
 ## Installation instructions for prerequisites
 
@@ -139,3 +142,7 @@ docker-compose volume rm <volume name>
 
 Check the [issues
 dashboard](https://github.com/metakgp/metakgp-wiki/issues?q=is%3Aissue+is%3Aopen+label%3Afeature).
+
+## Contributing
+
+Please read CONTRIBUTING.md guide to know more.
