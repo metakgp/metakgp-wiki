@@ -22,7 +22,7 @@ declare -a skin_names=( \
     MinervaNeue \
 )
 
-MEDIAWIKI_RELEASE=REL1_30
+MEDIAWIKI_RELEASE=REL1_32
 
 function fetch_extension_url() {
     curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$MEDIAWIKI_RELEASE" \
