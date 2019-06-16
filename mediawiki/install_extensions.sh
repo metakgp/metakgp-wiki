@@ -10,7 +10,6 @@ declare -a extension_names=( \
     ContributionScores \
     Echo \
     MobileFrontend \
-    MultimediaViewer \
     SandboxLink \
     Scribunto \
     VisualEditor \
