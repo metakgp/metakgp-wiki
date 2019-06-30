@@ -2,7 +2,7 @@
 
 ## Deploying to prod
 
-0. Take a backup! Run `docker-compose exec backup run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
+0. Take a backup! Run `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
 0. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
 0. `docker-compose down` shuts down the server and removes containers. Now downtime has started ticking.
 0. `docker volume rm <mediawiki-volume>`, so that the mediawiki container can create a new volume with updates in the next step.
@@ -28,15 +28,16 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-
 ### I want to retrieve the latest backup
 
 ```sh
-# ensure that the backup container is running
+# ensure that the backup container is running and drop into the container's bash
 $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup /bin/bash
-# this will drop you into the container's bash
+# below command will create a new backup of the server
 container $ ./run_backup.sh
-container $ ls /root/backups # to ensure that the backup tar was created
+# to ensure that the backup tar was created
+container $ ls /root/backups 
 container $ exit
 # now copy the created tar file into the host filesystem
 # docker cp doesn't take wildcard paths (??)
-$ docker cp metakgpwiki_backup_1:/root/backups/metakgpwiki_2017_10_23_10_11_44.tar.gz .
+$ docker cp metakgp-wiki_backup_1:/root/backups/metakgpwiki_2017_10_23_10_11_44.tar.gz .
 $ pwd
 ```
 
