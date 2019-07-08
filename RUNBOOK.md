@@ -1,12 +1,23 @@
 # Runbook
 
+## Upgrading MediaWiki Version
+
+Please follow below instructions in order to upgrade the mediawiki version. Refer to [this Pull Request](https://github.com/metakgp/metakgp-wiki/pull/53/files) for an example.
+
+1. Update `mediawiki/Dockerfile` to download the targeted version.
+1. Update `mediawiki/install_extensions.sh` to download compatible mediawiki extensions.
+1. Read through the change log and see if any other updates need to be made.
+1. Try to build, and rectify errors.
+1. Follow instructions mentioned in "Deploying to prod" section.
+1. Run `docker-compose exec php /srv/mediawiki/maintenance/update.php`
+
 ## Deploying to prod
 
-0. Take a backup! Run `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
-0. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
-0. `docker-compose down` shuts down the server and removes containers. Now downtime has started ticking.
-0. `docker volume rm <mediawiki-volume>`, so that the mediawiki container can create a new volume with updates in the next step.
-0. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose exec php /srv/mediawiki/maintenance/update.php`.
+1. Take a backup! Run `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
+1. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
+1. `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down` shuts down the server and removes containers. Now downtime has started ticking.
+1. `docker volume rm <mediawiki-volume>`, so that the mediawiki container can create a new volume with updates in the next step.
+1. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec php /srv/mediawiki/maintenance/update.php`.
 
 ## Docker
 
