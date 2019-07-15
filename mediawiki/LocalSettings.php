@@ -217,7 +217,8 @@ $wgShowDBErrorBacktrace = true;
 $wgDebugToolbar = true;
  */
 
-wfLoadExtensions( array( 'Math', 'ConfirmEdit', 'ConfirmEdit/MathCaptcha' ) );
+wfLoadExtension('Math');
+wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/MathCaptcha' ) );
 $wgCaptchaClass = 'MathCaptcha';
 
 # Present captcha by default
