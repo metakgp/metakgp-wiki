@@ -1,0 +1,307 @@
+{
+	"name": "Math",
+	"version": "3.0.0",
+	"author": [
+		"Tomasz Wegrzanowski",
+		"Brion Vibber",
+		"Moritz Schubotz",
+		"Derk-Jan Hartman"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:Math",
+	"descriptionmsg": "math-desc",
+	"license-name": "GPL-2.0-or-later",
+	"callback": "MathHooks::registerExtension",
+	"type": "parserhook",
+	"AutoloadClasses": {
+		"MathMathSymbolsDataModule": "src/MathMathSymbolsDataModule.php",
+		"MathChemSymbolsDataModule": "src/MathChemSymbolsDataModule.php",
+		"MathHooks": "src/MathHooks.php",
+		"MathRenderer": "src/MathRenderer.php",
+		"MathRestbaseInterface": "src/MathRestbaseInterface.php",
+		"MathSource": "src/MathSource.php",
+		"MathMathML": "src/MathMathML.php",
+		"MathMathMLCli": "src/MathMathMLCli.php",
+		"MathLaTeXML": "MathLaTeXML.php",
+		"MathInputCheck": "src/MathInputCheck.php",
+		"MathInputCheckRestbase": "src/MathInputCheckRestbase.php",
+		"SpecialMathShowImage": "src/SpecialMathShowImage.php",
+		"SpecialMathStatus": "src/SpecialMathStatus.php",
+		"MathValidator": "src/MathValidator.php",
+		"MathFormatter": "src/MathFormatter.php",
+		"MathWikidataHook": "src/MathWikidataHook.php",
+		"MathMLRdfBuilder": "src/MathMLRdfBuilder.php",
+		"MathPng": "src/MathPng.php",
+		"MathDataUpdater": "src/MathDataUpdater.php"
+	},
+	"DefaultUserOptions": {
+		"math": "mathml"
+	},
+	"ExtensionFunctions": [
+		"MathHooks::setup"
+	],
+	"ExtensionMessagesFiles": {
+		"MathAlias": "Math.alias.php",
+		"MathAliasNoTranslate": "Math.alias.noTranslate.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": [
+			"MathHooks::onParserFirstCallInit"
+		],
+		"GetPreferences": [
+			"MathHooks::onGetPreferences"
+		],
+		"LoadExtensionSchemaUpdates": [
+			"MathHooks::onLoadExtensionSchemaUpdates"
+		],
+		"ParserTestTables": [
+			"MathHooks::onParserTestTables"
+		],
+		"PageRenderingHash": [
+			"MathHooks::onPageRenderingHash"
+		],
+		"EditPageBeforeEditToolbar": [
+			"MathHooks::onEditPageBeforeEditToolbar"
+		],
+		"WikibaseClientDataTypes": [
+			"MathWikidataHook::onWikibaseClientDataTypes"
+		],
+		"WikibaseRepoDataTypes": [
+			"MathWikidataHook::onWikibaseRepoDataTypes"
+		],
+		"ParserAfterTidy":[
+			"MathHooks::onParserAfterTidy"
+		]
+	},
+	"config": {
+		"MathCheckFiles": true,
+		"MathDefaultLaTeXMLSetting": {
+			"format": "xhtml",
+			"whatsin": "math",
+			"whatsout": "math",
+			"0": "pmml",
+			"1": "cmml",
+			"2": "mathtex",
+			"3": "nodefaultresources",
+			"preload": [
+				"LaTeX.pool",
+				"article.cls",
+				"amsmath.sty",
+				"amsthm.sty",
+				"amstext.sty",
+				"amssymb.sty",
+				"eucal.sty",
+				"[dvipsnames]xcolor.sty",
+				"url.sty",
+				"hyperref.sty",
+				"[ids]latexml.sty",
+				"texvc"
+			],
+			"linelength": 90
+		},
+		"MathDirectory": false,
+		"MathDisableTexFilter": "new",
+		"MathEnableExperimentalInputFormats": false,
+		"MathFileBackend": false,
+		"MathLaTeXMLTimeout": 240,
+		"MathLaTeXMLUrl": "http://gw125.iu.xsede.org:8888",
+		"MathMathMLTimeout": 20,
+		"MathMathMLUrl": "http://mathoid.testme.wmflabs.org",
+		"MathFullRestbaseURL": "https://wikimedia.org/api/rest_",
+		"MathConcurrentReqs": 50,
+		"MathPath": false,
+		"MathTexvcCheckExecutable": false,
+		"MathoidCli": false,
+		"MathValidModes": [
+			"png",
+			"source",
+			"mathml"
+		],
+		"MathEnableWikibaseDataType": true,
+		"Texvc": false,
+		"TexvcBackgroundColor": "transparent"
+	},
+	"VisualEditorPluginModules": [
+		"ext.math.visualEditor"
+	],
+	"MessagesDirs": {
+		"Math": [
+			"i18n"
+		]
+	},
+	"ResourceModules": {
+		"ext.math.styles": {
+			"styles": "ext.math.css",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		},
+		"ext.math.scripts": {
+			"scripts": "ext.math.js"
+		},
+		"ext.math.editbutton.enabler": {
+			"scripts": "ext.math.editbutton.js",
+			"messages": [
+				"math_tip",
+				"math_sample"
+			]
+		},
+		"ext.math.visualEditor": {
+			"scripts": [
+				"ve-math/ve.dm.MWLatexNode.js",
+				"ve-math/ve.ce.MWLatexNode.js",
+				"ve-math/ve.ui.MWLatexInspector.js",
+				"ve-math/ve.ui.MWLatexContextItem.js",
+				"ve-math/ve.ui.MWLatexPage.js",
+				"ve-math/ve.ui.MWLatexDialog.js",
+				"ve-math/ve.dm.MWChemNode.js",
+				"ve-math/ve.ce.MWChemNode.js",
+				"ve-math/ve.ui.MWChemInspector.js",
+				"ve-math/ve.ui.MWChemContextItem.js",
+				"ve-math/ve.ui.MWChemDialog.js",
+				"ve-math/ve.ui.MWChemDialogTool.js",
+				"ve-math/ve.dm.MWMathNode.js",
+				"ve-math/ve.ce.MWMathNode.js",
+				"ve-math/ve.ui.MWMathInspector.js",
+				"ve-math/ve.ui.MWMathContextItem.js",
+				"ve-math/ve.ui.MWMathDialog.js",
+				"ve-math/ve.ui.MWMathDialogTool.js"
+			],
+			"styles": [
+				"ve-math/ve.ui.MWLatexDialog.css",
+				"ve-math/ve.ce.MWLatexNode.css",
+				"ve-math/ve.ui.MWLatexInspector.css",
+				"ve-math/ve.ui.MWLatexPage.css"
+			],
+			"dependencies": [
+				"ext.visualEditor.mwcore",
+				"ext.math.visualEditor.icons",
+				"ext.math.styles"
+			],
+			"messages": [
+				"math-visualeditor-mwchemdialog-title",
+				"math-visualeditor-mwlatexcontextitem-quickedit",
+				"math-visualeditor-mwlatexdialog-card-formula",
+				"math-visualeditor-mwlatexdialog-card-options",
+				"math-visualeditor-mwlatexinspector-display",
+				"math-visualeditor-mwlatexinspector-display-block",
+				"math-visualeditor-mwlatexinspector-display-default",
+				"math-visualeditor-mwlatexinspector-display-inline",
+				"math-visualeditor-mwlatexinspector-id",
+				"math-visualeditor-mwmathdialog-title",
+				"math-visualeditor-symbol-group-chem-addition",
+				"math-visualeditor-symbol-group-chem-aggregation",
+				"math-visualeditor-symbol-group-chem-arrows",
+				"math-visualeditor-symbol-group-chem-brackets",
+				"math-visualeditor-symbol-group-chem-charges",
+				"math-visualeditor-symbol-group-chem-dots",
+				"math-visualeditor-symbol-group-chem-equations",
+				"math-visualeditor-symbol-group-chem-formulae",
+				"math-visualeditor-symbol-group-chem-greek",
+				"math-visualeditor-symbol-group-chem-isotopes",
+				"math-visualeditor-symbol-group-chem-operators",
+				"math-visualeditor-symbol-group-chem-oxidation",
+				"math-visualeditor-symbol-group-chem-precipitate",
+				"math-visualeditor-symbol-group-chem-stoichiometric",
+				"math-visualeditor-symbol-group-math-accents",
+				"math-visualeditor-symbol-group-math-arrows",
+				"math-visualeditor-symbol-group-math-bounds",
+				"math-visualeditor-symbol-group-math-derivatives",
+				"math-visualeditor-symbol-group-math-functions",
+				"math-visualeditor-symbol-group-math-geometry",
+				"math-visualeditor-symbol-group-math-greek",
+				"math-visualeditor-symbol-group-math-hebrew",
+				"math-visualeditor-symbol-group-math-large",
+				"math-visualeditor-symbol-group-math-logic",
+				"math-visualeditor-symbol-group-math-matrices",
+				"math-visualeditor-symbol-group-math-modular",
+				"math-visualeditor-symbol-group-math-operators",
+				"math-visualeditor-symbol-group-math-parentheses",
+				"math-visualeditor-symbol-group-math-projections",
+				"math-visualeditor-symbol-group-math-relations",
+				"math-visualeditor-symbol-group-math-root",
+				"math-visualeditor-symbol-group-math-sets",
+				"math-visualeditor-symbol-group-math-spacing",
+				"math-visualeditor-symbol-group-math-special",
+				"math-visualeditor-symbol-group-math-subscripts",
+				"math-visualeditor-symbol-group-math-symbols",
+				"math-visualeditor-symbol-group-math-typefaces",
+				"math-visualeditor-symbol-group-math-unsorted"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		},
+		"ext.math.visualEditor.mathSymbolsData": {
+			"class": "MathMathSymbolsDataModule"
+		},
+		"ext.math.visualEditor.mathSymbols": {
+			"styles": [
+				"ve-math/ve.ui.MWMathSymbols.css"
+			],
+			"dependencies": [
+				"ext.math.visualEditor.mathSymbolsData"
+			]
+		},
+		"ext.math.visualEditor.chemSymbolsData": {
+			"class": "MathChemSymbolsDataModule"
+		},
+		"ext.math.visualEditor.chemSymbols": {
+			"styles": [
+				"ve-math/ve.ui.MWChemSymbols.css"
+			],
+			"dependencies": [
+				"ext.math.visualEditor.chemSymbolsData"
+			]
+		},
+		"ext.math.visualEditor.icons": {
+			"class": "ResourceLoaderImageModule",
+			"selectorWithoutVariant": ".oo-ui-icon-{name}",
+			"selectorWithVariant": ".oo-ui-image-{variant}.oo-ui-icon-{name}",
+			"variants": {
+				"progressive": {
+					"color": "#36c"
+				},
+				"invert": {
+					"color": "#fff"
+				}
+			},
+			"images": {
+				"math": {
+					"file": "ve-math/math.svg",
+					"variants": [ "progressive" ]
+				},
+				"math-display-block": {
+					"file": "ve-math/math-display-block.svg",
+					"variants": [ "invert" ]
+				},
+				"math-display-default": {
+					"file": "ve-math/math-display-default.svg",
+					"variants": [ "invert" ]
+				},
+				"math-display-inline": {
+					"file": "ve-math/math-display-inline.svg",
+					"variants": [ "invert" ]
+				},
+				"chem": {
+					"file": "ve-math/chem.svg",
+					"variants": [ "progressive" ]
+				}
+			}
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "Math/modules"
+	},
+	"SpecialPages": {
+		"MathShowImage": "SpecialMathShowImage",
+		"MathStatus": "SpecialMathStatus"
+	},
+	"TrackingCategories": [
+		"math-tracking-category-error",
+		"math-tracking-category-render-error"
+	],
+	"manifest_version": 1
+}

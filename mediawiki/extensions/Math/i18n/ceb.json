@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jordz",
+			"Leeheonjin"
+		]
+	},
+	"math-visualeditor-symbol-group-math-geometry": "Heometriya",
+	"math_sample": "I-insert dinhi ang formula",
+	"math_tip": "Mathematical formula (LaTeX)",
+	"prefs-math": "Math"
+}

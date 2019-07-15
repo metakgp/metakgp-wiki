@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nghtwlkr",
+			"Njardarlogar"
+		]
+	},
+	"math_bad_output": "Kan ikkje skrive til eller laga mattemappe",
+	"math_bad_tmpdir": "Kan ikkje skrive til eller laga mellombels mattemappe",
+	"math_failure": "Klarte ikkje å tolke formelen",
+	"math_image_error": "PNG-konverteringa var mislukka; sjekk at latex og dvipng (eller dvips + gs + convert) er rett installerte",
+	"math_lexing_error": "lexerfeil",
+	"math_notexvc": "Manglar <code>texvc</code>-program; sjå math/README for konfigurasjon.",
+	"math_sample": "Skriv formel her",
+	"math_syntax_error": "syntaksfeil",
+	"math_tip": "Matematisk formel (LaTeX)",
+	"math-tracking-category-render-error": "Sider med mattevisingsfeil‎",
+	"math_unknown_error": "ukjend feil",
+	"math_unknown_function": "ukjend funksjon",
+	"mw_math_mathml": "MathML dersom mogleg (eksperimentell)",
+	"mw_math_png": "Vis alltid som PNG",
+	"mw_math_source": "Behald som TeX (for tekst-nettlesarar)",
+	"prefs-math": "Matematiske formlar",
+	"datatypes-type-math": "Matematisk uttrykk",
+	"wikibase-listdatatypes-math-head": "Matematisk uttrykk",
+	"wikibase-listdatatypes-math-body": "Literalt datafelt for matematiske uttrykk, formlar, likningar og tilsvarande, uttrykt i ein variant av LaTeX."
+}

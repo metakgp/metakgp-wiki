@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"EugeneZelenko",
+			"Jim-by",
+			"Wizardist",
+			"Red Winged Duck",
+			"Macofe",
+			"Renessaince"
+		]
+	},
+	"math-desc": "Выводзіць матэматычныя формулы, запісаныя паміж тэгамі <code>&lt;math&gt;</code> і <code>&lt;/math&gt;</code>",
+	"math-visualeditor-mwlatexcontextitem-quickedit": "Хуткая праўка",
+	"math_bad_output": "Немагчыма запісаць ці стварыць выходную матэматычную дырэкторыю",
+	"math_bad_tmpdir": "Немагчыма запісаць ці стварыць часовую дырэкторыю для матэматыкі",
+	"math_failure": "Немагчыма разабраць",
+	"math_image_error": "Памылка пераўтварэньня ў фармат PNG;\nправерце слушнасьць усталяваньня latex, dvips (ці dvips + gs + convert)",
+	"math_lexing_error": "лексычная памылка",
+	"math_notexvc": "Выканаўчы модуль <code>texvc</code> ня знойдзены.\nКалі ласка, прачытайце math/README пра яго канфігурацыю.",
+	"math_output_error": "Не ўдалося захаваць выяву выразу ў файлавай сыстэме.",
+	"math_sample": "Зьмясьціце тут формулу",
+	"math_syntax_error": "сынтаксычная памылка",
+	"math_tip": "Матэматычная формула (LaTeX)",
+	"math-tracking-category-error": "Старонкі з матэматычнымі памылкамі",
+	"math-tracking-category-render-error": "Старонкі з памылкамі ў матэматычных формулах",
+	"math_unknown_error": "невядомая памылка",
+	"math_unknown_function": "невядомая функцыя '$1'",
+	"mw_math_latexml": "LaTeXML (экспэрымэнтальна; ужывае MathML)",
+	"mw_math_mathml": "MathML зь вяртаньнем да SVG ці PNG (рэкамэндуецца для сучасных браўзэраў і інструмэнтаў падвышэньня даступнасьці)",
+	"mw_math_png": "PNG-выявы",
+	"mw_math_source": "LaTeX-разьметка (для тэкставых браўзэраў)",
+	"prefs-math": "Матэматычныя формулы",
+	"mathstatus": "Генэрацыя матэматычных формулаў",
+	"wikibase-listdatatypes-math-head": "Матэматычны выраз"
+}
