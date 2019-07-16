@@ -10,7 +10,6 @@ declare -a extension_names=( \
     ContributionScores \
     Echo \
     MobileFrontend \
-    MultimediaViewer \
     SandboxLink \
     Scribunto \
     VisualEditor \
@@ -22,7 +21,7 @@ declare -a skin_names=( \
     MinervaNeue \
 )
 
-MEDIAWIKI_RELEASE=REL1_30
+MEDIAWIKI_RELEASE=REL1_32
 
 function fetch_extension_url() {
     curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$MEDIAWIKI_RELEASE" \
@@ -59,4 +58,4 @@ wget -q https://github.com/leucosticte/RecentPages/archive/master.zip \
     && mv RecentPages/RecentPages-master /srv/mediawiki/extensions/RecentPages
 
 # Make Lua executable
-chmod a+x /srv/mediawiki/extensions/Scribunto/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
+chmod a+x /srv/mediawiki/extensions/Scribunto/includes/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
