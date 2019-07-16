@@ -7,6 +7,8 @@ services:
   nginx:
     volumes:
       - mediawiki-test-volume:/srv/mediawiki
+    ports:
+      - "${SERVER_PORT}:80"
   php:
     volumes:
       - mediawiki-test-volume:/srv/mediawiki
