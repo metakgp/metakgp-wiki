@@ -154,3 +154,4 @@ Please read CONTRIBUTING.md guide to know more.
 This section lists PRs that can be viewed as example for performing particular updates or maintenance tasks.
 
 - How to change captcha service used with ConfirmEdit extension. [#56](https://github.com/metakgp/metakgp-wiki/pull/56)
+- How to upgrade mediawiki version. [#60](https://github.com/metakgp/metakgp-wiki/pull/60)

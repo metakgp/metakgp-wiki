@@ -2,7 +2,7 @@
   "require": {
       "firebase/php-jwt": "~3.0",
       "james-heinrich/getid3": "~1.9",
-      "mediawiki/maps": "~4.3",
+      "mediawiki/maps": "^7",
       "pear/console_getopt": "~1.4",
       "pear/mail": "~1.3",
       "pear/mail_mime": "~1.10",
