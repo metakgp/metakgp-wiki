@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7-fpm-jessie
 RUN apt-get -qq update && apt-get -qq install -y \
             build-essential \
             git-core \
