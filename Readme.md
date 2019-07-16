@@ -1,5 +1,4 @@
 # Metakgp Wiki Setup
-
 [![Build Status](https://travis-ci.org/metakgp/metakgp-wiki.svg?branch=master)](https://travis-ci.org/metakgp/metakgp-wiki)
 
 Dockerized for fun and profit.
@@ -11,18 +10,17 @@ New to Docker? See the [Runbook](./RUNBOOK.md) for some useful recipes.
 
 ## Contents
 
-- [Metakgp Wiki Setup](#Metakgp-Wiki-Setup)
-  - [Contents](#Contents)
-  - [Installation instructions for prerequisites](#Installation-instructions-for-prerequisites)
-  - [Quick start](#Quick-start)
-    - [Option 1: Run the web installer](#Option-1-Run-the-web-installer)
-    - [Option 2: Restore from backup](#Option-2-Restore-from-backup)
-  - [Development](#Development)
-    - [Compose configuration](#Compose-configuration)
-    - [Volumes](#Volumes)
-  - [Todo](#Todo)
-  - [Contributing](#Contributing)
-  - [Helping PRs](#Helping-PRs)
+- [Metakgp Wiki Setup](#metakgp-wiki-setup)
+    - [Contents](#contents)
+    - [Installation instructions for prerequisites](#installation-instructions-for-prerequisites)
+    - [Quick start](#quick-start)
+        - [Option 1: Run the web installer](#option-1-run-the-web-installer)
+        - [Option 2: Restore from backup](#option-2-restore-from-backup)
+    - [Development](#development)
+        - [Compose configuration](#compose-configuration)
+        - [Volumes](#volumes)
+    - [Todo](#todo)
+    - [Contributing](#contributing)
 
 ## Installation instructions for prerequisites
 
@@ -148,9 +146,3 @@ dashboard](https://github.com/metakgp/metakgp-wiki/issues?q=is%3Aissue+is%3Aopen
 ## Contributing
 
 Please read CONTRIBUTING.md guide to know more.
-
-## Helping PRs
-
-This section lists PRs that can be viewed as example for performing particular updates or maintenance tasks.
-
-- How to change captcha service used with ConfirmEdit extension. [#56](https://github.com/metakgp/metakgp-wiki/pull/56)
