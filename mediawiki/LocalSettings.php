@@ -427,6 +427,9 @@ wfLoadExtension( 'SimpleBatchUpload' );
 $wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
 
 # Maps extension; installed through composer
+wfLoadExtension( 'Maps' );
+# required to change maps settings
+require_once __DIR__ . '/extensions/Maps/Maps_Settings.php';
 $GLOBALS['egMapsGMaps3ApiKey'] = getenv('GOOGLE_MAPS_API_KEY', true);
 $GLOBALS['egMapsDefaultService'] = 'googlemaps3';
 
