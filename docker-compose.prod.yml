@@ -12,8 +12,8 @@ services:
       - static-volume:/srv/static
   backup:
     build: './backup'
-    links:
-      - mysql:mysql-docker
+    networks:
+      mysql_network:
     environment:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
@@ -29,3 +29,6 @@ services:
 volumes:
   mediawiki-volume:
   static-volume:
+
+networks:
+  mysql_network:
