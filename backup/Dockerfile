@@ -1,4 +1,4 @@
-FROM python:2
+FROM python:2-jessie
 RUN apt-get -qq update && apt-get -qq install -y \
       cron \
       mysql-client \
