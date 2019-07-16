@@ -67,7 +67,7 @@ for i in {1..24}; do
     fi
 done
 
-# Find the port that nginx is mapped to (needs to be 8080 as hard-coded in `.env`)
+# Find the port that nginx is mapped to
 NGINX_ADDR=$(docker-compose port nginx 80)
 
 info "Initializing database"
