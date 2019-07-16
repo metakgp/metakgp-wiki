@@ -1,9 +1,0 @@
-!! test
-pre-save transform: comment containing math
-!! options
-pst
-!! input
-<!-- <math>data</math> -->
-!!result
-<!-- <math>data</math> -->
-!!end

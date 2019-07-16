@@ -217,9 +217,10 @@ $wgShowDBErrorBacktrace = true;
 $wgDebugToolbar = true;
  */
 
-wfLoadExtension('Math');
-wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/MathCaptcha' ) );
-$wgCaptchaClass = 'MathCaptcha';
+wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
+$wgCaptchaClass = 'ReCaptchaNoCaptcha';
+$wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
+$wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 
 # Present captcha by default
 $wgCaptchaTriggers['edit'] = true;
@@ -228,8 +229,6 @@ $wgCaptchaTriggers['create'] = true;
 # Skip CAPTCHA for the no-captcha group
 $wgGroupPermissions['no-captcha']['skipcaptcha'] = true;
 # $ceAllowConfirmedEmail = true;
-# $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
-# $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
 
 # Rate limit to prevent brute-forcing captchas
 # 3 wrong captchas allowed every 10 minutes per IP
