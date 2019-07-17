@@ -41,6 +41,7 @@ services:
   parsoid:
     build: './parsoid'
     networks:
+      main_network:
       data_network:
         aliases:
           - parsoid-docker
