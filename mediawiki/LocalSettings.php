@@ -221,6 +221,7 @@ wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
 $wgCaptchaClass = 'ReCaptchaNoCaptcha';
 $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
 $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
+$wgReCaptchaSendRemoteIP = true;
 
 # Present captcha by default
 $wgCaptchaTriggers['edit'] = true;
