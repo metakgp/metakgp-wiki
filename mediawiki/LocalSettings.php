@@ -441,3 +441,10 @@ $wgArticleFeedbackv5LotteryOdds = 100;
 # StopForumSpam
 wfLoadExtension( 'StopForumSpam' );
 $wgSFSIPListLocation = "$IP/extensions/StopForumSpam/listed_ip_30_ipv46/listed_ip_30_ipv46.txt";
+
+# URL SpamBlacklist
+wfLoadExtension( 'SpamBlacklist' );
+$wgSpamBlacklistFiles = array(
+   "[[m:Spam blacklist]]", # from meta-wiki
+   "https://en.wikipedia.org/wiki/MediaWiki:Spam-blacklist" # from wikipedia
+);
