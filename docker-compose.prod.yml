@@ -25,6 +25,8 @@ services:
     environment:
       - BATMAN_BOT_PASSWORD=$BATMAN_BOT_PASSWORD
       - GOOGLE_ANALYTICS_SERVICE_KEY=$GOOGLE_ANALYTICS_SERVICE_KEY
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
 
 volumes:
   mediawiki-volume:
