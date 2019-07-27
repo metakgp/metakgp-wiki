@@ -64,4 +64,4 @@ chmod a+x /srv/mediawiki/extensions/Scribunto/includes/engines/LuaStandalone/bin
 # Download StopForumSpam blacklist
 wget -q https://www.stopforumspam.com/downloads/listed_ip_30_ipv46.zip \
     && unzip listed_ip_30_ipv46.zip -d listed_ip_30_ipv46 \
-    && mv listed_ip_30_ipv46 /srv/mediawiki/extensions/StopForumSpam/listed_ip_30_ipv46
+    && mv listed_ip_30_ipv46 /srv/mediawiki/extensions/StopForumSpam/
