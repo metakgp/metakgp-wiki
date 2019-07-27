@@ -437,3 +437,7 @@ $GLOBALS['egMapsDefaultService'] = 'googlemaps3';
 # ArticleFeedbackv5
 wfLoadExtension( 'ArticleFeedbackv5' );
 $wgArticleFeedbackv5LotteryOdds = 100;
+
+# StopForumSpam
+wfLoadExtension( 'StopForumSpam' );
+$wgSFSIPListLocation = "$IP/extensions/StopForumSpam/listed_ip_30_ipv46/listed_ip_30_ipv46.txt";

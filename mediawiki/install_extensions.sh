@@ -12,6 +12,7 @@ declare -a extension_names=( \
     MobileFrontend \
     SandboxLink \
     Scribunto \
+    StopForumSpam \
     VisualEditor \
     WikimediaMessages \
     googleAnalytics \
@@ -59,3 +60,8 @@ wget -q https://github.com/leucosticte/RecentPages/archive/master.zip \
 
 # Make Lua executable
 chmod a+x /srv/mediawiki/extensions/Scribunto/includes/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
+
+# Download StopForumSpam blacklist
+wget -q https://www.stopforumspam.com/downloads/listed_ip_30_ipv46.zip \
+    && unzip listed_ip_30_ipv46.zip -d listed_ip_30_ipv46 \
+    && mv listed_ip_30_ipv46 /srv/mediawiki/extensions/StopForumSpam/listed_ip_30_ipv46

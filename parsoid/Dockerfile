@@ -1,4 +1,4 @@
-FROM node:8-jessie
+FROM node:10-jessie
 RUN apt-get -qq update && apt-get -qq install -y \
             git-core
 
@@ -8,7 +8,7 @@ WORKDIR /home/parsoid
 
 RUN git clone https://gerrit.wikimedia.org/r/p/mediawiki/services/parsoid && \
     cd parsoid && \
-    git checkout v0.8.1 && \
+    git checkout v0.10.0 && \
     npm install
 
 WORKDIR /home/parsoid/parsoid

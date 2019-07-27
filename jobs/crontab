@@ -2,3 +2,4 @@
 
 11 * * * * /root/update_top_trending.sh
 * * * * 1 /root/MetaMaint.sh
+47 3 * * * /root/update_spam_blacklist.sh
