@@ -89,16 +89,14 @@ $DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
 # Move LocalSettings.php back in place
 $DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
 
-# CheckUser fails on a fresh install, move it out of the way
+# CheckUser makes update.php fail on a fresh install, move it out of the way
 $DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
-$DOCKER_COMPOSE exec -T php mv $WIKI/extensions/CheckUser/maintenance $WIKI/extensions/CheckUser/maintenance.bak
 
 # Run update.php for creating any required tables
 $DOCKER_COMPOSE exec -T php php $WIKI/maintenance/update.php --quick
 
 # Restore CheckUser
 $DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php
-$DOCKER_COMPOSE exec -T php mv $WIKI/extensions/CheckUser/maintenance.bak $WIKI/extensions/CheckUser/maintenance
 
 
 # ----- Tests start here -----
