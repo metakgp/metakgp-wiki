@@ -89,6 +89,10 @@ $DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
 # Move LocalSettings.php back in place
 $DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
 
+# Run update.php for creating any required tables
+$DOCKER_COMPOSE exec -T php php $WIKI/maintenance/update.php
+
+
 # ----- Tests start here -----
 
 # main page loads correctly
