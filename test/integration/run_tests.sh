@@ -89,15 +89,40 @@ $DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
 # Move LocalSettings.php back in place
 $DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
 
-# Sample test only; more comprehensive tests to follow
+# CheckUser makes update.php fail on a fresh install, move it out of the way
+$DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
+
+# Run update.php for creating any required tables
+$DOCKER_COMPOSE exec -T php php $WIKI/maintenance/update.php --quick
+
+# Restore CheckUser
+$DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php
+
+
+# ----- Tests start here -----
+
+# main page loads correctly
 CURL_OUTPUT=$(curl -sSL $NGINX_ADDR)
 if [[ $CURL_OUTPUT != *"Powered by MediaWiki"* ]]; then
     error "Main page failed to load properly: "$CURL_OUTPUT
 fi
 
+# mobile main page loads correctly
 MOBILE_CURL_OUTPUT=$(curl -sSL $NGINX_ADDR'/index.php?title=Main_Page&mobileaction=toggle_view_mobile')
 if [[ $MOBILE_CURL_OUTPUT != *"Special:MobileMenu"* ]]; then
     error "Main page failed to load properly on mobile: "$MOBILE_CURL_OUTPUT
+fi
+
+# article feedback loads correctly
+AFV5_CURL_OUTPUT=$(curl -sSL $NGINX_ADDR'/w/Special:ArticleFeedbackv5')
+if [[ $AFV5_CURL_OUTPUT != *"Central Feedback Page"* ]]; then
+    error "Article Feedback failed to load properly: "$AFV5_CURL_OUTPUT
+fi
+
+# user contributions loads correctly
+CONTRIBS_CURL_OUTPUT=$(curl -sSL $NGINX_ADDR'/w/Special:Contributions/Admin')
+if [[ $CONTRIBS_CURL_OUTPUT != *"Search for contributions"* ]]; then
+    error "Contributions page failed to load properly: "$CONTRIBS_CURL_OUTPUT
 fi
 
 info "Tests complete"
