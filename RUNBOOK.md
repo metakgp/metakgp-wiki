@@ -19,6 +19,12 @@ Please follow below instructions in order to upgrade the mediawiki version. Refe
 1. `docker volume rm metakgp-wiki_mediawiki-volume`, so that the mediawiki container can create a new volume with updates in the next step.
 1. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec php /srv/mediawiki/maintenance/update.php`.
 
+Below is the single command which needs to be run once inside the repository directory.
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh && git pull && docker-compose build && docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down && docker volume rm metakgp-wiki_mediawiki-volume && docker-compose up --build -d && docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec php /srv/mediawiki/maintenance/update.ph
+```
+
 ## Docker
 
 > Docker is hard, let this file be your guide if your only goal is to ensure the
