@@ -226,9 +226,9 @@ $wgCaptchaClass = 'QuestyCaptcha';
 
 # case-insensitive, but answers must be written here in lowercase
 $wgCaptchaQuestions = [
-	'What is the 3 letter station code for Kharagpur Railway Junction?' => 'kgp',
-	'What is the capital of the state IIT KGP is in' => ['kolkata, calcutta'],
-	'What is the name of our social-cultural fest?' => [ 'springfest', 'spring fest', 'sf' ],
+    'What is the 3 letter station code for Kharagpur Railway Junction?' => 'kgp',
+    'What is the capital of the state IIT KGP is in' => ['kolkata, calcutta'],
+    'What is the name of our social-cultural fest?' => [ 'springfest', 'spring fest', 'sf' ],
     'What is the name of our techno-management fest?' => ['kshitij', 'ktj'],
     'What is the closest neighbouring country to IIT KGP?' => 'bangladesh',
 ];
