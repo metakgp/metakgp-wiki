@@ -217,11 +217,26 @@ $wgShowDBErrorBacktrace = true;
 $wgDebugToolbar = true;
  */
 
-wfLoadExtensions( array( 'ConfirmEdit', 'ConfirmEdit/ReCaptchaNoCaptcha' ) );
-$wgCaptchaClass = 'ReCaptchaNoCaptcha';
+wfLoadExtensions( array(
+    'ConfirmEdit',
+    // 'ConfirmEdit/ReCaptchaNoCaptcha',
+    'ConfirmEdit/QuestyCaptcha' ) );
+
+$wgCaptchaClass = 'QuestyCaptcha';
+
+# case-insensitive, but answers must be written here in lowercase
+$wgCaptchaQuestions = [
+    'What is the 3 letter station code for Kharagpur Railway Junction?' => 'kgp',
+    'What is the capital of the state IIT KGP is in' => ['kolkata, calcutta'],
+    'What is the name of our social-cultural fest?' => [ 'springfest', 'spring fest', 'sf' ],
+    'What is the name of our techno-management fest?' => ['kshitij', 'ktj'],
+    'What is the closest neighbouring country to IIT KGP?' => 'bangladesh',
+];
+
+/*$wgCaptchaClass = 'ReCaptchaNoCaptcha';
 $wgReCaptchaSiteKey = '6LdItAoTAAAAALJJ011ZgHC5tna4r2DIkVYu9jyR';
 $wgReCaptchaSecretKey = getenv('RECAPTCHA_SECRET_KEY', true);
-$wgReCaptchaSendRemoteIP = true;
+$wgReCaptchaSendRemoteIP = true;*/
 
 # Present captcha by default
 $wgCaptchaTriggers['edit'] = true;
@@ -232,8 +247,8 @@ $wgGroupPermissions['no-captcha']['skipcaptcha'] = true;
 # $ceAllowConfirmedEmail = true;
 
 # Rate limit to prevent brute-forcing captchas
-# 3 wrong captchas allowed every 10 minutes per IP
-$wgRateLimits['badcaptcha']['ip'] = array( 3, 10 * 60 );
+# 20 wrong captchas allowed every 10 minutes per IP
+$wgRateLimits['badcaptcha']['ip'] = array( 20, 10 * 60 );
 
 $wgJobRunRate = 1;
 $wgRunJobsAsync = true;
