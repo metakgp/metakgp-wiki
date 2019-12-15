@@ -6,10 +6,12 @@ RUN useradd --create-home --shell /bin/bash parsoid
 USER parsoid
 WORKDIR /home/parsoid
 
-RUN git clone https://gerrit.wikimedia.org/r/mediawiki/services/parsoid && \
-    cd parsoid && \
-    git checkout v0.10.0 && \
-    npm install
+RUN git clone \
+        --depth 1 \
+        --branch v0.10.0 \
+        https://gerrit.wikimedia.org/r/mediawiki/services/parsoid && \
+        cd parsoid && \
+        npm install
 
 WORKDIR /home/parsoid/parsoid
 COPY config.yaml ./
