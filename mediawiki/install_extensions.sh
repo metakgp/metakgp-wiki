@@ -11,7 +11,6 @@ declare -a extension_names=( \
     Echo \
     MobileFrontend \
     SandboxLink \
-    Scribunto \
     StopForumSpam \
     VisualEditor \
     WikimediaMessages \
