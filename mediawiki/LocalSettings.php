@@ -149,6 +149,15 @@ $wgSMTP = array(
 
 wfLoadExtension('ParserFunctions');
 wfLoadExtension('Cite');
+
+# RecentPages uses this constant. Starting PHP 7.2.0, referring to undefined
+# constants raises a warning and will eventually throw an error.
+# This value is used by RecentPages as the first argument to the wfGetDB global
+# function. This value MUST be an integer.
+if ( !defined( 'DB_SLAVE' ) ) {
+  define('DB_SLAVE', 0);
+}
+
 require_once "$IP/extensions/RecentPages/RecentPages.php";
 wfLoadExtension('WikimediaMessages');
 
