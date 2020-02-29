@@ -1,4 +1,4 @@
-FROM php:7-fpm-jessie
+FROM php:7.3-fpm-buster
 
 RUN apt-get -qq update && apt-get -qq install -y \
       git wget unzip
