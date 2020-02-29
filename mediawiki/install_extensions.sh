@@ -18,8 +18,6 @@ declare -a extension_names=( \
 )
 
 declare -A extension_version_overrides=( \
-    # remove once we upgrade to mediawiki 1.34
-    ["ArticleFeedbackv5"]="master" \
 )
 
 declare -a skin_names=( \
