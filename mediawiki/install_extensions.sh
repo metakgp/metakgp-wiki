@@ -11,7 +11,6 @@ declare -a extension_names=( \
     Echo \
     MobileFrontend \
     SandboxLink \
-    Scribunto \
     StopForumSpam \
     VisualEditor \
     WikimediaMessages \
@@ -19,15 +18,13 @@ declare -a extension_names=( \
 )
 
 declare -A extension_version_overrides=( \
-    # remove once we upgrade to mediawiki 1.34
-    ["ArticleFeedbackv5"]="master" \
 )
 
 declare -a skin_names=( \
     MinervaNeue \
 )
 
-MEDIAWIKI_RELEASE=REL1_33
+MEDIAWIKI_RELEASE=REL1_34
 
 function fetch_extension_url() {
     curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$2" \
