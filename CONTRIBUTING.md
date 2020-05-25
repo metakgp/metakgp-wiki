@@ -35,7 +35,6 @@ While sending a PR, always remember not to send one from your master branch; it 
 It is highly recommended to follow the below guidelines while writing commits and sending PRs:
 
 - https://blog.github.com/2015-01-21-how-to-write-the-perfect-pull-request/
-- https://code.likeagirl.io/useful-tips-for-writing-better-git-commit-messages-808770609503
 
 ## Communication
 
