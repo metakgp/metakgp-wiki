@@ -43,7 +43,6 @@ deploy () {
 
 	# TODO: Change default to the server location
 	local config_path=${METAKGP_WIKI_PATH:-$HOME/code/metakgp/metakgp-wiki}
-
 	cd "$config_path"
 
 	# TODO: Fail if docker or docker-compose not found
@@ -57,7 +56,7 @@ deploy () {
 
 	${backup_container_exec} ./run_backup.sh 2>/dev/null
 
-	echo "STEP: Get latest backup and store inside $source_dir/.backups"
+	echo "STEP: Copy backup and store inside $source_dir/.backups"
 
 	mkdir -p "$source_dir/.backups"
 	# TODO: Strange head commands to get rid of the newlines at the end. Use gawk instead?
@@ -69,7 +68,29 @@ deploy () {
 	echo "STEP: Deployed version"
 	git log --oneline | head -n1
 
+	echo "STEP: Merge branch and build Docker images"
+	git merge --ff-only origin/master
 
+	if [[ "$?" != "0" ]];
+	then
+		echo "ERROR: HEAD does not seem to contain master, can deploy only ff-only branches"
+		return 1
+	fi
+
+	local docker_compose_override="${docker_compose} -f docker-compose.yml \
+					  -f docker-compose.override.yml \
+					  -f docker-compose.prod.yml"
+
+	echo "STEP: Bring all containers down (Downtime begin) $(date +%s)"
+
+	${docker_compose_override} down
+
+	local volume_metakgp="metakgp-wiki_mediawiki-volume"
+	docker volume rm "$volume_metakgp"
+
+	${docker_compose_override} up --build -d
+
+	echo "STEP: Bring all containers down (Downtime end) $(date +%s)"
 
 	echo "END: deploying metakgp-wiki"
 }
