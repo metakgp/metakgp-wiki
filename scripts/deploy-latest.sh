@@ -23,6 +23,8 @@ base_branch="master"
 deploy_branch="master"
 
 deploy () {
+	local go="${1}"
+
 	local source_dir=$(pwd)
 	echo "START: metakgp-wiki deploy"
 
@@ -30,7 +32,7 @@ deploy () {
 	cd "$config_path" || return 2
 
 	echo "STEP: Ensure that current branch is $base_branch"
-	local branch=$(git rev-parse --abbrev-ref HEAD)
+	local branch=$(git rev-parse --abbrev-ref $base_branch)
 	if [[ "$branch" != "$base_branch" ]];
 	then
 		echo "Current branch is not $base_branch. Continue with deployment? (y/N)"
@@ -87,6 +89,12 @@ deploy () {
 	echo "STEP: Deployed version"
 	git log --oneline | head -n1
 
+	if [[ "$go" != "--go" ]];
+	then
+		echo "DRY RUN: Stopping deploy; Run with --go to continue beyond this point"
+		return 0
+	fi
+
 	echo "STEP: Merge branch and build Docker images"
 	git merge --ff-only $deploy_branch
 
@@ -128,8 +136,16 @@ deploy () {
 	echo "END: deploying metakgp-wiki"
 }
 
+if [[ "$1" == "-h" || "$1" == "--help" ]];
+then
+	echo "./deploy-latest.sh [--go]"
+	exit 0
+fi
+
 source_dir=$(pwd)
-deploy
+
+deploy $1
+
 exit_code=$?
 cd "$source_dir"
 exit ${exit_code}
