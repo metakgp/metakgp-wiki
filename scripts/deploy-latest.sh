@@ -6,6 +6,9 @@
 
 # set -x
 
+# TODO:
+# 1. Include the real username (or at least users who are logged in to the server)
+# 2. Include the old commit and the commit that is going to be deployed
 deploy_message () {
 	local action=$1
 	case $action in
@@ -20,7 +23,7 @@ deploy_message () {
 
 # TODO: Better as parameters to the deploy function?
 base_branch="master"
-deploy_branch="master"
+deploy_branch="origin/master"
 
 deploy () {
 	local go="${1}"
