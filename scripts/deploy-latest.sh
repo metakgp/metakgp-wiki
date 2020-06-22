@@ -108,10 +108,11 @@ deploy () {
 					  -f docker-compose.override.yml \
 					  -f docker-compose.prod.yml"
 
+	# TODO: Move to a function
 	if [[ -n "$SLACK_NOTIFICATIONS_URL" ]];
 	then
 		curl -s -H 'content-type: application/json' \
-			 -d '{ "text": "'$(deploy_message "start")'" }' \
+			 -d "{ \"text\": \"$(deploy_message start)\" }" \
 			 "$SLACK_NOTIFICATIONS_URL"
 	fi
 
@@ -126,10 +127,11 @@ deploy () {
 
 	echo "STEP: Bring all containers down (Downtime end) $(date +%s)"
 
+	# TODO: Move to a function
 	if [[ -n "$SLACK_NOTIFICATIONS_URL" ]];
 	then
 		curl -s -H 'content-type: application/json' \
-			 -d '{ "text": "'$(deploy_message "start")'" }' \
+			 -d "{ \"text\": \"$(deploy_message end)\" }" \
 			 "$SLACK_NOTIFICATIONS_URL"
 	fi
 
