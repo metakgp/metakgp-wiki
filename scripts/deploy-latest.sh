@@ -1,16 +1,39 @@
 #!/usr/bin/env bash
 
+# Environment variables:
+# 1. METAKGP_WIKI_PATH => Path to the cloned metakgp/metakgp-wiki repository
+# 2. SLACK_NOTIFICATIONS_URL => Webhook URL to which notifications will be sent as a Post request
+
 # set -x
+
+deploy_message () {
+	local action=$1
+	case $action in
+		"start")
+			echo "Deploy begin: User $(whoami) is deploying to metakgp-wiki"
+			;;
+		"end")
+			echo "Deploy end: Completed deployment"
+			;;
+	esac
+}
+
+# TODO: Better as parameters to the deploy function?
+base_branch="master"
+deploy_branch="master"
 
 deploy () {
 	local source_dir=$(pwd)
 	echo "START: metakgp-wiki deploy"
 
-	echo "STEP: Ensure that current branch is master"
+	local config_path=${METAKGP_WIKI_PATH:-/root/metakgp-wiki}
+	cd "$config_path" || return 2
+
+	echo "STEP: Ensure that current branch is $base_branch"
 	local branch=$(git rev-parse --abbrev-ref HEAD)
-	if [[ "$branch" != "master" ]];
+	if [[ "$branch" != "$base_branch" ]];
 	then
-		echo "Current branch is not master. Continue with deployment? (y/N)"
+		echo "Current branch is not $base_branch. Continue with deployment? (y/N)"
 		read p
 
 		if [[ "$p" != "y" ]];
@@ -24,11 +47,11 @@ deploy () {
 	git remote update
 
 	echo "STEP: Check if there are any changes that need to be deployed"
-	git --no-pager diff --exit-code origin/master > /dev/null
+	git --no-pager diff --exit-code $deploy_branch > /dev/null
 
 	if [[ "$?" == "0" ]];
 	then
-		echo "master and origin/master are the same. Continue with deployment? (y/N)"
+		echo "$base_branch and $deploy_branch are the same. Continue with deployment? (y/N)"
 		read p
 
 		if [[ "$p" != "y" ]];
@@ -40,10 +63,6 @@ deploy () {
 
 	local docker_compose="docker-compose"
 	local docker="docker"
-
-	# TODO: Change default to the server location
-	local config_path=${METAKGP_WIKI_PATH:-$HOME/code/metakgp/metakgp-wiki}
-	cd "$config_path"
 
 	# TODO: Fail if docker or docker-compose not found
 	${docker} version
@@ -69,17 +88,24 @@ deploy () {
 	git log --oneline | head -n1
 
 	echo "STEP: Merge branch and build Docker images"
-	git merge --ff-only origin/master
+	git merge --ff-only $deploy_branch
 
 	if [[ "$?" != "0" ]];
 	then
-		echo "ERROR: HEAD does not seem to contain master, can deploy only ff-only branches"
+		echo "ERROR: HEAD does not seem to contain $deploy_branch, can deploy only ff-only branches"
 		return 1
 	fi
 
 	local docker_compose_override="${docker_compose} -f docker-compose.yml \
 					  -f docker-compose.override.yml \
 					  -f docker-compose.prod.yml"
+
+	if [[ -n "$SLACK_NOTIFICATIONS_URL" ]];
+	then
+		curl -s -H 'content-type: application/json' \
+			 -d '{ "text": "'$(deploy_message "start")'" }' \
+			 "$SLACK_NOTIFICATIONS_URL"
+	fi
 
 	echo "STEP: Bring all containers down (Downtime begin) $(date +%s)"
 
@@ -91,6 +117,13 @@ deploy () {
 	${docker_compose_override} up --build -d
 
 	echo "STEP: Bring all containers down (Downtime end) $(date +%s)"
+
+	if [[ -n "$SLACK_NOTIFICATIONS_URL" ]];
+	then
+		curl -s -H 'content-type: application/json' \
+			 -d '{ "text": "'$(deploy_message "start")'" }' \
+			 "$SLACK_NOTIFICATIONS_URL"
+	fi
 
 	echo "END: deploying metakgp-wiki"
 }
