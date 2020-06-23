@@ -79,6 +79,8 @@ $wgDBmysql5 = false;
 ## Shared memory settings
 $wgMainCacheType = CACHE_ACCEL;
 $wgMemCachedServers = [];
+# Make sure logins work (https://phabricator.wikimedia.org/T147161)
+$wgSessionCacheType = CACHE_DB;
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
