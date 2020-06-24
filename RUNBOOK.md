@@ -25,7 +25,7 @@ command without that flag at the end.
 ### Deprecated
 
 **Note:** Manual operation for regular configuration updates is now deprecated. Please use the
-deploy script: <./script/deploy-latest.sh>
+deploy script: [./script/deploy-latest.sh](./script/deploy-latest.sh).
 
 1. Take a backup! Run `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
 1. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
