@@ -4,7 +4,7 @@
 # 1. METAKGP_WIKI_PATH => Path to the cloned metakgp/metakgp-wiki repository
 # 2. SLACK_NOTIFICATIONS_URL => Webhook URL to which notifications will be sent as a Post request
 
-# set -x
+set -xe
 
 # TODO:
 # 1. Include the real username (or at least users who are logged in to the server)
@@ -32,46 +32,25 @@ deploy () {
 	echo "START: metakgp-wiki deploy"
 
 	local config_path=${METAKGP_WIKI_PATH:-/root/metakgp-wiki}
-	cd "$config_path" || return 2
+	cd "$config_path"
 
 	echo "STEP: Ensure that current branch is $base_branch"
-	local branch=$(git rev-parse --abbrev-ref $base_branch)
-	if [[ "$branch" != "$base_branch" ]];
-	then
-		echo "Current branch is not $base_branch. Continue with deployment? (y/N)"
-		read p
+	local branch=$(git rev-parse --abbrev-ref HEAD)
 
-		if [[ "$p" != "y" ]];
-		then
-			echo "END: Stopping deployment"
-			return 0
-		fi
-	fi
+	[[ "$branch" == "$base_branch" ]]
 
-	echo "STEP: Update repository"
+	echo "STEP: Update all branches"
 	git remote update
 
 	echo "STEP: Check if there are any changes that need to be deployed"
 	git --no-pager diff --exit-code $deploy_branch > /dev/null
 
-	if [[ "$?" == "0" ]];
-	then
-		echo "$base_branch and $deploy_branch are the same. Continue with deployment? (y/N)"
-		read p
-
-		if [[ "$p" != "y" ]];
-		then
-			echo "END: Stopping deployment"
-			return 0
-		fi
-	fi
-
 	local docker_compose="docker-compose"
 	local docker="docker"
 
 	# TODO: Fail if docker or docker-compose not found
-	${docker} version
-	${docker_compose} version
+	${docker} version > /dev/null
+	${docker_compose} version > /dev/null
 
 	echo "STEP: Running backup job"
 	local backup_container_exec="${docker_compose} -f docker-compose.yml \
@@ -89,7 +68,7 @@ deploy () {
 	backup_path="$backup_container_name:/root/backups/$backup_archive"
 	docker cp "$backup_path" "$source_dir/.backups"
 
-	echo "STEP: Deployed version"
+	echo "STEP: Current deployed version"
 	git log --oneline | head -n1
 
 	if [[ "$go" != "--go" ]];
@@ -101,15 +80,12 @@ deploy () {
 	echo "STEP: Merge branch and build Docker images"
 	git merge --ff-only $deploy_branch
 
-	if [[ "$?" != "0" ]];
-	then
-		echo "ERROR: HEAD does not seem to contain $deploy_branch, can deploy only ff-only branches"
-		return 1
-	fi
-
 	local docker_compose_override="${docker_compose} -f docker-compose.yml \
 					  -f docker-compose.override.yml \
 					  -f docker-compose.prod.yml"
+
+	echo "STEP: Build docker images for the new configuration"
+	${docker_compose_override} build
 
 	# TODO: Move to a function
 	if [[ -n "$SLACK_NOTIFICATIONS_URL" ]];
@@ -119,16 +95,18 @@ deploy () {
 			 "$SLACK_NOTIFICATIONS_URL"
 	fi
 
-	echo "STEP: Bring all containers down (Downtime begin) $(date +%s)"
-
+	echo "STEP: Bring all containers down"
 	${docker_compose_override} down
+
+	echo "STEP: All containers are down (Downtime begin) $(date +%s)"
 
 	local volume_metakgp="metakgp-wiki_mediawiki-volume"
 	docker volume rm "$volume_metakgp"
 
-	${docker_compose_override} up --build -d
+	echo "STEP: Bring all containers up"
+	${docker_compose_override} up -d
 
-	echo "STEP: Bring all containers down (Downtime end) $(date +%s)"
+	echo "STEP: All containers are up (Downtime end) $(date +%s)"
 
 	# TODO: Move to a function
 	if [[ -n "$SLACK_NOTIFICATIONS_URL" ]];
