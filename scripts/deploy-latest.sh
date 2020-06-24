@@ -128,7 +128,15 @@ deploy () {
 	${php_container_exec} /srv/mediawiki/maintenance/update.php --quick
 
 	notify_slack "$(deploy_message deploy_end)"
-	echo "END: deploying metakgp-wiki"
+
+	cat <<EOF
+END: Deployed metakgp-wiki
+
+Don't forget to try logging in and editing a page to make sure the wiki is working
+
+| Home page   | https://metakgp.org/
+| Random page | https://metakgp.org/w/Special:Random
+EOF
 }
 
 if [[ "$1" == "-h" || "$1" == "--help" ]];
