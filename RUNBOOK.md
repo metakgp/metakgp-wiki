@@ -13,6 +13,20 @@ Please follow below instructions in order to upgrade the mediawiki version. Refe
 
 ## Deploying to prod
 
+1. Run the deploy script
+
+``` sh
+$ sudo SLACK_NOTIFICATIONS_URL=$(SLACK_NOTIFICATIONS_URL) /root/metakgp-wiki/scripts/deploy-latest.sh --go
+```
+
+_Note:_ The `--go` flag indicates that the deployment will be completed. For a dry run, run the same
+command without that flag at the end.
+
+### Deprecated
+
+**Note:** Manual operation for regular configuration updates is now deprecated. Please use the
+deploy script: [./script/deploy-latest.sh](./script/deploy-latest.sh).
+
 1. Take a backup! Run `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
 1. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
 1. `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down` shuts down the server and removes containers. Now downtime has started ticking.
@@ -44,7 +58,7 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-
 # below command will create a new backup of the server
 container $ ./run_backup.sh
 # to ensure that the backup tar was created
-container $ ls /root/backups 
+container $ ls /root/backups
 container $ exit
 # now copy the created tar file into the host filesystem
 # docker cp doesn't take wildcard paths (??)
@@ -115,7 +129,7 @@ $ docker volume prune
 
 ### I want to upgrade to a new mediawiki version
 
-You have to run `maintenance/update.php` after installing a new extension or 
+You have to run `maintenance/update.php` after installing a new extension or
 upgrading mediawiki. This will update the database tables as necessary.
 
 ```sh
