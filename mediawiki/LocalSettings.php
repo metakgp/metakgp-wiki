@@ -169,9 +169,6 @@ $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 $wgDefaultUserOptions['wikieditor-preview'] = 1;
 #$wgDefaultUserOptions['wikieditor-publish'] = 1;
 
-#$wgScribuntoDefaultEngine = 'luastandalone';
-#$wgScribuntoUseGeSHi = true;
-
 $wgLocaltimezone = "Asia/Kolkata";
 date_default_timezone_set( $wgLocaltimezone );
 
