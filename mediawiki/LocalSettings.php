@@ -169,9 +169,6 @@ $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 $wgDefaultUserOptions['wikieditor-preview'] = 1;
 #$wgDefaultUserOptions['wikieditor-publish'] = 1;
 
-$wgScribuntoDefaultEngine = 'luastandalone';
-$wgScribuntoUseGeSHi = true;
-
 $wgLocaltimezone = "Asia/Kolkata";
 date_default_timezone_set( $wgLocaltimezone );
 
@@ -473,3 +470,7 @@ $wgSpamBlacklistFiles = array(
    "[[m:Spam blacklist]]", # from meta-wiki
    "https://en.wikipedia.org/wiki/MediaWiki:Spam-blacklist" # from wikipedia
 );
+
+# Scribunto Extension, bundled with MediaWiki 1.34
+wfLoadExtension( 'Scribunto' );
+$wgScribuntoDefaultEngine = 'luastandalone';
