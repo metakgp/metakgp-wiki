@@ -22,6 +22,8 @@ $ sudo SLACK_NOTIFICATIONS_URL=$(SLACK_NOTIFICATIONS_URL) /root/metakgp-wiki/scr
 _Note:_ The `--go` flag indicates that the deployment will be completed. For a dry run, run the same
 command without that flag at the end.
 
+To get the `SLACK_NOTIFICATIONS_URL`, go to Manage Apps -> Custom Integrations -> Incoming Webhooks -> Choose to edit "Posts to #server as Deployment Notifications" -> copy Webhook URL.
+
 ### Deprecated
 
 **Note:** Manual operation for regular configuration updates is now deprecated. Please use the
