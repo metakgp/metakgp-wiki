@@ -61,7 +61,7 @@ deploy () {
 	git remote update
 
 	echo "STEP: Check if there are any changes that need to be deployed"
-	git --no-pager diff --exit-code $deploy_branch > /dev/null
+	git --no-pager diff --exit-code $base_branch > /dev/null
 
 	local docker_compose="docker-compose"
 	local docker="docker"
