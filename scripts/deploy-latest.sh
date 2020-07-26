@@ -44,7 +44,10 @@ deploy_branch="origin/master"
 deploy () {
 	local go="${1}"
 
-	notify_slack "$(deploy_message deploy_start)"
+	if [[ "$go" == "--go" ]];
+	then
+		notify_slack "$(deploy_message deploy_start)"
+	fi
 
 	local source_dir=$(pwd)
 	echo "START: metakgp-wiki deploy"
