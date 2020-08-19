@@ -2,6 +2,8 @@ version: '2.1'
 
 services:
   nginx:
+    networks:
+      nginx_network:
     volumes:
       - static-volume:/srv/static
   php:
@@ -34,3 +36,5 @@ volumes:
 
 networks:
   mysql_network:
+  external:
+    name: nginx_network
