@@ -1,8 +1,8 @@
-version: '2.1'
+version: "2.1"
 
 services:
   mysql:
-    image: 'mysql:5.7'
+    image: "mysql:5.7"
     networks:
       mysql_network:
         aliases:
@@ -16,11 +16,11 @@ services:
       - MYSQL_USER=metakgp_user
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
   nginx:
-    build: './nginx'
+    build: "./nginx"
     networks:
       main_network:
   php:
-    build: './php'
+    build: "./php"
     networks:
       data_network:
       main_network:
@@ -37,9 +37,9 @@ services:
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
       - NEWRELIC_LICENSE=$NEWRELIC_LICENSE
   mediawiki:
-    build: './mediawiki'
+    build: "./mediawiki"
   parsoid:
-    build: './parsoid'
+    build: "./parsoid"
     networks:
       main_network:
       data_network:
@@ -48,5 +48,7 @@ services:
 
 networks:
   main_network:
+    external: true
+    name: metakgp-wiki_main_network
   mysql_network:
   data_network:
