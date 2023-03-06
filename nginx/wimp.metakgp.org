@@ -1,0 +1,18 @@
+upstream wimp_server {
+    server python_wimp:5000;
+}
+
+server {
+    listen 80;
+    server_name wimp.metakgp.org;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        # we don't want nginx trying to do something clever with
+        # redirects, we set the Host: header above already.
+        proxy_redirect off;
+        proxy_pass http://wimp_server;
+    }
+}
