@@ -274,7 +274,7 @@ $wgAutopromote['no-captcha'] = array(
 $wgCrossSiteAJAXdomains = array('*');
 
 # Slack integration
-wfLoadExtension('SlackNotifications');
+wfLoadExtension('SlackNotifications/SlackNotifications');
 
 # Slack extension configuration options
 $wgSlackIncomingWebhookUrl = getenv('SLACK_WEBHOOK_URL', true);

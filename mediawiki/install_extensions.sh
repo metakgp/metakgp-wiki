@@ -15,7 +15,6 @@ declare -a extension_names=( \
     StopForumSpam \
     WikimediaMessages \
     SimpleChanges \
-    SlackNotifications \
 )
 
 function fetch_extension_url() {
@@ -52,3 +51,11 @@ for extension_name in "${composer_extension_names[@]}"; do
     php composer.phar require "${extension_name}"
 done
 php composer.phar update
+
+# Install SlackNotifications extension
+pushd /tmp
+wget https://github.com/kulttuuri/SlackNotifications/archive/master.zip
+
+unzip master.zip
+mv SlackNotifications-master/ /srv/mediawiki/extensions/SlackNotifications/
+popd
