@@ -145,12 +145,6 @@ date_default_timezone_set( $wgLocaltimezone );
 wfLoadExtension('Gadgets');
 wfLoadExtension('Echo');
 
-wfLoadExtension("$IP/extensions/googleAnalytics/googleAnalytics.php");
-$wgGoogleAnalyticsAccount = 'UA-62532508-2';
-
-// Optional configuration (for defaults see googleAnalytics.php)
-// Store full IP address in Google Universal Analytics (see https://support.google.com/analytics/answer/2763052?hl=en for details)
-$wgGoogleAnalyticsAnonymizeIP = false;
 // Use 'noanalytics' permission to exclude specific user groups from web analytics, e.g.
 $wgGroupPermissions['sysop']['noanalytics'] = true;
 $wgGroupPermissions['bot']['noanalytics'] = true;

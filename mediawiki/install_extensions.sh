@@ -11,7 +11,6 @@ declare -a extension_names=( \
     SandboxLink \
     StopForumSpam \
     WikimediaMessages \
-    googleAnalytics \
     SimpleChanges \
 )
 
