@@ -16,7 +16,6 @@ WORKDIR /srv/mediawiki
 # Copy all source files
 COPY install_extensions.sh post_install.sh /tmp/
 COPY LocalSettings.php robots.txt /srv/mediawiki/
-COPY extensions/ extensions/
 COPY assets/ resources/assets/
 COPY gmconvert.sh /opt/
 

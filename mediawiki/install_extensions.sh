@@ -15,6 +15,7 @@ declare -a extension_names=( \
     StopForumSpam \
     WikimediaMessages \
     SimpleChanges \
+    SlackNotifications \
 )
 
 function fetch_extension_url() {
