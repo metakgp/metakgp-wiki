@@ -189,7 +189,7 @@ $wgCaptchaQuestions = [
     'What is the name of our social-cultural fest?' => [ 'springfest', 'spring fest', 'sf' ],
     'What is the name of our techno-management fest?' => ['kshitij', 'ktj'],
     'What is the closest neighbouring country to IIT KGP?' => 'bangladesh',
-    'Which is the worst operating system known to mankind?' => ['windows', 'windows 11', 'windows 8', 'windows vista', 'win']
+    'Which is the worst operating system known to mankind?' => ['windows', 'windows 11', 'windows 8', 'win']
 ];
 
 # Present captcha by default
