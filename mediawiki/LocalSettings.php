@@ -359,10 +359,6 @@ $wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
 
 # Maps extension; installed through composer
 wfLoadExtension('Maps');
-# required to change maps settings
-wfLoadExtension(__DIR__ . '/extensions/Maps/Maps_Settings.php');
-$GLOBALS['egMapsGMaps3ApiKey'] = getenv('GOOGLE_MAPS_API_KEY', true);
-$GLOBALS['egMapsDefaultService'] = 'googlemaps3';
 
 # ArticleFeedbackv5
 wfLoadExtension('ArticleFeedbackv5');
