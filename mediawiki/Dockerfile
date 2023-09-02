@@ -28,9 +28,6 @@ ENV COMPOSER_IGNORE_PLATFORM_REQS=1
 # Install Mediawiki extensions
 RUN /tmp/install_extensions.sh
 
-RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl require mediawiki/maps mediawiki/simple-batch-upload
-RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl update
-
 # Create directories for image storage
 RUN mkdir -p /srv/static/images && rm -rf images && ln -s /srv/static/images images
 RUN mkdir -p images/temp
