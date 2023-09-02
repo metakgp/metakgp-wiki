@@ -1,4 +1,4 @@
-FROM node:10-jessie
+FROM node:18-bookworm
 RUN apt-get -qq update && apt-get -qq install -y \
             git-core
 
