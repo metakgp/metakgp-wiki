@@ -342,16 +342,6 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 $wgEnableDnsBlacklist = true;
 $wgDnsBlacklistUrls = array('sbl.spamhaus.org.');
 
-# AbuseFilter
-wfLoadExtension('AbuseFilter');
-$wgGroupPermissions['sysop']['abusefilter-modify'] = true;
-$wgGroupPermissions['*']['abusefilter-log-detail'] = true;
-$wgGroupPermissions['*']['abusefilter-view'] = true;
-$wgGroupPermissions['*']['abusefilter-log'] = true;
-$wgGroupPermissions['sysop']['abusefilter-private'] = true;
-$wgGroupPermissions['sysop']['abusefilter-modify-restricted'] = true;
-$wgGroupPermissions['sysop']['abusefilter-revert'] = true;
-
 wfLoadExtension('SimpleBatchUpload');
 
 # Bots
@@ -378,3 +368,5 @@ $wgSpamBlacklistFiles = array(
 # Scribunto Extension, bundled with MediaWiki 1.34
 wfLoadExtension('Scribunto');
 $wgScribuntoDefaultEngine = 'luastandalone';
+
+$wgShowExceptionDetails = true;
