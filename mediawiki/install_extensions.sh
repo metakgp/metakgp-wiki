@@ -13,7 +13,6 @@ declare -a extension_names=( \
     WikimediaMessages \
     googleAnalytics \
     SimpleChanges \
-    StopForumSpam \
 )
 
 declare -A extension_version_overrides=( \
