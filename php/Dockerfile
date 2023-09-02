@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-buster
+FROM php:8.2-fpm-bookworm
 RUN apt-get -qq update && apt-get -qq install -y \
             build-essential \
             git-core \
@@ -9,7 +9,7 @@ RUN apt-get -qq update && apt-get -qq install -y \
             libjpeg62-turbo-dev \
             libpng-dev \
             wget \
-      && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+      && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
       && docker-php-ext-install -j$(nproc) gd intl mysqli opcache \
       && pecl install apcu \
       && docker-php-ext-enable apcu \
