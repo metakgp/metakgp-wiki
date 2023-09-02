@@ -19,7 +19,7 @@ WORKDIR /srv/mediawiki
 COPY extensions/ extensions/
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN ./install_composer.sh
+RUN wget -cO - https://getcomposer.org/composer-2.phar > composer.phar
 RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl require mediawiki/maps
 
 COPY assets/ resources/assets/
