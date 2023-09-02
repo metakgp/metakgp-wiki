@@ -153,7 +153,7 @@ wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
 $wgMFDefaultSkinClass = 'SkinMinerva';
 
-wfLoadExtension("$IP/extensions/ContributionScores/ContributionScores.php");
+wfLoadExtension("ContributionScores");
 $wgContribScoreIgnoreBots = true;          // Exclude Bots from the reporting - Can be omitted.
 $wgContribScoreIgnoreBlockedUsers = true;  // Exclude Blocked Users from the reporting - Can be omitted.
 $wgContribScoresUseRealName = true;        // Use real user names when available - Can be omitted. Only for MediaWiki 1.19 and later.
@@ -234,7 +234,7 @@ $wgDefaultUserOptions['watchdefault'] = 1;
 $wgRestrictDisplayTitle = false;
 
 wfLoadExtension( 'CommonsMetadata' );
-wfLoadExtension("$IP/extensions/MultimediaViewer/MultimediaViewer.php");
+wfLoadExtension("MultimediaViewer");
 wfLoadExtension('Poem');
 
 # File upload permissions
