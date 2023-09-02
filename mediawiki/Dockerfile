@@ -20,7 +20,7 @@ COPY extensions/ extensions/
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN wget -cO - https://getcomposer.org/composer-2.phar > composer.phar
-RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl require mediawiki/maps
+RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl require mediawiki/maps mediawiki/simple-batch-upload
 RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl update
 
 COPY assets/ resources/assets/
