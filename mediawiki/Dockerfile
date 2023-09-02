@@ -12,7 +12,7 @@ RUN wget -q https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.0.tar.g
 COPY install_extensions.sh post_install.sh /tmp/
 RUN /tmp/install_extensions.sh
 
-COPY LocalSettings.php robots.txt install_composer.sh /srv/mediawiki/
+COPY LocalSettings.php robots.txt /srv/mediawiki/
 
 WORKDIR /srv/mediawiki
 
