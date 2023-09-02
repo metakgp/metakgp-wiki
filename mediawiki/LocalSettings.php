@@ -152,15 +152,7 @@ $wgSMTP = array(
 wfLoadExtension('ParserFunctions');
 wfLoadExtension('Cite');
 
-# RecentPages uses this constant. Starting PHP 7.2.0, referring to undefined
-# constants raises a warning and will eventually throw an error.
-# This value is used by RecentPages as the first argument to the wfGetDB global
-# function. This value MUST be an integer.
-if ( !defined( 'DB_SLAVE' ) ) {
-  define('DB_SLAVE', 0);
-}
-
-require_once "$IP/extensions/RecentPages/RecentPages.php";
+wfLoadExtension("SimpleChanges");
 wfLoadExtension('WikimediaMessages');
 
 wfLoadExtension('WikiEditor');
@@ -175,7 +167,7 @@ date_default_timezone_set( $wgLocaltimezone );
 wfLoadExtension('Gadgets');
 wfLoadExtension('Echo');
 
-require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
+wfLoadExtension("$IP/extensions/googleAnalytics/googleAnalytics.php");
 $wgGoogleAnalyticsAccount = 'UA-62532508-2';
 
 // Optional configuration (for defaults see googleAnalytics.php)
@@ -193,7 +185,7 @@ wfLoadExtension('MobileFrontend');
 $wgMFAutodetectMobileView = true;
 $wgMFDefaultSkinClass = 'SkinMinerva';
 
-require_once "$IP/extensions/ContributionScores/ContributionScores.php";
+wfLoadExtension("$IP/extensions/ContributionScores/ContributionScores.php");
 $wgContribScoreIgnoreBots = true;          // Exclude Bots from the reporting - Can be omitted.
 $wgContribScoreIgnoreBlockedUsers = true;  // Exclude Blocked Users from the reporting - Can be omitted.
 $wgContribScoresUseRealName = true;        // Use real user names when available - Can be omitted. Only for MediaWiki 1.19 and later.
@@ -302,7 +294,7 @@ $wgAllowUserCss = true;
 require_once("$IP/extensions/OpenGraphMeta/OpenGraphMeta.php");
 */
 wfLoadExtension( 'CommonsMetadata' );
-require_once "$IP/extensions/MultimediaViewer/MultimediaViewer.php";
+wfLoadExtension("$IP/extensions/MultimediaViewer/MultimediaViewer.php");
 wfLoadExtension('Poem');
 
 # File upload permissions
@@ -354,7 +346,7 @@ $wgSlackShowNewUserFullName = false;
 $wgSlackShowNewUserIP = false;
 
 # EmbedVideo
-# require_once "$IP/extensions/EmbedVideo/EmbedVideo.php";
+# wfLoadExtension("$IP/extensions/EmbedVideo/EmbedVideo.php";
 
 # TorBlock
 # require_once "$IP/extensions/TorBlock/TorBlock.php";
@@ -452,7 +444,7 @@ $wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
 # Maps extension; installed through composer
 wfLoadExtension( 'Maps' );
 # required to change maps settings
-require_once __DIR__ . '/extensions/Maps/Maps_Settings.php';
+wfLoadExtension(__DIR__ . '/extensions/Maps/Maps_Settings.php');
 $GLOBALS['egMapsGMaps3ApiKey'] = getenv('GOOGLE_MAPS_API_KEY', true);
 $GLOBALS['egMapsDefaultService'] = 'googlemaps3';
 
