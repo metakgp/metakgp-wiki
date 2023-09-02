@@ -3,28 +3,25 @@
 set -xe
 
 declare -a extension_names=( \
-    AbuseFilter \
     ArticleFeedbackv5 \
     CheckUser \
     CommonsMetadata \
     ContributionScores \
-    Echo \
     MobileFrontend \
     SandboxLink \
     StopForumSpam \
-    VisualEditor \
     WikimediaMessages \
     googleAnalytics \
+    SimpleChanges \
+    StopForumSpam \
 )
 
 declare -A extension_version_overrides=( \
 )
 
-declare -a skin_names=( \
-    MinervaNeue \
-)
+declare -a skin_names=()
 
-MEDIAWIKI_RELEASE=REL1_34
+MEDIAWIKI_RELEASE=REL1_40
 
 function fetch_extension_url() {
     curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$2" \
@@ -58,16 +55,3 @@ for skin_name in "${skin_names[@]}"; do
     tar -xzf "$versioned_skin_name"
     mv $skin_name /srv/mediawiki/skins/
 done
-
-# Get RecentPages from Github
-wget -q https://github.com/leucosticte/RecentPages/archive/master.zip \
-    && unzip master.zip -d RecentPages \
-    && mv RecentPages/RecentPages-master /srv/mediawiki/extensions/RecentPages
-
-# Make Lua executable
-chmod a+x /srv/mediawiki/extensions/Scribunto/includes/engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
-
-# Download StopForumSpam blacklist
-wget -q https://www.stopforumspam.com/downloads/listed_ip_30_ipv46.zip \
-    && unzip listed_ip_30_ipv46.zip -d listed_ip_30_ipv46 \
-    && mv listed_ip_30_ipv46 /srv/mediawiki/extensions/StopForumSpam/
