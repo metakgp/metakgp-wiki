@@ -316,9 +316,6 @@ wfLoadExtension('InputBox');
 # Sandbox extension;
 wfLoadExtension('SandboxLink');
 
-# Change username extension
-wfLoadExtension( 'Renameuser' );
-
 # Blocks edits with any link in the list of blocked urls
 wfLoadExtension( 'SpamBlacklist' );
 
