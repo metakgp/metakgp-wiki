@@ -1,24 +1,26 @@
-FROM php:7.3-fpm-buster
+FROM php:8.2-fpm-bookworm
 
 RUN apt-get -qq update && apt-get -qq install -y \
       git wget unzip
 
 WORKDIR /tmp
-RUN wget -q https://releases.wikimedia.org/mediawiki/1.34/mediawiki-1.34.0.tar.gz \
-      && tar -xzf mediawiki-1.34.0.tar.gz \
+RUN wget -q https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.0.tar.gz \
+      && tar -xzf mediawiki-1.40.0.tar.gz \
       && mkdir -p /srv \
-      && mv /tmp/mediawiki-1.34.0 /srv/mediawiki
+      && mv /tmp/mediawiki-1.40.0 /srv/mediawiki
 
 COPY install_extensions.sh post_install.sh /tmp/
 RUN /tmp/install_extensions.sh
 
-COPY LocalSettings.php robots.txt install_composer.sh composer.local.json /srv/mediawiki/
+COPY LocalSettings.php robots.txt install_composer.sh /srv/mediawiki/
 
 WORKDIR /srv/mediawiki
 
 COPY extensions/ extensions/
-RUN ./install_composer.sh \
-      && php composer.phar update --no-dev --optimize-autoloader --no-suggest --no-progress
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN ./install_composer.sh
+RUN php composer.phar --ignore-platform-req=ext-calendar --ignore-platform-req=ext-intl require mediawiki/maps
 
 COPY assets/ resources/assets/
 
