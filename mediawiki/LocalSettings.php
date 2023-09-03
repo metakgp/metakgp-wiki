@@ -170,6 +170,14 @@ $wgMaxImageArea = 1250000000; // 1.25e9
 
 wfLoadExtension('SyntaxHighlight_GeSHi');
 
+# Set up google analytics extension
+wfLoadExtension('googleAnalytics');
+$wgGoogleAnalyticsAccount = 'UA-62532508-2';
+
+// Optional configuration (for defaults see googleAnalytics.php)
+// Store full IP address in Google Universal Analytics (see https://support.google.com/analytics/answer/2763052?hl=en for details)
+$wgGoogleAnalyticsAnonymizeIP = false;
+
 wfLoadExtensions(array(
   'ConfirmEdit',
   // 'ConfirmEdit/ReCaptchaNoCaptcha',
