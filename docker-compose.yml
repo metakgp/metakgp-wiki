@@ -37,13 +37,6 @@ services:
       - NEWRELIC_LICENSE=$NEWRELIC_LICENSE
   mediawiki:
     build: "./mediawiki"
-  parsoid:
-    build: "./parsoid"
-    networks:
-      main_network:
-      data_network:
-        aliases:
-          - parsoid-docker
 
 networks:
   main_network:

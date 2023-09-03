@@ -219,13 +219,7 @@ $wgVisualEditorAvailableNamespaces = [
   "Help" => true
 ];
 
-$wgVirtualRestConfig['modules']['parsoid'] = array(
-  // URL to the Parsoid instance
-  // Use port 8142 if you use the Debian package
-  'url' => 'parsoid-docker:8000',
-  // Parsoid "domain", see below (optional)
-  'domain' => 'wiki.metakgp.org'
-);
+wfLoadExtension( 'Parsoid', "$IP/vendor/wikimedia/parsoid/extension.json" );
 
 # Default user options
 $wgDefaultUserOptions['enotifusertalkpages'] = 1;
