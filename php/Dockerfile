@@ -4,6 +4,7 @@ RUN apt-get -qq update && apt-get -qq install -y \
             git-core \
             gnupg2 \
             graphicsmagick \
+            imagemagick \
             libfreetype6-dev \
             libicu-dev \
             libjpeg62-turbo-dev \
