@@ -364,5 +364,3 @@ $wgSFSIPListLocation = "$IP/extensions/StopForumSpam/listed_ip_30_ipv46/listed_i
 # Scribunto Extension, bundled with MediaWiki 1.34
 wfLoadExtension('Scribunto');
 $wgScribuntoDefaultEngine = 'luastandalone';
-
-$wgShowExceptionDetails = true;
