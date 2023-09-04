@@ -130,6 +130,24 @@ $wgSMTP = array(
   'auth' => true
 );
 
+# Search configuration
+$wgAdvancedSearchHighlighting = true;
+
+$wgNamespacesToBeSearchedDefault = array(
+  NS_MAIN => true,
+  NS_TALK => false,
+  NS_USER => true,
+  NS_USER_TALK => false,
+  NS_PROJECT => true,
+  NS_PROJECT_TALK => false,
+  NS_FILE => true,
+  NS_FILE_TALK => false,
+  NS_HELP => true,
+  NS_HELP_TALK => false,
+  NS_CATEGORY => true,
+  NS_CATEGORY_TALK => false
+);
+
 # Load all extensions
 wfLoadExtension('ParserFunctions');
 wfLoadExtension('Cite');
@@ -293,20 +311,6 @@ $wgSlackShowNewUserIP = false;
 # Add subpages for main namespace
 $wgNamespacesWithSubpages[NS_MAIN] = true;
 
-$wgNamespacesToBeSearchedDefault = array(
-  NS_MAIN => true,
-  NS_TALK => true,
-  NS_USER => true,
-  NS_USER_TALK => true,
-  NS_PROJECT => true,
-  NS_PROJECT_TALK => true,
-  NS_FILE => true,
-  NS_FILE_TALK => true,
-  NS_HELP => true,
-  NS_HELP_TALK => true,
-  NS_CATEGORY => true,
-  NS_CATEGORY_TALK => true
-);
 # Math
 // Set MathML as default rendering option;
 $wgDefaultUserOptions['math'] = 'mathml';
