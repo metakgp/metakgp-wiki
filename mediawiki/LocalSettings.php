@@ -85,6 +85,9 @@ $wgUseInstantCommons = true;
 ## available UTF-8 locale
 $wgShellLocale = "en_US.utf8";
 
+$wgLocaltimezone = "Asia/Kolkata";
+date_default_timezone_set($wgLocaltimezone);
+
 ## Set $wgCacheDirectory to a writable directory on the web server
 ## to make your wiki go slightly faster. The directory should not
 ## be publically accessible from the web.
@@ -127,6 +130,7 @@ $wgSMTP = array(
   'auth' => true
 );
 
+# Load all extensions
 wfLoadExtension('ParserFunctions');
 wfLoadExtension('Cite');
 
@@ -138,9 +142,6 @@ $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 $wgDefaultUserOptions['wikieditor-preview'] = 1;
 #$wgDefaultUserOptions['wikieditor-publish'] = 1;
-
-$wgLocaltimezone = "Asia/Kolkata";
-date_default_timezone_set($wgLocaltimezone);
 
 wfLoadExtension('Gadgets');
 wfLoadExtension('Echo');
@@ -359,13 +360,6 @@ $wgArticleFeedbackv5LotteryOdds = 100;
 # StopForumSpam
 wfLoadExtension('StopForumSpam');
 $wgSFSIPListLocation = "$IP/extensions/StopForumSpam/listed_ip_30_ipv46/listed_ip_30_ipv46.txt";
-
-# URL SpamBlacklist
-wfLoadExtension('SpamBlacklist');
-$wgSpamBlacklistFiles = array(
-  "[[m:Spam blacklist]]", # from meta-wiki
-  "https://en.wikipedia.org/wiki/MediaWiki:Spam-blacklist" # from wikipedia
-);
 
 # Scribunto Extension, bundled with MediaWiki 1.34
 wfLoadExtension('Scribunto');
