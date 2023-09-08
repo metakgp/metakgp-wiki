@@ -1,8 +1,7 @@
 FROM php:8.2-fpm-bookworm
 
 # Install tools and dependencies
-RUN apt-get -qq update && apt-get -qq install -y \
-      git wget unzip
+RUN apt-get update && apt-get install git wget unzip
 
 # Install mediawiki
 WORKDIR /tmp
