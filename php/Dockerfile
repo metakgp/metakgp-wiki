@@ -2,16 +2,16 @@ FROM php:8.2-fpm-bookworm
 
 # Install dependencies
 RUN apt-get -qq update && apt-get -qq install -y \
-            build-essential \
-            git-core \
-            gnupg2 \
-            graphicsmagick \
-            imagemagick \
-            libfreetype6-dev \
-            libicu-dev \
-            libjpeg62-turbo-dev \
-            libpng-dev \
-            wget
+      build-essential \
+      git-core \
+      gnupg2 \
+      graphicsmagick \
+      imagemagick \
+      libfreetype6-dev \
+      libicu-dev \
+      libjpeg62-turbo-dev \
+      libpng-dev \
+      wget
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
 RUN pecl install apcu
