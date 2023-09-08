@@ -1,7 +1,7 @@
-FROM python:2-slim
+FROM python:3-slim
 RUN apt-get -qq update && apt-get -qq install -y \
       cron \
-      mysql-client \
+      default-mysql-client \
       rsync
 
 ENV TZ=Asia/Kolkata
