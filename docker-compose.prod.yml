@@ -1,15 +1,9 @@
+include:
+  - docker-compose.yml
+
 services:
-  nginx:
-    volumes:
-      - static-volume:/srv/static
-  php:
-    volumes:
-      - static-volume:/srv/static
-  mediawiki:
-    volumes:
-      - static-volume:/srv/static
   backup:
-    build: './backup'
+    build: "./backup"
     networks:
       mysql_network:
     environment:
@@ -18,16 +12,10 @@ services:
     volumes:
       - mediawiki-volume:/srv/mediawiki
       - static-volume:/srv/static
+
   jobs:
-    build: './jobs'
+    build: "./jobs"
     environment:
       - BATMAN_BOT_PASSWORD=$BATMAN_BOT_PASSWORD
     volumes:
       - mediawiki-volume:/srv/mediawiki
-
-volumes:
-  mediawiki-volume:
-  static-volume:
-
-networks:
-  mysql_network:

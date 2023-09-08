@@ -5,25 +5,32 @@ services:
       mysql_network:
         aliases:
           - mysql-docker
-      data_network:
-        aliases:
-          - mysql-docker
+    volumes:
+      - db-volume:/var/lib/mysql
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_DATABASE=metakgp_wiki_db
       - MYSQL_USER=metakgp_user
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
   nginx:
     build: "./nginx"
     networks:
       main_network:
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+    ports:
+      - "${SERVER_PORT:-8080}:80"
+
   php:
     build: "./php"
     networks:
-      data_network:
+      mysql_network:
       main_network:
         aliases:
           - php-docker
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
     environment:
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
       - RECAPTCHA_SECRET_KEY=$RECAPTCHA_SECRET_KEY
@@ -32,13 +39,19 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - SERVER_NAME=$SERVER_NAME
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
-      - NEWRELIC_LICENSE=$NEWRELIC_LICENSE
+
   mediawiki:
     build: "./mediawiki"
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
 
 networks:
   main_network:
     external: true
     name: metakgp-wiki_main_network
   mysql_network:
-  data_network:
+
+volumes:
+  mediawiki-volume:
+  db-volume:
+  static-volume:
