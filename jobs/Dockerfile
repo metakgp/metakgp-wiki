@@ -1,7 +1,7 @@
 FROM python:3-slim
 
 RUN apt-get -qq update && apt-get install -qq -y \
-      wget
+      wget curl
 
 ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
