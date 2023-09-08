@@ -1,16 +1,17 @@
 FROM php:8.2-fpm-bookworm
 
-# Update the system
+# Install tools and dependencies
 RUN apt-get -qq update && apt-get -qq install -y \
       git wget unzip
 
 # Install mediawiki
 WORKDIR /tmp
-RUN wget -q https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.0.tar.gz \
-      && tar -xzf mediawiki-1.40.0.tar.gz \
-      && mkdir -p /srv \
-      && mv /tmp/mediawiki-1.40.0 /srv/mediawiki
+RUN wget -q https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.0.tar.gz
+RUN tar -xzf mediawiki-1.40.0.tar.gz
+RUN mkdir -p /srv
+RUN mv /tmp/mediawiki-1.40.0 /srv/mediawiki
 
+# Set work directory
 WORKDIR /srv/mediawiki
 
 # Copy all source files
