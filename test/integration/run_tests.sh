@@ -10,7 +10,7 @@ set -e
 REPO_ROOT=$(git rev-parse --show-toplevel)
 TEST_ROOT="$REPO_ROOT/test/integration"
 DOCKER_CONFIG="-f $REPO_ROOT/docker-compose.yml -f $TEST_ROOT/docker-compose.test.yml"
-DOCKER_COMPOSE="docker-compose $DOCKER_CONFIG"
+DOCKER_COMPOSE="docker compose $DOCKER_CONFIG"
 WIKI="/srv/mediawiki"
 
 cd $TEST_ROOT
@@ -47,14 +47,14 @@ function cleanup {
 
 info "Making sure no services are running"
 if [[ $($DOCKER_COMPOSE top) != "" ]]; then
-    error "Cannot run integration tests while services are running. Run 'docker-compose down' and try again."
+    error "Cannot run integration tests while services are running. Run 'docker compose down' and try again."
 fi
 
 # About to start tests; make sure we clean up afterwards
 trap cleanup EXIT
 
 info "Starting integration test services"
-$DOCKER_COMPOSE up --build -d 1>/dev/null
+$DOCKER_COMPOSE up --build -d
 info "Waiting for mysql to initialize"
 for i in {1..24}; do
     if [[ $($DOCKER_COMPOSE logs mysql | grep "ready for connections") != "" ]]; then
@@ -68,7 +68,7 @@ for i in {1..24}; do
 done
 
 # Find the port that nginx is mapped to
-NGINX_ADDR=$(docker-compose port nginx 80)
+NGINX_ADDR=$(docker compose port nginx 80)
 
 info "Initializing database"
 # Move LocalSettings.php out of the way otherwise the installer complains
