@@ -1,7 +1,7 @@
 FROM php:8.2-fpm-bookworm
 
 # Install dependencies
-RUN apt-get update && apt-get install \
+RUN apt-get update && apt-get install -y \
       build-essential \
       git-core \
       gnupg2 \
