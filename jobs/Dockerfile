@@ -17,7 +17,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 WORKDIR /root
-RUN wget -qO- http://tools.wmflabs.org/pywikibot/core.tar.gz | tar xz \
+RUN wget -qO- https://tools.wmflabs.org/pywikibot/core.tar.gz | tar xz \
       && mv core pywikibot
 
 COPY requirements.txt ./
