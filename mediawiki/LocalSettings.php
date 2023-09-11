@@ -199,7 +199,6 @@ $wgGoogleAnalyticsAnonymizeIP = false;
 
 wfLoadExtensions(array(
   'ConfirmEdit',
-  // 'ConfirmEdit/ReCaptchaNoCaptcha',
   'ConfirmEdit/QuestyCaptcha'
 ));
 
