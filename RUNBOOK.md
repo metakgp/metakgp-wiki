@@ -9,7 +9,7 @@ Please follow below instructions in order to upgrade the mediawiki version. Refe
 1. Read through the change log and see if any other updates need to be made.
 1. Try to build, and rectify errors.
 1. Follow instructions mentioned in "Deploying to prod" section.
-1. Run `docker-compose exec php /srv/mediawiki/maintenance/update.php`
+1. Run `docker-compose exec mediawiki /srv/mediawiki/maintenance/update.php`
 
 ## Deploying to prod
 
@@ -33,7 +33,7 @@ deploy script: [./scripts/deploy-latest.sh](./scripts/deploy-latest.sh).
 1. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
 1. `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down` shuts down the server and removes containers. Now downtime has started ticking.
 1. `docker volume rm metakgp-wiki_mediawiki-volume`, so that the mediawiki container can create a new volume with updates in the next step.
-1. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec php /srv/mediawiki/maintenance/update.php`.
+1. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec mediawiki /srv/mediawiki/maintenance/update.php`.
 
 ## Docker
 
@@ -135,5 +135,5 @@ You have to run `maintenance/update.php` after installing a new extension or
 upgrading mediawiki. This will update the database tables as necessary.
 
 ```sh
-$ docker-compose exec php /srv/mediawiki/maintenance/update.php
+$ docker-compose exec mediawiki /srv/mediawiki/maintenance/update.php
 ```

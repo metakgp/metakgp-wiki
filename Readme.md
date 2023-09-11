@@ -63,7 +63,7 @@ options.
 
 Remove LocalSettings.php
 ```
-docker-compose exec php rm /srv/mediawiki/LocalSettings.php
+docker-compose exec mediawiki rm /srv/mediawiki/LocalSettings.php
 ```
 
 Go to http://localhost:8080 and complete the web installation. The
@@ -74,12 +74,12 @@ as your `.env` file.
 After completing the installation, download the generated
 `LocalSettings.php` file and move it into place.
 ```
-docker cp <path to downloaded LocalSettings.php> $(docker-compose ps -q php):/srv/mediawiki
+docker cp <path to downloaded LocalSettings.php> $(docker-compose ps -q mediawiki):/srv/mediawiki
 ```
 
 Create the tables necessary for extensions.
 ```
-docker-compose exec php php /srv/mediawiki/maintenance/update.php
+docker-compose exec mediawiki php /srv/mediawiki/maintenance/update.php
 ```
 
 Reload http://localhost:8080, you should see the main page.

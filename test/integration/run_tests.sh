@@ -72,8 +72,8 @@ NGINX_ADDR=$(docker compose port nginx 80)
 
 info "Initializing database"
 # Move LocalSettings.php out of the way otherwise the installer complains
-$DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php $WIKI/LocalSettings.php.bak
-$DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
+$DOCKER_COMPOSE exec -T mediawiki mv $WIKI/LocalSettings.php $WIKI/LocalSettings.php.bak
+$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/install.php \
     --confpath /tmp \
     --dbname metakgp_wiki_db \
     --dbserver mysql-docker \
@@ -87,16 +87,16 @@ $DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
     Admin
 
 # Move LocalSettings.php back in place
-$DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
+$DOCKER_COMPOSE exec -T mediawiki mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
 
 # CheckUser makes update.php fail on a fresh install, move it out of the way
-$DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
+$DOCKER_COMPOSE exec -T mediawiki sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
 
 # Run update.php for creating any required tables
-$DOCKER_COMPOSE exec -T php php $WIKI/maintenance/update.php --quick
+$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/update.php --quick
 
 # Restore CheckUser
-$DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php
+$DOCKER_COMPOSE exec -T mediawiki sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php
 
 
 # ----- Tests start here -----

@@ -123,7 +123,7 @@ deploy () {
 	notify_slack "$(deploy_message downtime_end)"
 
 	echo "STEP: Run maintenance/update.php to update DB schema, if required"
-	local php_container_exec="${docker_compose_override} exec php"
+	local php_container_exec="${docker_compose_override} exec mediawiki"
 	${php_container_exec} /srv/mediawiki/maintenance/update.php --quick
 
 	notify_slack "$(deploy_message deploy_end)"
