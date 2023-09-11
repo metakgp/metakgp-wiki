@@ -43,14 +43,14 @@ RUN apt-get install -y build-essential git-core gnupg2 \
 	libicu-dev libjpeg62-turbo-dev libpng-dev \
 	wget
 
+# Install other php extensions
+RUN pecl install apcu
+RUN pear install Numbers_Words-beta
+
 # Configure php extensions
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
 RUN docker-php-ext-enable apcu
-
-# Install other php dependencies
-RUN pecl install apcu
-RUN pear install Numbers_Words-beta
 
 # Configure timezone
 ENV TZ=Asia/Kolkata
