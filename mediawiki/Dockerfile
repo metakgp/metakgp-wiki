@@ -15,7 +15,7 @@ RUN mv /tmp/mediawiki-1.40.0 /srv/mediawiki
 WORKDIR /srv/mediawiki
 
 # Copy all source files
-COPY install_extensions.sh post_install.sh /tmp/
+COPY install_extensions.sh /tmp/
 COPY LocalSettings.php robots.txt /srv/mediawiki/
 COPY assets/ resources/assets/
 COPY gmconvert.sh /opt/
