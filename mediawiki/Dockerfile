@@ -1,5 +1,6 @@
 FROM php:8.2-fpm-bookworm
 
+### INSTALLING MEDIAWIKI AND ITS EXTENSIONS ###
 # Install tools and dependencies
 RUN apt-get update && apt-get install -y git wget unzip
 
@@ -31,4 +32,38 @@ RUN /tmp/install_extensions.sh
 RUN mkdir -p /srv/static/images && rm -rf images && ln -s /srv/static/images images
 RUN mkdir -p images/temp
 
-ENTRYPOINT /tmp/post_install.sh
+RUN chown -LR www-data:www-data /srv/mediawiki
+### /INSTALLING MEDIAWIKI AND ITS EXTENSIONS ###
+
+### RUNNING MEDIAWIKI ###
+# Install extensions required for the wiki runtime
+RUN apt-get update
+RUN apt-get install -y build-essential git-core gnupg2 \
+	graphicsmagick imagemagick libfreetype6-dev \
+	libicu-dev libjpeg62-turbo-dev libpng-dev \
+	wget
+
+# Configure php extensions
+RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
+RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
+RUN docker-php-ext-enable apcu
+
+# Install other php dependencies
+RUN pecl install apcu
+RUN pear install Numbers_Words-beta
+
+# Configure timezone
+ENV TZ=Asia/Kolkata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Use the default production configuration
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+# Create directories for logs and set permissions
+RUN mkdir -p /var/log/mediawiki
+RUN touch /var/log/mediawiki/debug.log
+RUN chown -R www-data:www-data /var/log/mediawiki
+
+VOLUME /var/log
+### /RUNNING MEDIAWIKI ###
+

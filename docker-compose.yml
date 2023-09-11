@@ -22,13 +22,13 @@ services:
     ports:
       - "${SERVER_PORT:-8080}:80"
 
-  php:
-    build: "./php"
+  mediawiki:
+    build: "./mediawiki"
     networks:
       mysql_network:
       main_network:
         aliases:
-          - php-docker
+          - mediawiki-docker
     volumes:
       - mediawiki-volume:/srv/mediawiki
     environment:
@@ -38,11 +38,6 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - SERVER_NAME=$SERVER_NAME
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
-
-  mediawiki:
-    build: "./mediawiki"
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
 
 networks:
   main_network:
