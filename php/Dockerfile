@@ -22,8 +22,8 @@ RUN pear install Numbers_Words-beta
 ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Copy PHP config
-COPY php.ini /usr/local/etc/php/
+# Use the production PHP config file
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 # Create directories for logs and set permissions
 RUN mkdir -p /var/log/mediawiki
