@@ -16,7 +16,7 @@ server {
 		location ~ \.php$ {
 			try_files $uri $uri/ =404; # Don't let php execute non-existent php files
 			include /etc/nginx/fastcgi_params;
-			fastcgi_pass php-mediawiki:9000;
+			fastcgi_pass mediawiki-docker:9000;
                         fastcgi_index index.php;
                         fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
 		}
@@ -66,7 +66,7 @@ server {
 		include /etc/nginx/fastcgi_params;
 		# article path should always be passed to index.php
 		fastcgi_param SCRIPT_FILENAME	$document_root/index.php;
-		fastcgi_pass  php-mediawiki:9000;
+		fastcgi_pass  mediawiki-docker:9000;
 	}
 
 	# Thumbnail 404 handler, only called by try_files when a thumbnail does not exist
@@ -78,7 +78,7 @@ server {
 		# Run the thumb.php script
 		include /etc/nginx/fastcgi_params;
 		fastcgi_param SCRIPT_FILENAME	$document_root/thumb.php;
-		fastcgi_pass  php-mediawiki:9000;
+		fastcgi_pass  mediawiki-docker:9000;
 	}
 	# Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
 	#location /RequestDenied {
@@ -103,7 +103,7 @@ server {
 	#	# With php5-cgi alone:
 	#	fastcgi_pass 127.0.0.1:9000;
 	#	# With php5-fpm:
-	#	fastcgi_pass php-mediawiki:/var/run/php5-fpm.sock;
+	#	fastcgi_pass mediawiki-docker:/var/run/php5-fpm.sock;
 	#	fastcgi_index index.php;
 	#	include fastcgi_params;
 	#}
