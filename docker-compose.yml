@@ -13,20 +13,11 @@ services:
       - MYSQL_USER=metakgp_user
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
-  nginx:
-    build: "./nginx"
-    networks:
-      main_network:
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
-    ports:
-      - "${SERVER_PORT:-8080}:80"
-
   mediawiki:
     build: "./mediawiki"
     networks:
       mysql_network:
-      main_network:
+      metaploy-network:
         aliases:
           - mediawiki-docker
     volumes:
@@ -40,12 +31,15 @@ services:
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
 
 networks:
-  main_network:
-    external: true
-    name: metakgp-wiki_main_network
   mysql_network:
+  metaploy-network:
+    external: true
+    name: metaploy-network
 
 volumes:
   mediawiki-volume:
   db-volume:
   static-volume:
+  nginx-config-volume:
+    external: true
+    name: metaploy-nginx-config-volume

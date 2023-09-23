@@ -15,10 +15,10 @@ RUN mv /tmp/mediawiki-1.40.0 /srv/mediawiki
 WORKDIR /srv/mediawiki
 
 # Copy all source files
-COPY install_extensions.sh /tmp/
+COPY scripts/install_extensions.sh /tmp/
 COPY LocalSettings.php robots.txt /srv/mediawiki/
 COPY assets/ resources/assets/
-COPY gmconvert.sh /opt/
+COPY scripts/gmconvert.sh /opt/
 
 # Install composer for installing some extensions
 RUN wget -cO - https://getcomposer.org/composer-2.phar > composer.phar
@@ -67,3 +67,8 @@ RUN chown -R www-data:www-data /var/log/mediawiki
 VOLUME /var/log
 ### /RUNNING MEDIAWIKI ###
 
+### CONFIGURING NGINX ###
+COPY wiki.metaploy.conf /etc/nginx/sites-enabled/
+# Cleanup script removes the nginx config when stopped
+COPY scripts/cleanup.sh /docker-entrypoint.d/
+### /CONFIGURING NGINX ###
