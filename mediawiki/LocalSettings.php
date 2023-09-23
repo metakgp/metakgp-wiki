@@ -190,7 +190,7 @@ $wgMaxImageArea = 1250000000; // 1.25e9
 wfLoadExtension('SyntaxHighlight_GeSHi');
 
 # Set up google analytics extension
-wfLoadExtension('googleAnalytics');
+require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
 $wgGoogleAnalyticsAccount = 'UA-62532508-2';
 
 // Optional configuration (for defaults see googleAnalytics.php)
