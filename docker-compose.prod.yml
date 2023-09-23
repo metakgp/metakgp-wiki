@@ -5,7 +5,7 @@ services:
   backup:
     build: "./backup"
     networks:
-      mysql_network:
+      mysql-network:
     environment:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN

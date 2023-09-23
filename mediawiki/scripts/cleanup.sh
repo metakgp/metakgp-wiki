@@ -5,4 +5,8 @@ cleanup() {
 	rm /etc/nginx/sites-enabled/wiki.metaploy.conf
 }
 
-trap 'cleanup' SIGTERM
+trap 'cleanup' SIGQUIT
+
+"${@}" &
+
+wait $!

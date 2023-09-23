@@ -70,5 +70,7 @@ VOLUME /var/log
 ### CONFIGURING NGINX ###
 COPY wiki.metaploy.conf /etc/nginx/sites-enabled/
 # Cleanup script removes the nginx config when stopped
-COPY scripts/cleanup.sh /docker-entrypoint.d/
+COPY scripts/cleanup.sh /
+
+CMD [ "/cleanup.sh php-fpm" ]
 ### /CONFIGURING NGINX ###

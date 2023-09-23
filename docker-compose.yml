@@ -2,7 +2,7 @@ services:
   mysql:
     image: "mysql:8"
     networks:
-      mysql_network:
+      mysql-network:
         aliases:
           - mysql-docker
     volumes:
@@ -16,12 +16,13 @@ services:
   mediawiki:
     build: "./mediawiki"
     networks:
-      mysql_network:
+      mysql-network:
       metaploy-network:
         aliases:
           - mediawiki-docker
     volumes:
       - mediawiki-volume:/srv/mediawiki
+      - nginx-config-volume:/etc/nginx/sites-enabled
     environment:
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
       - WG_SECRET_KEY=$WG_SECRET_KEY
@@ -31,7 +32,7 @@ services:
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
 
 networks:
-  mysql_network:
+  mysql-network:
   metaploy-network:
     external: true
     name: metaploy-network
