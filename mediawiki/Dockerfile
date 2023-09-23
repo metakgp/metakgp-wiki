@@ -4,6 +4,17 @@ FROM php:8.2-fpm-bookworm
 # Install tools and dependencies
 RUN apt-get update && apt-get install -y git wget unzip
 
+# Install extensions required for the wiki runtime
+RUN apt-get install -y build-essential git-core gnupg2 \
+	graphicsmagick imagemagick libfreetype6-dev \
+	libicu-dev libjpeg62-turbo-dev libpng-dev \
+	wget
+
+# Install other php extensions
+RUN pecl install apcu
+RUN pear install Numbers_Words-beta
+RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
+
 # Install mediawiki
 WORKDIR /tmp
 RUN wget -q https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.0.tar.gz
@@ -36,20 +47,8 @@ RUN chown -LR www-data:www-data /srv/mediawiki
 ### /INSTALLING MEDIAWIKI AND ITS EXTENSIONS ###
 
 ### RUNNING MEDIAWIKI ###
-# Install extensions required for the wiki runtime
-RUN apt-get update
-RUN apt-get install -y build-essential git-core gnupg2 \
-	graphicsmagick imagemagick libfreetype6-dev \
-	libicu-dev libjpeg62-turbo-dev libpng-dev \
-	wget
-
-# Install other php extensions
-RUN pecl install apcu
-RUN pear install Numbers_Words-beta
-
 # Configure php extensions
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
-RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
 RUN docker-php-ext-enable apcu
 
 # Configure timezone
