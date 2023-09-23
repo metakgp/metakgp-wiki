@@ -10,6 +10,5 @@ trap 'cleanup' SIGQUIT
 "${@}" &
 
 cp /wiki.metaploy.conf /etc/nginx/sites-enabled
-cp /static.metaploy.conf /etc/nginx/sites-enabled
 
 wait $!
