@@ -17,12 +17,12 @@ services:
     build: "./mediawiki"
     networks:
       mysql-network:
-      metaploy-network:
+      mediawiki-network:
         aliases:
           - mediawiki-docker
     volumes:
       - mediawiki-volume:/srv/mediawiki
-      - nginx-config-volume:/etc/nginx/sites-enabled
+      - static-volume:/srv/static
     environment:
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
       - WG_SECRET_KEY=$WG_SECRET_KEY
@@ -31,8 +31,21 @@ services:
       - SERVER_NAME=$SERVER_NAME
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
 
+  nginx:
+    build: "./nginx"
+    networks:
+      metaploy-network:
+        aliases:
+          - metawiki
+      mediawiki-network:
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+      - static-volume:/srv/static
+      - nginx-config-volume:/etc/nginx/sites-enabled
+
 networks:
   mysql-network:
+  mediawiki-network:
   metaploy-network:
     external: true
     name: metaploy-network

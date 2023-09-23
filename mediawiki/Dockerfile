@@ -66,11 +66,3 @@ RUN chown -R www-data:www-data /var/log/mediawiki
 
 VOLUME /var/log
 ### /RUNNING MEDIAWIKI ###
-
-### CONFIGURING NGINX ###
-COPY wiki.metaploy.conf /etc/nginx/sites-enabled/
-# Cleanup script removes the nginx config when stopped
-COPY scripts/cleanup.sh /
-
-CMD [ "/cleanup.sh php-fpm" ]
-### /CONFIGURING NGINX ###
