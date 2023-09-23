@@ -20,10 +20,10 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_IGNORE_PLATFORM_REQS=1
 
 # Install Mediawiki extensions
+COPY scripts/install_extensions.sh /tmp/
 RUN /tmp/install_extensions.sh
 
 # Copy all source files
-COPY scripts/install_extensions.sh /tmp/
 COPY LocalSettings.php robots.txt /srv/mediawiki/
 COPY assets/ resources/assets/
 COPY scripts/gmconvert.sh /opt/
