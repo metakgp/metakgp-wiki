@@ -60,3 +60,10 @@ wget https://github.com/kulttuuri/SlackNotifications/archive/master.zip
 unzip master.zip
 mv SlackNotifications-master/ /srv/mediawiki/extensions/SlackNotifications/
 popd
+
+# Download an IP denylist for the StopForumSpam extension
+pushd /tmp
+wget https://www.stopforumspam.com/downloads/listed_ip_30_all.zip
+
+unzip listed_ip_30_all.zip
+mv listed_ip_30_all.txt /srv/mediawiki/extensions/StopForumSpam/

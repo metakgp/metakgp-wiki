@@ -362,7 +362,7 @@ $wgArticleFeedbackv5LotteryOdds = 100;
 
 # StopForumSpam
 wfLoadExtension('StopForumSpam');
-$wgSFSIPListLocation = "$IP/extensions/StopForumSpam/listed_ip_30_ipv46/listed_ip_30_ipv46.txt";
+$wgSFSIPListLocation = "$IP/extensions/StopForumSpam/listed_ip_30_all.txt";
 
 # Scribunto Extension, bundled with MediaWiki 1.34
 wfLoadExtension('Scribunto');
