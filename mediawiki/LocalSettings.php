@@ -298,8 +298,8 @@ wfLoadExtension('SlackNotifications');
 
 # Slack extension configuration options
 $wgSlackIncomingWebhookUrl = getenv('SLACK_WEBHOOK_URL', true);
-$wgSlackFromName = "batman";
-$wgWikiUrl = $wgServer . "/";
+$wgSlackFromName = "Batman";
+$wgSlackNotificationWikiUrl = $wgServer . "/";
 $wgSlackIconURL = "https://i.picresize.com/images/2015/09/20/tdpsU.jpg";
 $wgSlackSendMethod = "exec_curl";
 $wgSlackIncludeUserUrls = false;
