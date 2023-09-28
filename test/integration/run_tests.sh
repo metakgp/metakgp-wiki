@@ -73,7 +73,7 @@ NGINX_ADDR=$(docker compose port nginx 80)
 info "Initializing database"
 # Move LocalSettings.php out of the way otherwise the installer complains
 $DOCKER_COMPOSE exec -T mediawiki mv $WIKI/LocalSettings.php $WIKI/LocalSettings.php.bak
-$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/install.php \
+$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/run.php install \
     --confpath /tmp \
     --dbname metakgp_wiki_db \
     --dbserver mysql-docker \
@@ -93,7 +93,7 @@ $DOCKER_COMPOSE exec -T mediawiki mv $WIKI/LocalSettings.php.bak $WIKI/LocalSett
 $DOCKER_COMPOSE exec -T mediawiki sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
 
 # Run update.php for creating any required tables
-$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/update.php --quick
+$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/run.php update --quick
 
 # Restore CheckUser
 $DOCKER_COMPOSE exec -T mediawiki sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php

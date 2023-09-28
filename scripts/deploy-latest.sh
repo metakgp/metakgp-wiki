@@ -124,7 +124,7 @@ deploy () {
 
 	echo "STEP: Run maintenance/update.php to update DB schema, if required"
 	local php_container_exec="${docker_compose_override} exec mediawiki"
-	${php_container_exec} /srv/mediawiki/maintenance/update.php --quick
+	${php_container_exec} /srv/mediawiki/maintenance/run.php update --quick
 
 	notify_slack "$(deploy_message deploy_end)"
 
