@@ -47,13 +47,13 @@ Start all the basic services
 
 **Note:** Depending on how you installed docker, you might have to run the docker commands through `sudo`
 ```
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 Monitor the output to make sure nothing failed.
 
 ```
-docker-compose logs -f
+docker compose logs -f
 ```
 
 Now you need to initialise the database. Pick one of the following
@@ -63,7 +63,7 @@ options.
 
 Remove LocalSettings.php
 ```
-docker-compose exec mediawiki rm /srv/mediawiki/LocalSettings.php
+docker compose exec mediawiki rm /srv/mediawiki/LocalSettings.php
 ```
 
 Go to http://localhost:8080 and complete the web installation. The
@@ -74,12 +74,12 @@ as your `.env` file.
 After completing the installation, download the generated
 `LocalSettings.php` file and move it into place.
 ```
-docker cp <path to downloaded LocalSettings.php> $(docker-compose ps -q mediawiki):/srv/mediawiki
+docker cp <path to downloaded LocalSettings.php> $(docker compose ps -q mediawiki):/srv/mediawiki
 ```
 
 Create the tables necessary for extensions.
 ```
-docker-compose exec mediawiki php /srv/mediawiki/maintenance/update.php
+docker compose exec mediawiki php /srv/mediawiki/maintenance/run.php update
 ```
 
 Reload http://localhost:8080, you should see the main page.
@@ -97,11 +97,11 @@ Go to http://localhost:8080, you should see the main page.
 ## Development
 
 ### Compose configuration
-`docker-compose` supports
+`docker compose` supports
 [multiple configuration files](https://docs.docker.com/compose/extends/#understanding-multiple-compose-files).
 `docker-compose.yml` is the base config, and
 `docker-compose.override.yml` is the default override. This is set up
-so that while developing, you can just use `docker-compose <command>`,
+so that while developing, you can just use `docker compose <command>`,
 and it will work.
 
 For production, we want to run some additional services (like backups),
@@ -116,7 +116,7 @@ override instead.
 Overrides can be applied by using the `-f` option. See
 `test/integration/run_tests.sh` for an example.
 ```
-docker-compose -f docker-compose.yml -f <another compose file>
+docker compose -f docker-compose.yml -f <another compose file>
 ```
 
 ### Volumes
@@ -132,12 +132,12 @@ to make sure any existing volumes are removed.
 
 List volumes:
 ```
-docker-compose volume ls
+docker compose volume ls
 ```
 
 Remove the volumes you want to recreate:
 ```
-docker-compose volume rm <volume name>
+docker compose volume rm <volume name>
 ```
 
 ## Todo

@@ -9,7 +9,7 @@ Please follow below instructions in order to upgrade the mediawiki version. Refe
 1. Read through the change log and see if any other updates need to be made.
 1. Try to build, and rectify errors.
 1. Follow instructions mentioned in "Deploying to prod" section.
-1. Run `docker-compose exec mediawiki /srv/mediawiki/maintenance/update.php`
+1. Run `docker compose exec mediawiki /srv/mediawiki/maintenance/run.php update`
 
 ## Deploying to prod
 
@@ -29,11 +29,11 @@ To get the `SLACK_NOTIFICATIONS_URL`, go to Manage Apps -> Custom Integrations -
 **Note:** Manual operation for regular configuration updates is now deprecated. Please use the
 deploy script: [./scripts/deploy-latest.sh](./scripts/deploy-latest.sh).
 
-1. Take a backup! Run `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
-1. `git pull` and `docker-compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
-1. `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down` shuts down the server and removes containers. Now downtime has started ticking.
+1. Take a backup! Run `docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup ./run_backup.sh` and make sure it succeeded. Also run `git log` and note down the current deployed sha, in case you need to roll back.
+1. `git pull` and `docker compose build`. This builds and caches the new images locally without interrupting the old server, which reduces downtime.
+1. `docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down` shuts down the server and removes containers. Now downtime has started ticking.
 1. `docker volume rm metakgp-wiki_mediawiki-volume`, so that the mediawiki container can create a new volume with updates in the next step.
-1. `docker-compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec mediawiki /srv/mediawiki/maintenance/update.php`.
+1. `docker compose up --build -d` starts all the services using the newly built images. Server is back online, verify by going to the wiki in a browser. If there are database problems, it's often fixed by running `docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec mediawiki /srv/mediawiki/maintenance/run.php update`.
 
 ## Docker
 
@@ -45,18 +45,18 @@ deploy script: [./scripts/deploy-latest.sh](./scripts/deploy-latest.sh).
 ```sh
 $ cd path/to/docker-compose.yml
 # if something is already running, shut it all down
-$ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down
+$ docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml down
 # check to see if anything else is running
 $ docker ps
 # now, start all containers!
-$ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up -d --build
+$ docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up -d --build
 ```
 
 ### I want to retrieve the latest backup
 
 ```sh
 # ensure that the backup container is running and drop into the container's bash
-$ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup /bin/bash
+$ docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml exec backup /bin/bash
 # below command will create a new backup of the server
 container $ ./run_backup.sh
 # to ensure that the backup tar was created
@@ -80,7 +80,7 @@ computer. This step is out of the scope of this tutorial. Check out
 $ # install docker and docker-compose
 $ git clone https://github.com/metakgp/metakgp-wiki.git
 $ cd metakgp-wiki
-$ docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up --build -d
+$ docker compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.prod.yml up --build -d
 $ ./script/restore-from-backup.sh <path to sql file>
 ```
 
@@ -122,7 +122,7 @@ page may not work.
 
 ```sh
 # shut down all the containers before doing this
-$ docker-compose down
+$ docker compose down
 $ docker system prune -a
 $ docker volume prune
 ```
@@ -131,9 +131,9 @@ $ docker volume prune
 
 ### I want to upgrade to a new mediawiki version
 
-You have to run `maintenance/update.php` after installing a new extension or
+You have to run `maintenance/run.php update` after installing a new extension or
 upgrading mediawiki. This will update the database tables as necessary.
 
 ```sh
-$ docker-compose exec mediawiki /srv/mediawiki/maintenance/update.php
+$ docker compose exec mediawiki /srv/mediawiki/maintenance/run.php update
 ```
