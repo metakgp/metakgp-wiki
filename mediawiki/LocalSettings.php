@@ -191,7 +191,7 @@ wfLoadExtension('SyntaxHighlight_GeSHi');
 
 # Set up google analytics extension
 require_once "$IP/extensions/googleAnalytics/googleAnalytics.php";
-$wgGoogleAnalyticsAccount = $getenv('GOOGLE_ANALYTICS_ACCOUNT', true);
+$wgGoogleAnalyticsAccount = getenv('GOOGLE_ANALYTICS_ACCOUNT', true);
 
 // Optional configuration (for defaults see googleAnalytics.php)
 // Store full IP address in Google Universal Analytics (see https://support.google.com/analytics/answer/2763052?hl=en for details)
