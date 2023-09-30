@@ -152,7 +152,7 @@ $wgNamespacesToBeSearchedDefault = array(
 wfLoadExtension('ParserFunctions');
 wfLoadExtension('Cite');
 
-wfLoadExtension("SimpleChanges");
+wfLoadExtension("NewestPages");
 wfLoadExtension('WikimediaMessages');
 
 wfLoadExtension('WikiEditor');
