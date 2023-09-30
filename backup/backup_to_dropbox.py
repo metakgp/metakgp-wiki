@@ -5,24 +5,32 @@ import traceback
 import sys
 import os
 
-access_token = os.environ['DROPBOX_ACCESS_TOKEN']
-
-client = dropbox.Dropbox(access_token)
-
+# Name/path of the file to backup
 file_name = sys.argv[1]
 
+# Initliaze a Dropbox client
+access_token = os.environ['DROPBOX_ACCESS_TOKEN']
+client = dropbox.Dropbox(access_token)
+
 with open(file_name, 'rb') as f:
+    chunksize = 32 * 1024 * 1024
+
     try:
-        if os.path.getsize(file_name) < 32 * 1024 * 1024:
+        # If the size of the file is less than 32 MB, upload directly
+        if os.path.getsize(file_name) < chunksize:
             result = client.files_upload(f.read(), "/" + file_name)
             print(result)
+
+        # Else upload in chunks of 32MB
         else:
-            chunksize = 32 * 1024 * 1024
             next_chunk = f.read(chunksize)
+
             session = client.files_upload_session_start(next_chunk)
             uploaded = len(next_chunk)
+
             next_chunk = f.read(chunksize)
             cursor = dropbox.files.UploadSessionCursor(session.session_id, uploaded)
+
             print("Uploaded: ", float(uploaded) / (1024 * 1024), "MB")
             while next_chunk:
                 client.files_upload_session_append_v2(next_chunk, cursor)
