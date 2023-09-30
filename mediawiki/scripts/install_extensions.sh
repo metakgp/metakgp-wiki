@@ -46,6 +46,7 @@ popd
 declare -a composer_extension_names=( \
     mediawiki/maps \
     mediawiki/simple-batch-upload \
+    mediawiki/hit-counters \
 )
 
 for extension_name in "${composer_extension_names[@]}"; do
