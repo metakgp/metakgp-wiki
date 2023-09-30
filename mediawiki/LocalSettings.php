@@ -154,6 +154,7 @@ wfLoadExtension('Cite');
 
 wfLoadExtension("SimpleChanges");
 wfLoadExtension('WikimediaMessages');
+wfLoadExtension('HitCounters');
 
 wfLoadExtension('WikiEditor');
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
