@@ -27,6 +27,6 @@ COPY pywikibot/user-config.py pywikibot/user-password.py pywikibot/
 COPY pywikibot/metakgp_family.py pywikibot/pywikibot/families/
 COPY pywikibot/scripts/ pywikibot/scripts/
 
-COPY crontab update_top_trending.sh MetaMaint.sh update_spam_blacklist.sh ./
+COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh ./
 
 CMD ["supercronic", "/root/crontab"]
