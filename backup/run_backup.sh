@@ -29,7 +29,7 @@ mkdir -p "$backups_path/$backup_dir"
 echo -e '\n$wgReadOnly = "Automatic backup in progress; access will be restored in a few seconds.";' >> $settings_file
 
 # Take a mysql dump
-mysqldump -h mysql-docker -u metakgp_user -p$MYSQL_PASSWORD metakgp_wiki_db > "$backups_path/$backup_dir/metakgp_wiki_db.sql"
+mysqldump --no-tablespaces -h mysql-docker -u metakgp_user -p$MYSQL_PASSWORD metakgp_wiki_db > "$backups_path/$backup_dir/metakgp_wiki_db.sql"
 
 # Remove the notice and make the wiki editable
 sed -i '$ d' $settings_file
