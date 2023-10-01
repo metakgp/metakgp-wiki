@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: "mysql:8"
+    build: "./mysql"
     networks:
       mysql-network:
         aliases:
