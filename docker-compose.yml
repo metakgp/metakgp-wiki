@@ -31,6 +31,7 @@ services:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - SERVER_NAME=$SERVER_NAME
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
+      - DEV=$DEV
 
   nginx:
     build: "./nginx"
@@ -43,6 +44,8 @@ services:
       - mediawiki-volume:/srv/mediawiki
       - static-volume:/srv/static
       - nginx-config-volume:/etc/nginx/sites-enabled
+    environment:
+      - DEV=$DEV
 
 networks:
   mysql-network:
