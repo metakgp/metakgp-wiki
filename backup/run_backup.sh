@@ -26,7 +26,7 @@ backup_file="${backup_dir}.tar.gz"
 mkdir -p "$backups_path/$backup_dir"
 
 # Show a message on the wiki and make it read only while backing up
-echo -e '\n$wgReadOnly = "Automatic backup in progress; access will be restored in a few seconds.";' >> $settings_file
+echo -e '$wgReadOnly = "Automatic backup in progress; access will be restored in a few seconds.";' >> $settings_file
 
 # Take a mysql dump
 mysqldump --no-tablespaces -h mysql-docker -u metakgp_user -p$MYSQL_PASSWORD metakgp_wiki_db > "$backups_path/$backup_dir/metakgp_wiki_db.sql"
