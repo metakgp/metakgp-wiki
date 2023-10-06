@@ -260,7 +260,7 @@ wfLoadExtension("MultimediaViewer");
 wfLoadExtension('Poem');
 
 # File upload permissions
-$wgGroupPermissions['user']['upload'] = false;
+$wgGroupPermissions['user']['upload'] = true;
 $wgGroupPermissions['user']['reupload'] = false;
 $wgGroupPermissions['user']['reupload-shared'] = false;
 $wgGroupPermissions['uploadaccess']['upload'] = true;
