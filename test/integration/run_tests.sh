@@ -10,7 +10,7 @@ set -e
 REPO_ROOT=$(git rev-parse --show-toplevel)
 TEST_ROOT="$REPO_ROOT/test/integration"
 DOCKER_CONFIG="-f $REPO_ROOT/docker-compose.yml -f $TEST_ROOT/docker-compose.test.yml"
-DOCKER_COMPOSE="docker-compose $DOCKER_CONFIG"
+DOCKER_COMPOSE="docker compose $DOCKER_CONFIG"
 WIKI="/srv/mediawiki"
 
 cd $TEST_ROOT
@@ -47,14 +47,14 @@ function cleanup {
 
 info "Making sure no services are running"
 if [[ $($DOCKER_COMPOSE top) != "" ]]; then
-    error "Cannot run integration tests while services are running. Run 'docker-compose down' and try again."
+    error "Cannot run integration tests while services are running. Run 'docker compose down' and try again."
 fi
 
 # About to start tests; make sure we clean up afterwards
 trap cleanup EXIT
 
 info "Starting integration test services"
-$DOCKER_COMPOSE up --build -d 1>/dev/null
+$DOCKER_COMPOSE up --build -d
 info "Waiting for mysql to initialize"
 for i in {1..24}; do
     if [[ $($DOCKER_COMPOSE logs mysql | grep "ready for connections") != "" ]]; then
@@ -68,12 +68,12 @@ for i in {1..24}; do
 done
 
 # Find the port that nginx is mapped to
-NGINX_ADDR=$(docker-compose port nginx 80)
+NGINX_ADDR=$(docker compose port nginx 80)
 
 info "Initializing database"
 # Move LocalSettings.php out of the way otherwise the installer complains
-$DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php $WIKI/LocalSettings.php.bak
-$DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
+$DOCKER_COMPOSE exec -T mediawiki mv $WIKI/LocalSettings.php $WIKI/LocalSettings.php.bak
+$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/run.php install \
     --confpath /tmp \
     --dbname metakgp_wiki_db \
     --dbserver mysql-docker \
@@ -87,16 +87,16 @@ $DOCKER_COMPOSE exec -T php php $WIKI/maintenance/install.php \
     Admin
 
 # Move LocalSettings.php back in place
-$DOCKER_COMPOSE exec -T php mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
+$DOCKER_COMPOSE exec -T mediawiki mv $WIKI/LocalSettings.php.bak $WIKI/LocalSettings.php
 
 # CheckUser makes update.php fail on a fresh install, move it out of the way
-$DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
+$DOCKER_COMPOSE exec -T mediawiki sed -i '/wfLoadExtension.*CheckUser/s/^/#/g' $WIKI/LocalSettings.php
 
 # Run update.php for creating any required tables
-$DOCKER_COMPOSE exec -T php php $WIKI/maintenance/update.php --quick
+$DOCKER_COMPOSE exec -T mediawiki php $WIKI/maintenance/run.php update --quick
 
 # Restore CheckUser
-$DOCKER_COMPOSE exec -T php sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php
+$DOCKER_COMPOSE exec -T mediawiki sed -i '/wfLoadExtension.*CheckUser/s/^#//g' $WIKI/LocalSettings.php
 
 
 # ----- Tests start here -----

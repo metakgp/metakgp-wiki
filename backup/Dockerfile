@@ -1,8 +1,5 @@
-FROM python:2-jessie
-RUN apt-get -qq update && apt-get -qq install -y \
-      cron \
-      mysql-client \
-      rsync
+FROM python:3-slim
+RUN apt-get update && apt-get install -y cron default-mysql-client rsync
 
 ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

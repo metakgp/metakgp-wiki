@@ -1,8 +1,5 @@
 [mysqld]
-pid-file = /var/run/mysqld/mysqld.pid
-socket = /var/run/mysqld/mysqld.sock
-datadir = /var/lib/mysql
-symbolic-links=0
+general_log=1
 
 # Slow query settings:
 slow_query_log=1

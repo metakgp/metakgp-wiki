@@ -1,36 +1,22 @@
-version: '2.1'
+include:
+  - docker-compose.yml
 
 services:
-  nginx:
-    volumes:
-      - static-volume:/srv/static
-  php:
-    volumes:
-      - static-volume:/srv/static
-  mediawiki:
-    volumes:
-      - static-volume:/srv/static
   backup:
-    build: './backup'
+    build: "./backup"
     networks:
-      mysql_network:
+      mysql-network:
     environment:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
     volumes:
       - mediawiki-volume:/srv/mediawiki
       - static-volume:/srv/static
+
   jobs:
-    build: './jobs'
+    build: "./jobs"
     environment:
       - BATMAN_BOT_PASSWORD=$BATMAN_BOT_PASSWORD
       - GOOGLE_ANALYTICS_SERVICE_KEY=$GOOGLE_ANALYTICS_SERVICE_KEY
     volumes:
       - mediawiki-volume:/srv/mediawiki
-
-volumes:
-  mediawiki-volume:
-  static-volume:
-
-networks:
-  mysql_network:

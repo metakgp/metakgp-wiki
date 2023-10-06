@@ -66,7 +66,7 @@ deploy () {
 	echo "STEP: Check if there are any changes that need to be deployed"
 	git --no-pager diff --exit-code $base_branch > /dev/null
 
-	local docker_compose="docker-compose"
+	local docker_compose="docker compose"
 	local docker="docker"
 
 	[[ -x "$(which ${docker})" ]]
@@ -74,9 +74,7 @@ deploy () {
 
 	echo "STEP: Running backup job"
 
-	local docker_compose_override="${docker_compose} -f docker-compose.yml \
-					  -f docker-compose.override.yml \
-					  -f docker-compose.prod.yml"
+	local docker_compose_override="${docker_compose} -f docker-compose.prod.yml"
 	local backup_container_exec="${docker_compose_override} exec backup"
 
 	${backup_container_exec} ./run_backup.sh 2>/dev/null
@@ -102,9 +100,7 @@ deploy () {
 	echo "STEP: Merge branch and build Docker images"
 	git merge --ff-only $deploy_branch
 
-	local docker_compose_override="${docker_compose} -f docker-compose.yml \
-					  -f docker-compose.override.yml \
-					  -f docker-compose.prod.yml"
+	local docker_compose_override="${docker_compose} -f docker-compose.prod.yml"
 
 	echo "STEP: Build docker images for the new configuration"
 	${docker_compose_override} build
@@ -127,8 +123,8 @@ deploy () {
 	notify_slack "$(deploy_message downtime_end)"
 
 	echo "STEP: Run maintenance/update.php to update DB schema, if required"
-	local php_container_exec="${docker_compose_override} exec php"
-	${php_container_exec} /srv/mediawiki/maintenance/update.php --quick
+	local php_container_exec="${docker_compose_override} exec mediawiki"
+	${php_container_exec} /srv/mediawiki/maintenance/run.php update --quick
 
 	notify_slack "$(deploy_message deploy_end)"
 

@@ -1,54 +1,63 @@
-version: "2.1"
-
 services:
   mysql:
-    image: "mysql:5.7"
+    build: "./mysql"
     networks:
-      mysql_network:
+      mysql-network:
         aliases:
           - mysql-docker
-      data_network:
-        aliases:
-          - mysql-docker
+    volumes:
+      - db-volume:/var/lib/mysql
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_DATABASE=metakgp_wiki_db
       - MYSQL_USER=metakgp_user
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  nginx:
-    build: "./nginx"
+
+  mediawiki:
+    build: "./mediawiki"
     networks:
-      main_network:
-  php:
-    build: "./php"
-    networks:
-      data_network:
-      main_network:
+      mysql-network:
+      mediawiki-network:
         aliases:
-          - php-docker
+          - mediawiki-docker
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+      - static-volume:/srv/static
     environment:
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
-      - RECAPTCHA_SECRET_KEY=$RECAPTCHA_SECRET_KEY
+      - GOOGLE_ANALYTICS_ACCOUNT=$GOOGLE_ANALYTICS_ACCOUNT
       - WG_SECRET_KEY=$WG_SECRET_KEY
       - SITE_UPGRADE_KEY=$SITE_UPGRADE_KEY
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - SERVER_NAME=$SERVER_NAME
-      - GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY
       - SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL
-      - NEWRELIC_LICENSE=$NEWRELIC_LICENSE
-  mediawiki:
-    build: "./mediawiki"
-  parsoid:
-    build: "./parsoid"
+      - DEV=$DEV
+
+  nginx:
+    build: "./nginx"
     networks:
-      main_network:
-      data_network:
+      metaploy-network:
         aliases:
-          - parsoid-docker
+          - metawiki
+      mediawiki-network:
+    volumes:
+      - mediawiki-volume:/srv/mediawiki
+      - static-volume:/srv/static
+      - nginx-config-volume:/etc/nginx/sites-enabled
+    environment:
+      - DEV=$DEV
 
 networks:
-  main_network:
+  mysql-network:
+  mediawiki-network:
+  metaploy-network:
     external: true
-    name: metakgp-wiki_main_network
-  mysql_network:
-  data_network:
+    name: metaploy-network
+
+volumes:
+  mediawiki-volume:
+  db-volume:
+  static-volume:
+  nginx-config-volume:
+    external: true
+    name: metaploy-nginx-config-volume
