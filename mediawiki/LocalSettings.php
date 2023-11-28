@@ -261,6 +261,7 @@ wfLoadExtension('Poem');
 
 # File upload permissions
 $wgGroupPermissions['user']['upload'] = true;
+$wgGroupPermissions['user']['reupload-own'] = false;
 $wgGroupPermissions['user']['reupload'] = false;
 $wgGroupPermissions['user']['reupload-shared'] = false;
 $wgGroupPermissions['uploadaccess']['upload'] = true;
