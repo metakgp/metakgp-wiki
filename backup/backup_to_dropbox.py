@@ -9,10 +9,18 @@ import os
 file_name = sys.argv[1]
 
 # Initliaze a Dropbox client
-access_token = os.environ['DROPBOX_ACCESS_TOKEN']
-client = dropbox.Dropbox(access_token)
+app_key = os.environ["DROPBOX_APP_KEY"]
+app_secret = os.environ["DROPBOX_APP_SECRET"]
+access_token = os.environ["DROPBOX_ACCESS_TOKEN"]
+refresh_token = os.environ["DROPBOX_REFRESH_TOKEN"]
+client = dropbox.Dropbox(
+    app_key=app_key,
+    app_secret=app_secret,
+    oauth2_access_token=access_token,
+    oauth2_refresh_token=refresh_token,
+)
 
-with open(file_name, 'rb') as f:
+with open(file_name, "rb") as f:
     chunksize = 32 * 1024 * 1024
 
     try:
