@@ -5,3 +5,6 @@ general_log=1
 slow_query_log=1
 slow_query_log_file=/var/log/mysql/slow.log
 long_query_time=5.0
+
+# Error logging
+log_error=/var/lib/mysql/mysql_error.log
