@@ -85,13 +85,11 @@ Docker and docker compose are the only required dependencies. You can either ins
 #### Environment Variables
 Environment variables can be set using a `.env` file(use `.env.template` file for reference). The following variables are used:
 
-- `DEV`: When set to `true`, stack-trace is shown with error messages.(Default: `false`)
+- `DEV`: When set to `true`, Mediawiki PHP stack-trace is shown with error messages. (Default: `false`)
 - `MYSQL_PASSWORD`: A secret password for the MySQL database.
-- `SERVER_PORT`: Port on which the server is exposed to the host(Default: `8080`)
+- `SERVER_PORT`: Port on which the wiki server is exposed to the host. (Default: `8080`)
 - `SERVER_NAME`: Base URL of the wiki.
 - `MAILGUN_PASSWORD`: Mailgun SMTP password for sending official mails from the wiki.
-- `GOOGLE_ANALYTICS_ACCOUNT`: Google Analytics Account (GA-XXXXXX or UA-XXXXXX)
-- `GOOGLE_ANALYTICS_SERVICE_KEY`: Google Analytics Service Key (Only used in production to update statistics)
 - `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
 - Dropbox related variables(used for storing backups): 
 	- `DROPBOX_APP_KEY`:  Dropbox app key(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
@@ -99,7 +97,7 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token(generated using `/scripts/get_dropbox_tokens.py`)
 	- `DROPBOX_REFRESH_TOKEN`: Dropbox API refresh token(generated using `/scripts/get_dropbox_tokens.py`) used to refresh the access token.
 - `SLACK_WEBHOOK_URL`: URL to the Slack webhook used to send updates.
-- `BATMAN_BOT_PASSWORD`: A generated password of the Batman bot user account on the wiki.
+- `BATMAN_BOT_PASSWORD`: A generated password of the Batman bot user account on the wiki(Mediawiki documentation to generate bot passwords can be found [here](https://www.mediawiki.org/wiki/Manual:Pywikibot/BotPasswords)).
 ## Maintainer(s)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
 
