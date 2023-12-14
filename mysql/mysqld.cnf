@@ -3,7 +3,7 @@ general_log=1
 
 # Slow query settings:
 slow_query_log=1
-slow_query_log_file=/var/log/mysql/slow.log
+slow_query_log_file=/var/lib/mysql/slow.log
 long_query_time=5.0
 
 # Error logging
