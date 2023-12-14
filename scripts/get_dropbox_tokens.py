@@ -1,11 +1,7 @@
-import os
 from dropbox import DropboxOAuth2FlowNoRedirect
-from dotenv import load_dotenv
 
-load_dotenv()
-
-APP_KEY = os.getenv("DROPBOX_APP_KEY")
-APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
+APP_KEY = input("Enter Dropbox App Key: ").strip()
+APP_SECRET = input("Enter Dropbox App Secret: ").strip()
 
 auth_flow = DropboxOAuth2FlowNoRedirect(
     APP_KEY,
