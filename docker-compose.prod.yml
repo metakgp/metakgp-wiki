@@ -8,7 +8,10 @@ services:
       mysql-network:
     environment:
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - DROPBOX_APP_KEY=$DROPBOX_APP_KEY
+      - DROPBOX_APP_SECRET=$DROPBOX_APP_SECRET
       - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
+      - DROPBOX_REFRESH_TOKEN=$DROPBOX_REFRESH_TOKEN
     volumes:
       - mediawiki-volume:/srv/mediawiki
       - static-volume:/srv/static
