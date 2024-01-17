@@ -96,7 +96,8 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 	- `DROPBOX_APP_SECRET`:  Dropbox app secret(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
 	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token(generated using `/scripts/get_dropbox_tokens.py`)
 	- `DROPBOX_REFRESH_TOKEN`: Dropbox API refresh token(generated using `/scripts/get_dropbox_tokens.py`) used to refresh the access token.
-- `SLACK_WEBHOOK_URL`: URL to the Slack webhook used to send updates.
+- `SLACK_CHANGES_WH_URL`: URL to the Slack webhook used to send updates about page edits.
+- `SLACK_INCIDENTS_WH_URL`: URL to the Slack webhook used to send updates about incidents and errors(like Dropbox backup failure).
 - `BATMAN_BOT_PASSWORD`: A generated password of the Batman bot user account on the wiki(Mediawiki documentation to generate bot passwords can be found [here](https://www.mediawiki.org/wiki/Manual:Pywikibot/BotPasswords)).
 ## Maintainer(s)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)

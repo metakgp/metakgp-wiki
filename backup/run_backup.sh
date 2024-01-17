@@ -44,5 +44,21 @@ cd $backups_path
 tar -czvf $backup_file $backup_dir
 rm -rf $backup_dir
 
-# Backup to dropbox
+# Backup to Dropbox
 $backup_to_dropbox $backup_file
+if [ $? -nq 0 ]; then
+    echo DROPBOX BACKUP FAILURE!
+    # Notify Slack
+    if [[ -n "$SLACK_INCIDENTS_WH_URL" ]]; then
+        curl -s -H 'content-type: application/json' \
+            -d "{ \"text\": \"❗DROPBOX BACKUP FAILURE❗\" }" \
+            "$SLACK_INCIDENTS_WH_URL"
+    fi
+fi
+
+# Delete local backups older than one week
+for file in ./*tar.gz; do
+    if [ $(($(date +%s) - $(date -r $file +%s))) -gt 604800 ]; then
+        rm $file
+    fi
+done
