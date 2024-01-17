@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -xe
+set -x
 
 echo "Backing up database..."
 
@@ -45,13 +45,12 @@ tar -czvf $backup_file $backup_dir
 rm -rf $backup_dir
 
 # Backup to Dropbox
-$backup_to_dropbox $backup_file
-if [ $? -nq 0 ]; then
+if ! $backup_to_dropbox $backup_file; then
     echo DROPBOX BACKUP FAILURE!
     # Notify Slack
     if [[ -n "$SLACK_INCIDENTS_WH_URL" ]]; then
         curl -s -H 'content-type: application/json' \
-            -d "{ \"text\": \"❗DROPBOX BACKUP FAILURE❗\" }" \
+            -d "{ \"text\": \"❗DROPBOX BACKUP FAILURE❗\nBackup filename: $backup_file\" }" \
             "$SLACK_INCIDENTS_WH_URL"
     fi
 fi
