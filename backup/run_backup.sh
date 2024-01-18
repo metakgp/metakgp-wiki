@@ -53,6 +53,7 @@ if ! $backup_to_dropbox $backup_file; then
             -d "{ \"text\": \"❗DROPBOX BACKUP FAILURE❗\nBackup filename: $backup_file\" }" \
             "$SLACK_INCIDENTS_WH_URL"
     fi
+    exit 1
 fi
 
 # Delete local backups older than one week
