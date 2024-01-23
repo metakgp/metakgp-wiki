@@ -298,7 +298,7 @@ $wgCrossSiteAJAXdomains = array('*');
 wfLoadExtension('SlackNotifications');
 
 # Slack extension configuration options
-$wgSlackIncomingWebhookUrl = getenv('SLACK_WEBHOOK_URL', true);
+$wgSlackIncomingWebhookUrl = getenv('SLACK_CHANGES_WH_URL', true);
 $wgSlackFromName = "Batman";
 $wgSlackNotificationWikiUrl = $wgServer . "/";
 $wgSlackIconURL = "https://i.picresize.com/images/2015/09/20/tdpsU.jpg";

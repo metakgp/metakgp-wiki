@@ -12,6 +12,7 @@ services:
       - DROPBOX_APP_SECRET=$DROPBOX_APP_SECRET
       - DROPBOX_ACCESS_TOKEN=$DROPBOX_ACCESS_TOKEN
       - DROPBOX_REFRESH_TOKEN=$DROPBOX_REFRESH_TOKEN
+      - SLACK_INCIDENTS_WH_URL=$SLACK_INCIDENTS_WH_URL
     volumes:
       - mediawiki-volume:/srv/mediawiki
       - static-volume:/srv/static

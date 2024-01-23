@@ -52,4 +52,4 @@ with open(file_name, "rb") as f:
             result = client.files_upload_session_finish(f.read(), cursor, commit_info)
             print(result)
     except Exception as e:
-        print(traceback.format_exc())
+        sys.exit(traceback.format_exc())
