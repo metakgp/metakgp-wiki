@@ -1,6 +1,6 @@
 FROM python:3-slim
 
-RUN apt-get update && apt-get install -y wget curl
+RUN apt-get update && apt-get install -y wget curl logrotate
 
 ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -27,6 +27,7 @@ COPY pywikibot/user-config.py pywikibot/user-password.py pywikibot/
 COPY pywikibot/metakgp_family.py pywikibot/pywikibot/families/
 COPY pywikibot/scripts/ pywikibot/scripts/
 
-COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh ./
+COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh mysql_logrotate.conf ./
+RUN chmod 644 mysql_logrotate.conf && groupadd -g 999 mysql && useradd mysql -u 999 -g 999
 
 CMD ["supercronic", "/root/crontab"]
