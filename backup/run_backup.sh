@@ -8,6 +8,11 @@ set -a
 source .env
 set +a
 
+if [ -z "$MYSQL_PASSWORD" ]; then
+  echo "Missing MYSQL_PASSWORD env var"
+  exit 1
+fi
+
 timestamp=$(date +%Y_%m_%d_%H_%M_%S)
 
 # Wiki paths
@@ -29,16 +34,11 @@ mkdir -p "${backups_path}/${backup_dir}"
 echo -e '$wgReadOnly = "Automatic backup in progress; access will be restored in a few seconds.";' >>"$settings_file"
 
 # Take a mysql dump
-if [ -z "$MYSQL_PASSWORD" ]; then
-  echo "Missing MYSQL_PASSWORD env var"
-  exit 1
-else
-  mysqldump --no-tablespaces \
+mysqldump --no-tablespaces \
     -h mysql-docker \
     -u metakgp_user \
     -p"$MYSQL_PASSWORD" \
     metakgp_wiki_db >"${backups_path}/${backup_dir}/metakgp_wiki_db.sql"
-fi
 
 # Remove the notice and make the wiki editable
 sed -i '$ d' "$settings_file"
