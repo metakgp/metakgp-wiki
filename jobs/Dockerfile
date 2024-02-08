@@ -30,4 +30,6 @@ COPY pywikibot/scripts/ pywikibot/scripts/
 COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh mysql_logrotate.conf ./
 RUN chmod 644 mysql_logrotate.conf && groupadd -g 999 mysql && useradd mysql -u 999 -g 999
 
+COPY backup/ ./backup
+
 CMD ["supercronic", "/root/crontab"]

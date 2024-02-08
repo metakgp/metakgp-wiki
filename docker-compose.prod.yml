@@ -2,11 +2,11 @@ include:
   - docker-compose.yml
 
 services:
-  backup:
-    build: "./backup"
-    networks:
-      mysql-network:
+  jobs:
+    build: "./jobs"
     environment:
+      - BATMAN_BOT_PASSWORD=$BATMAN_BOT_PASSWORD
+      - GOOGLE_ANALYTICS_SERVICE_KEY=$GOOGLE_ANALYTICS_SERVICE_KEY
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - DROPBOX_APP_KEY=$DROPBOX_APP_KEY
       - DROPBOX_APP_SECRET=$DROPBOX_APP_SECRET
@@ -15,13 +15,5 @@ services:
       - SLACK_INCIDENTS_WH_URL=$SLACK_INCIDENTS_WH_URL
     volumes:
       - mediawiki-volume:/srv/mediawiki
-      - static-volume:/srv/static
-
-  jobs:
-    build: "./jobs"
-    environment:
-      - BATMAN_BOT_PASSWORD=$BATMAN_BOT_PASSWORD
-      - GOOGLE_ANALYTICS_SERVICE_KEY=$GOOGLE_ANALYTICS_SERVICE_KEY
-    volumes:
-      - mediawiki-volume:/srv/mediawiki
       - db-volume:/var/lib/mysql
+      - static-volume:/srv/static
