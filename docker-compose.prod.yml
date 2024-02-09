@@ -4,6 +4,8 @@ include:
 services:
   jobs:
     build: "./jobs"
+    networks:
+      mysql-network:
     environment:
       - BATMAN_BOT_PASSWORD=$BATMAN_BOT_PASSWORD
       - GOOGLE_ANALYTICS_SERVICE_KEY=$GOOGLE_ANALYTICS_SERVICE_KEY
