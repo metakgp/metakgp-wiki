@@ -21,10 +21,10 @@ static_root="/srv/static"
 settings_file="${wiki_root}/LocalSettings.php"
 
 # Dropbox backup script runner
-backup_to_dropbox="/usr/local/bin/python /root/backup_to_dropbox.py"
+backup_to_dropbox="/usr/local/bin/python /root/backup/backup_to_dropbox.py"
 
 # Backup locations
-backups_path="/root/backups"
+backups_path="/root/backup/backups"
 backup_dir="metakgp_wiki_${timestamp}"
 backup_file="${backup_dir}.tar.gz"
 
