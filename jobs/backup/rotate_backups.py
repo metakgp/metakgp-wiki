@@ -15,22 +15,25 @@ client = dropbox.Dropbox(
     oauth2_refresh_token=refresh_token,
 )
 
-backup_folder_path = ""
+BACKUP_FOLDER_PATH = ""
 has_more_files = True
 cursor = None
 result = None
 files = []
 now = datetime.datetime.now()
+counter = 0
 
+print("Fetching files from Dropbox...")
 while has_more_files:
     if cursor is None:
-        result = client.files_list_folder(backup_folder_path)
+        result = client.files_list_folder(BACKUP_FOLDER_PATH)
     else:
         result = client.files_list_folder_continue(cursor=cursor)
     cursor = result.cursor
     has_more_files = result.has_more
     files.extend(result.entries)
 
+print("Starting rotation")
 for file in files:
     if file.name.find("metakgp_wiki") == -1:
         continue
@@ -38,3 +41,6 @@ for file in files:
     days_old = (now - file_timestamp).days
     if days_old > 30:
         client.files_delete(file.path_display)
+        counter += 1
+
+print(counter + " backup file(s) successfully deleted.")
