@@ -34,12 +34,13 @@ while has_more_files:
     files.extend(result.entries)
 
 print("Starting rotation")
+number_of_files = len(files)
 for file in files:
     if file.name.find("metakgp_wiki") == -1:
         continue
     file_timestamp = file.client_modified
     days_old = (now - file_timestamp).days
-    if days_old > 30:
+    if days_old > 30 and number_of_files > 30:
         client.files_delete(file.path_display)
         counter += 1
 
