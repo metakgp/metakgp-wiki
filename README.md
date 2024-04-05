@@ -41,6 +41,7 @@
     - [Development](#development)
     - [Production](#production)
     - [Environment Variables](#environment-variables)
+    - [Setting Up Secondary Services](#setting-up-secondary-services)
 - [Runbook](./RUNBOOK.md)
 - [Maintainer(s)](#maintainers)
 - [Contact](#contact)
@@ -93,17 +94,33 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 - `DEV`: When set to `true`, Mediawiki PHP stack-trace is shown with error messages. (Default: `false`)
 - `MYSQL_PASSWORD`: A secret password for the MySQL database.
 - `SERVER_PORT`: Port on which the wiki server is exposed to the host. (Default: `8080`)
-- `SERVER_NAME`: Base URL of the wiki.
+- `SERVER_NAME`: Base URL of the wiki (eg: `https://wiki.metakgp.org`).
 - `MAILGUN_PASSWORD`: Mailgun SMTP password for sending official mails from the wiki.
-- `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
-- Dropbox related variables(used for storing backups):
-	- `DROPBOX_APP_KEY`:  Dropbox app key(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
-	- `DROPBOX_APP_SECRET`:  Dropbox app secret(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
-	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token(generated using `/scripts/get_dropbox_tokens.py`)
-	- `DROPBOX_REFRESH_TOKEN`: Dropbox API refresh token(generated using `/scripts/get_dropbox_tokens.py`) used to refresh the access token.
-- `SLACK_CHANGES_WH_URL`: URL to the Slack webhook used to send updates about wiki changes.
-- `SLACK_INCIDENTS_WH_URL`: URL to the Slack webhook used to send incidents reports and errors(like Dropbox backup failure).
+- `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string ([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
+- Dropbox related variables (used for storing backups) (See [this](#dropbox-backups) section for details):
+	- `DROPBOX_APP_KEY`:  Dropbox app key (can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
+	- `DROPBOX_APP_SECRET`:  Dropbox app secret (can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
+	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token (generated using `/scripts/get_dropbox_tokens.py`)
+	- `DROPBOX_REFRESH_TOKEN`: Dropbox API refresh token (generated using `/scripts/get_dropbox_tokens.py`) used to refresh the access token.
+- `SLACK_CHANGES_WH_URL`: URL to the Slack webhook used to send updates about wiki changes. (See [this](#slack-notifications) section for more details)
+- `SLACK_INCIDENTS_WH_URL`: URL to the Slack webhook used to send incidents reports and errors(like Dropbox backup failure). (See [this](#slack-notifications) section for more details)
 - `BATMAN_BOT_PASSWORD`: A generated password of the Batman bot user account on the wiki(Mediawiki documentation to generate bot passwords can be found [here](https://www.mediawiki.org/wiki/Manual:Pywikibot/BotPasswords)).
+
+#### Setting Up Secondary Services
+##### Dropbox Backups
+The `jobs` service runs periodic local backups (see `/jobs/backups`) and stores the last 30 days of backups on [Dropbox](https://dropbox.com). To set this up, a Dropbox app has to be created, and access tokens need to be generated:
+
+1. Create an app on the [Dropbox App Console](https://www.dropbox.com/developers/apps).
+2. Copy the app key and app secret and set the corresponding [environment variables](#environment-variables).
+3. Run the script `/scripts/get_dropbox_tokens.py` and when prompted, enter the app key and app secret.
+4. Set the generated API access token and refresh tokens in the environment variables.
+
+##### Slack Notifications
+##### Mailgun
+##### PyWikiBot
+##### Batman Bot
+##### Google Analytics
+
 ## Maintainer(s)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
 
