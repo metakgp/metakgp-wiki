@@ -95,6 +95,7 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 - `MYSQL_PASSWORD`: A secret password for the MySQL database.
 - `SERVER_PORT`: Port on which the wiki server is exposed to the host. (Default: `8080`)
 - `SERVER_NAME`: Base URL of the wiki (eg: `https://wiki.metakgp.org`).
+- `MAILGUN_EMAIL`: The email ID used for sending emails via Mailgun. (eg: `admin@wiki.metakgp.org`)
 - `MAILGUN_PASSWORD`: Mailgun SMTP password for sending official mails from the wiki.
 - `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string ([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
 - Dropbox related variables (used for storing backups) (See [this](#dropbox-backups) section for details):
@@ -123,7 +124,10 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 3. Copy the webhook URL and set the appropriate [environment variables](#environment-variables).
 
 ##### Mailgun
+[Mailgun](https://www.mailgun.com/) is used by the wiki as a mailing service for sending various emails to the users such as account verification and notifications.
 
+1. Add a new domain in the "Sending" section on Mailgun.
+2. [Copy](https://help.mailgun.com/hc/en-us/articles/203380100-Where-Can-I-Find-My-API-Key-and-SMTP-Credentials) the SMTP password and set the appropriate [environment variables](#environment-variables).
 
 ##### PyWikiBot
 
