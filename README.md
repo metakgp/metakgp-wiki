@@ -116,9 +116,21 @@ The `jobs` service runs periodic local backups (see `/jobs/backups`) and stores 
 4. Set the generated API access token and refresh tokens in the environment variables.
 
 ##### Slack Notifications
+The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/webhooks). Two webhooks are used by the wiki: Recent Changes webhook and Incidents webhook (See [environment variables](#environment-variables)). The recent changes webhook logs recent changes to the wiki (page edits, user creation, etc.) and the incidents webhook notifies about server incidents such as backup failures.
+
+1. Create a [Slack app](https://api.slack.com/apps/new).
+2. Enable "Incoming Webhooks".
+3. Copy the webhook URL and set the appropriate [environment variables](#environment-variables).
+
 ##### Mailgun
+
+
 ##### PyWikiBot
+
+
 ##### Batman Bot
+
+
 ##### Google Analytics
 
 ## Maintainer(s)
