@@ -137,7 +137,9 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 
 ##### Google Analytics
 
+
 ## Maintainer(s)
+- [Rajiv Harlalka](https://github.com/rajivharlalka)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
