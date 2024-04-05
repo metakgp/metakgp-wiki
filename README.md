@@ -129,10 +129,7 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 1. Add a new domain in the "Sending" section on Mailgun.
 2. [Copy](https://help.mailgun.com/hc/en-us/articles/203380100-Where-Can-I-Find-My-API-Key-and-SMTP-Credentials) the SMTP password and set the appropriate [environment variables](#environment-variables).
 
-##### PyWikiBot
-
-
-##### Batman Bot
+##### PyWikiBot (Batman)
 
 
 ##### Google Analytics
