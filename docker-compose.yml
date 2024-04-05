@@ -24,6 +24,7 @@ services:
       - mediawiki-volume:/srv/mediawiki
       - static-volume:/srv/static
     environment:
+      - MAILGUN_EMAIL=$MAILGUN_EMAIL
       - MAILGUN_PASSWORD=$MAILGUN_PASSWORD
       - GOOGLE_ANALYTICS_ACCOUNT=$GOOGLE_ANALYTICS_ACCOUNT
       - WG_SECRET_KEY=$WG_SECRET_KEY
