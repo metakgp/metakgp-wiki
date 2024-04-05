@@ -79,6 +79,11 @@ Docker and docker compose are the only required dependencies. You can either ins
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 #### Production
+0. Set up [MetaPloy](https://github.com/metakgp/metaploy) **for production**.
+1. Clone this repository at a convenient location such as `/deployments`.
+2. Set the appropriate **production** [environment variables](#environment-variables) in the `.env` file.
+3. Run `docker compose -f docker-compose.prod.yml up` to start the wiki. This enables the `jobs` service which includes backups, log rotation, and other periodic jobs.
+4. Optionally set up a Systemd service to start the wiki on startup.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -91,7 +96,7 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 - `SERVER_NAME`: Base URL of the wiki.
 - `MAILGUN_PASSWORD`: Mailgun SMTP password for sending official mails from the wiki.
 - `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
-- Dropbox related variables(used for storing backups): 
+- Dropbox related variables(used for storing backups):
 	- `DROPBOX_APP_KEY`:  Dropbox app key(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
 	- `DROPBOX_APP_SECRET`:  Dropbox app secret(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
 	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token(generated using `/scripts/get_dropbox_tokens.py`)
