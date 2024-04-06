@@ -136,7 +136,7 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 2. Add the bot's password to the `BATMAN_BOT_PASSWORD` variable in the [environment variables](#environment-variables).
 
 ##### Google Analytics
-
+**The legacy google analytics features used here are now deprecated. This needs to be reworked.**
 
 ## Maintainer(s)
 - [Rajiv Harlalka](https://github.com/rajivharlalka)
