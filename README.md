@@ -130,7 +130,10 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 2. [Copy](https://help.mailgun.com/hc/en-us/articles/203380100-Where-Can-I-Find-My-API-Key-and-SMTP-Credentials) the SMTP password and set the appropriate [environment variables](#environment-variables).
 
 ##### PyWikiBot (Batman)
+[PyWikiBot](https://github.com/wikimedia/pywikibot) is a Python library that interfaces with the wiki as a bot (called "Batman") and is used to run various jobs such as updating the trending pages list. See `/jobs/pywikibot` for a list of scripts.
 
+1. [Create](https://www.mediawiki.org/wiki/Manual:Creating_a_bot) a bot account on the Wiki.
+2. Add the bot's password to the `BATMAN_BOT_PASSWORD` variable in the [environment variables](#environment-variables).
 
 ##### Google Analytics
 
