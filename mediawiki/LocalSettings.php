@@ -125,7 +125,7 @@ $wgSMTP = array(
   'host' => 'smtp.mailgun.org',
   'IDHost' => 'username.mailgun.org',
   'port' => 587,
-  'username' => 'postmaster@wiki.metakgp.org',
+  'username' => getenv('MAILGUN_EMAIL', true),
   'password' => getenv('MAILGUN_PASSWORD', true),
   'auth' => true
 );

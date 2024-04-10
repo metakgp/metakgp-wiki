@@ -41,6 +41,7 @@
     - [Development](#development)
     - [Production](#production)
     - [Environment Variables](#environment-variables)
+    - [Setting Up Secondary Services](#setting-up-secondary-services)
 - [Runbook](./RUNBOOK.md)
 - [Maintainer(s)](#maintainers)
 - [Contact](#contact)
@@ -79,6 +80,11 @@ Docker and docker compose are the only required dependencies. You can either ins
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 #### Production
+0. Set up [MetaPloy](https://github.com/metakgp/metaploy) **for production**.
+1. Clone this repository at a convenient location such as `/deployments`.
+2. Set the appropriate **production** [environment variables](#environment-variables) in the `.env` file.
+3. Run `docker compose -f docker-compose.prod.yml up` to start the wiki. This enables the `jobs` service which includes backups, log rotation, and other periodic jobs.
+4. Optionally set up a Systemd service to start the wiki on startup.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -88,18 +94,52 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 - `DEV`: When set to `true`, Mediawiki PHP stack-trace is shown with error messages. (Default: `false`)
 - `MYSQL_PASSWORD`: A secret password for the MySQL database.
 - `SERVER_PORT`: Port on which the wiki server is exposed to the host. (Default: `8080`)
-- `SERVER_NAME`: Base URL of the wiki.
+- `SERVER_NAME`: Base URL of the wiki (eg: `https://wiki.metakgp.org`).
+- `MAILGUN_EMAIL`: The email ID used for sending emails via Mailgun. (eg: `admin@wiki.metakgp.org`)
 - `MAILGUN_PASSWORD`: Mailgun SMTP password for sending official mails from the wiki.
-- `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
-- Dropbox related variables(used for storing backups): 
-	- `DROPBOX_APP_KEY`:  Dropbox app key(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
-	- `DROPBOX_APP_SECRET`:  Dropbox app secret(can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
-	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token(generated using `/scripts/get_dropbox_tokens.py`)
-	- `DROPBOX_REFRESH_TOKEN`: Dropbox API refresh token(generated using `/scripts/get_dropbox_tokens.py`) used to refresh the access token.
-- `SLACK_CHANGES_WH_URL`: URL to the Slack webhook used to send updates about wiki changes.
-- `SLACK_INCIDENTS_WH_URL`: URL to the Slack webhook used to send incidents reports and errors(like Dropbox backup failure).
+- `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string ([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
+- Dropbox related variables (used for storing backups) (See [this](#dropbox-backups) section for details):
+	- `DROPBOX_APP_KEY`:  Dropbox app key (can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
+	- `DROPBOX_APP_SECRET`:  Dropbox app secret (can be found at [Dropbox App Console](https://www.dropbox.com/developers/apps)).
+	- `DROPBOX_ACCESS_TOKEN`: Dropbox API access token (generated using `/scripts/get_dropbox_tokens.py`)
+	- `DROPBOX_REFRESH_TOKEN`: Dropbox API refresh token (generated using `/scripts/get_dropbox_tokens.py`) used to refresh the access token.
+- `SLACK_CHANGES_WH_URL`: URL to the Slack webhook used to send updates about wiki changes. (See [this](#slack-notifications) section for more details)
+- `SLACK_INCIDENTS_WH_URL`: URL to the Slack webhook used to send incidents reports and errors(like Dropbox backup failure). (See [this](#slack-notifications) section for more details)
 - `BATMAN_BOT_PASSWORD`: A generated password of the Batman bot user account on the wiki(Mediawiki documentation to generate bot passwords can be found [here](https://www.mediawiki.org/wiki/Manual:Pywikibot/BotPasswords)).
+
+#### Setting Up Secondary Services
+##### Dropbox Backups
+The `jobs` service runs periodic local backups (see `/jobs/backups`) and stores the last 30 days of backups on [Dropbox](https://dropbox.com). To set this up, a Dropbox app has to be created, and access tokens need to be generated:
+
+1. Create an app on the [Dropbox App Console](https://www.dropbox.com/developers/apps).
+2. Copy the app key and app secret and set the corresponding [environment variables](#environment-variables).
+3. Run the script `/scripts/get_dropbox_tokens.py` and when prompted, enter the app key and app secret.
+4. Set the generated API access token and refresh tokens in the environment variables.
+
+##### Slack Notifications
+The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/webhooks). Two webhooks are used by the wiki: Recent Changes webhook and Incidents webhook (See [environment variables](#environment-variables)). The recent changes webhook logs recent changes to the wiki (page edits, user creation, etc.) and the incidents webhook notifies about server incidents such as backup failures.
+
+1. Create a [Slack app](https://api.slack.com/apps/new).
+2. Enable "Incoming Webhooks".
+3. Copy the webhook URL and set the appropriate [environment variables](#environment-variables).
+
+##### Mailgun
+[Mailgun](https://www.mailgun.com/) is used by the wiki as a mailing service for sending various emails to the users such as account verification and notifications.
+
+1. Add a new domain in the "Sending" section on Mailgun.
+2. [Copy](https://help.mailgun.com/hc/en-us/articles/203380100-Where-Can-I-Find-My-API-Key-and-SMTP-Credentials) the SMTP password and set the appropriate [environment variables](#environment-variables).
+
+##### PyWikiBot (Batman)
+[PyWikiBot](https://github.com/wikimedia/pywikibot) is a Python library that interfaces with the wiki as a bot (called "Batman") and is used to run various jobs such as updating the trending pages list. See `/jobs/pywikibot` for a list of scripts.
+
+1. [Create](https://www.mediawiki.org/wiki/Manual:Creating_a_bot) a bot account on the Wiki.
+2. Add the bot's password to the `BATMAN_BOT_PASSWORD` variable in the [environment variables](#environment-variables).
+
+##### Google Analytics
+**The legacy google analytics features used here are now deprecated. This needs to be reworked.**
+
 ## Maintainer(s)
+- [Rajiv Harlalka](https://github.com/rajivharlalka)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
