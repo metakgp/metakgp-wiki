@@ -1,0 +1,71 @@
+name: Continuous Deployment for Metakgp-Wiki
+
+on:
+    push:
+        branches:
+            - "master"
+
+jobs:
+    pull:
+        name: Pull Stage
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Sync with remote repository
+              uses: appleboy/ssh-action@master
+              env:
+                  WIKI_DIR: ${{ secrets.WIKI_DIR }}
+              with:
+                  host: ${{ secrets.HOSTNAME }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
+                  envs: WIKI_DIR
+                  script_stop: true
+                  script: |
+                      cd "${WIKI_DIR}/"
+                      sudo git fetch origin
+                      sudo git reset --hard origin/master
+
+    build:
+        name: Build Stage
+        needs: pull
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Build the latest docker container
+              uses: appleboy/ssh-action@master
+              env:
+                  WIKI_DIR: ${{ secrets.WIKI_DIR }}
+              with:
+                  host: ${{ secrets.HOSTNAME }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
+                  envs: WIKI_DIR
+                  script_stop: true
+                  script: |
+                      cd "${WIKI_DIR}/"
+                      sudo docker compose -f docker-compose.prod.yml build
+
+    deploy:
+        name: Deploy Stage
+        needs: [pull, build]
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Deploy the latest build
+              uses: appleboy/ssh-action@master
+              env:
+                  WIKI_DIR: ${{ secrets.WIKI_DIR }}
+              with:
+                  host: ${{ secrets.HOSTNAME }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
+                  envs: WIKI_DIR
+                  script_stop: true
+                  script: |
+                      cd "${WIKI_DIR}/"
+                      sudo docker compose -f docker-compose.prod.yml down
+                      sudo docker compose -f docker-compose.prod.yml up -d
