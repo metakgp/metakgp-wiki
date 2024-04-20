@@ -21,7 +21,6 @@ WORKDIR /root
 COPY requirements.txt ./
 RUN pip install -qr requirements.txt
 
-RUN mkdir pywikibot/
 COPY pywikibot ./pywikibot
 
 COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh logrotate.conf ./
