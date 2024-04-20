@@ -4,6 +4,7 @@ include:
 services:
   jobs:
     build: "./jobs"
+    restart: always
     networks:
       mysql-network:
     environment:

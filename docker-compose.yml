@@ -1,6 +1,7 @@
 services:
   mysql:
     build: "./mysql"
+    restart: always
     networks:
       mysql-network:
         aliases:
@@ -15,6 +16,7 @@ services:
 
   mediawiki:
     build: "./mediawiki"
+    restart: always
     networks:
       mysql-network:
       mediawiki-network:
@@ -36,6 +38,7 @@ services:
 
   nginx:
     build: "./nginx"
+    restart: always
     networks:
       metaploy-network:
         aliases:
