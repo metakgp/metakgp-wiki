@@ -1,0 +1,30 @@
+name: Sync Important Items Except Those Needed For Deployment
+
+on:
+    push:
+        branches:
+            - "master"
+        paths:
+            - "scripts/**"
+
+jobs:
+    pull:
+        name: Pull Stage
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Sync with remote repository
+              uses: appleboy/ssh-action@master
+              env:
+                  WIKI_DIR: ${{ secrets.WIKI_DIR }}
+              with:
+                  host: ${{ secrets.HOSTNAME }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
+                  envs: WIKI_DIR
+                  script_stop: true
+                  script: |
+                      cd "${WIKI_DIR}/"
+                      sudo git fetch origin
+                      sudo git reset --hard origin/master
