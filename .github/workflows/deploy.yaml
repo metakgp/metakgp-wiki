@@ -4,6 +4,13 @@ on:
     push:
         branches:
             - "master"
+        paths:
+            - "jobs/**"
+            - "mediawiki/**"
+            - "mysql/**"
+            - "nginx/**"
+            - "docker-compose.prod.yml"
+            - "docker-compose.yml"
 
 jobs:
     pull:
