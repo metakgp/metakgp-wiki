@@ -17,15 +17,12 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 WORKDIR /root
-RUN wget -qO- https://tools.wmflabs.org/pywikibot/core.tar.gz | tar xz \
-      && mv core pywikibot
 
 COPY requirements.txt ./
 RUN pip install -qr requirements.txt
 
-COPY pywikibot/user-config.py pywikibot/user-password.py pywikibot/
-COPY pywikibot/metakgp_family.py pywikibot/pywikibot/families/
-COPY pywikibot/scripts/ pywikibot/scripts/
+RUN mkdir pywikibot/
+COPY pywikibot ./pywikibot
 
 COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh logrotate.conf ./
 RUN chmod 644 logrotate.conf && groupadd -g 999 mysql && useradd mysql -u 999 -g 999
