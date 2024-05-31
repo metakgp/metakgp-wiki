@@ -78,4 +78,5 @@ jobs:
                   script: |
                       cd "${PROJECT_DIR}/"
                       sudo docker compose -f docker-compose.prod.yml down
+                      sudo docker volume rm metakgp-wiki_mediawiki-volume
                       sudo docker compose -f docker-compose.prod.yml up -d
