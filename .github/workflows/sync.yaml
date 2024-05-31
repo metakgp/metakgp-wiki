@@ -7,6 +7,7 @@ on:
         paths:
             - "scripts/**"
             - ".github/workflows/sync.yaml"
+    workflow_dispatch: # This allows us to trigger the workflow manually
 
 jobs:
     push:
