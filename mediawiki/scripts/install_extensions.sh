@@ -55,7 +55,7 @@ php composer.phar update
 
 # Install SlackNotifications extension
 pushd /tmp
-wget https://github.com/kulttuuri/SlackNotifications/archive/master.zip
+wget https://github.com/metakgp/SlackNotifications/archive/master.zip
 
 unzip master.zip
 mv SlackNotifications-master/ /srv/mediawiki/extensions/SlackNotifications/
