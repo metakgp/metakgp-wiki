@@ -12,6 +12,7 @@ on:
             - "docker-compose.prod.yml"
             - "docker-compose.yml"
             - ".github/workflows/deploy.yaml"
+    workflow_dispatch: # This allows us to trigger the workflow manually
 
 jobs:
     push:
