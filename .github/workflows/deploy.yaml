@@ -15,8 +15,117 @@ on:
     workflow_dispatch: # This allows us to trigger the workflow manually
 
 jobs:
+    dockerhub:
+        name: Publish Docker Image(s) to Dockerhub
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v3
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+            - name: Cache Docker layers for Wiki DB
+              uses: actions/cache@v3
+              with:
+                  path: /tmp/.buildx-cache-wiki-db
+                  key: ${{ runner.os }}-buildx-wiki-db-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-buildx-wiki-db-
+
+            - name: Build & Push Wiki DB
+              uses: docker/build-push-action@v5
+              with:
+                  context: ./mysql
+                  push: true
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/wiki-db:latest
+                  cache-from: type=local,src=/tmp/.buildx-cache-wiki-db
+                  cache-to: type=local,dest=/tmp/.buildx-cache-wiki-db-new,mode=max
+
+            - name: Move Wiki DB cache
+              run: |
+                  rm -rf /tmp/.buildx-cache-wiki-db
+                  mv /tmp/.buildx-cache-wiki-db-new /tmp/.buildx-cache-wiki-db
+
+            - name: Cache Docker layers for Wiki Jobs
+              uses: actions/cache@v3
+              with:
+                  path: /tmp/.buildx-cache-wiki-jobs
+                  key: ${{ runner.os }}-buildx-wiki-jobs-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-buildx-wiki-jobs-
+
+            - name: Build & Push Wiki Jobs
+              uses: docker/build-push-action@v5
+              with:
+                  context: ./jobs
+                  push: true
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/wiki-jobs:latest
+                  cache-from: type=local,src=/tmp/.buildx-cache-wiki-jobs
+                  cache-to: type=local,dest=/tmp/.buildx-cache-wiki-jobs-new,mode=max
+
+            - name: Move Wiki Jobs cache
+              run: |
+                  rm -rf /tmp/.buildx-cache-wiki-jobs
+                  mv /tmp/.buildx-cache-wiki-jobs-new /tmp/.buildx-cache-wiki-jobs
+
+            - name: Cache Docker layers for Wiki Nginx
+              uses: actions/cache@v3
+              with:
+                  path: /tmp/.buildx-cache-wiki-nginx
+                  key: ${{ runner.os }}-buildx-wiki-nginx-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-buildx-wiki-nginx-
+
+            - name: Build & Push Wiki Nginx
+              uses: docker/build-push-action@v5
+              with:
+                  context: ./nginx
+                  push: true
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/wiki-nginx:latest
+                  cache-from: type=local,src=/tmp/.buildx-cache-wiki-nginx
+                  cache-to: type=local,dest=/tmp/.buildx-cache-wiki-nginx-new,mode=max
+
+            - name: Move Wiki Nginx cache
+              run: |
+                  rm -rf /tmp/.buildx-cache-wiki
+                  mv /tmp/.buildx-cache-wiki-nginx-new /tmp/.buildx-cache-wiki-nginx
+
+            - name: Cache Docker layers for Wiki Mediawiki
+              uses: actions/cache@v3
+              with:
+                  path: /tmp/.buildx-cache-wiki
+                  key: ${{ runner.os }}-buildx-wiki-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-buildx-wiki-
+
+            - name: Build & Push Wiki Mediawiki
+              uses: docker/build-push-action@v5
+              with:
+                  context: ./mediawiki
+                  push: true
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/wiki:latest
+                  cache-from: type=local,src=/tmp/.buildx-cache-wiki
+                  cache-to: type=local,dest=/tmp/.buildx-cache-wiki-new,mode=max
+
+            - name: Move Wiki Mediawiki cache
+              run: |
+                  rm -rf /tmp/.buildx-cache-wiki-nginx
+                  mv /tmp/.buildx-cache-wiki-new /tmp/.buildx-cache-wiki
+
     push:
-        name: Push Stage
+        name: Push Code Stage
+        needs: dockerhub
         runs-on: ubuntu-latest
 
         steps:
@@ -36,13 +145,13 @@ jobs:
                       sudo git fetch origin
                       sudo git reset --hard origin/master
 
-    build:
-        name: Build Stage
+    pull:
+        name: Pull Image Stage
         needs: push
         runs-on: ubuntu-latest
 
         steps:
-            - name: Build the latest container(s)
+            - name: Pull the latest images(s)
               uses: appleboy/ssh-action@master
               env:
                   PROJECT_DIR: ${{ secrets.PROJECT_DIR }}
@@ -56,11 +165,11 @@ jobs:
                   script_stop: true
                   script: |
                       cd "${PROJECT_DIR}/"
-                      sudo docker compose -f docker-compose.prod.yml build
+                      sudo docker compose -f docker-compose.prod.yml pull
 
     deploy:
         name: Deploy Stage
-        needs: [push, build]
+        needs: pull
         runs-on: ubuntu-latest
 
         steps:

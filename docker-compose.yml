@@ -1,5 +1,7 @@
 services:
   mysql:
+    image: metakgporg/wiki-db
+    container_name: wiki-db
     build: "./mysql"
     restart: always
     networks:
@@ -15,6 +17,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
   mediawiki:
+    image: metakgporg/wiki
+    container_name: wiki
     build: "./mediawiki"
     restart: always
     networks:
@@ -37,6 +41,8 @@ services:
       - DEV=$DEV
 
   nginx:
+    image: metakgporg/wiki-nginx
+    container_name: wiki-nginx
     build: "./nginx"
     restart: always
     networks:

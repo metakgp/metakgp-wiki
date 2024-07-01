@@ -3,6 +3,8 @@ include:
 
 services:
   jobs:
+    image: metakgporg/wiki-jobs
+    container_name: wiki-jobs
     build: "./jobs"
     restart: always
     networks:
