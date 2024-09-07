@@ -36,6 +36,7 @@ $wgFavicon = "$wgScriptPath/resources/assets/metakgp_favicon.png";
 
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
+$wgEmailConfirmToEdit = true
 
 $wgEmergencyContact = "admin@wiki.metakgp.org";
 $wgPasswordSender = "no-reply@wiki.metakgp.org";
@@ -371,3 +372,6 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 
 # Show exception details in development environment
 $wgShowExceptionDetails = getenv('DEV', true);
+
+# Disable anonymous editing
+$wgGroupPermissions['*']['edit'] = false;
