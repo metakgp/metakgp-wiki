@@ -36,7 +36,7 @@ $wgFavicon = "$wgScriptPath/resources/assets/metakgp_favicon.png";
 
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
-$wgEmailConfirmToEdit = true
+$wgEmailConfirmToEdit = true;
 
 $wgEmergencyContact = "admin@wiki.metakgp.org";
 $wgPasswordSender = "no-reply@wiki.metakgp.org";
