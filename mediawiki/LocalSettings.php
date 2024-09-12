@@ -281,6 +281,11 @@ $wgGroupPermissions['rm-spam']['block'] = true;
 $wgGroupPermissions['rm-spam']['blockemail'] = true;
 $wgGroupPermissions['rm-spam']['nuke'] = true;
 
+# Disable anonymous editing
+$wgGroupPermissions['*']['edit'] = false;
+$wgGroupPermissions['user']['edit'] = true;
+$wgGroupPermissions['sysop']['edit'] = true;
+
 # Autoconfirm
 $wgAutoConfirmAge = 3 * 24 * 3600;
 $wgAutoConfirmCount = 5;
@@ -372,6 +377,3 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 
 # Show exception details in development environment
 $wgShowExceptionDetails = getenv('DEV', true);
-
-# Disable anonymous editing
-$wgGroupPermissions['*']['edit'] = false;
