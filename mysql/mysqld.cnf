@@ -1,5 +1,5 @@
 [mysqld]
-general_log=1   
+general_log=1
 general_log_file = /var/lib/mysql/mysql.log
 
 # Slow query settings:
@@ -11,3 +11,7 @@ long_query_time=5.0
 log_error=/var/lib/mysql/mysql_error.log
 
 innodb_temp_data_file_path=ibtmp1:12M:autoextend:max:5G
+
+# Processes limiting
+max_connections=16
+thread_cache_size=4
