@@ -19,9 +19,17 @@ declare -a extension_names=( \
 )
 
 function fetch_extension_url() {
-    curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$2" \
-        | grep -oP 'https://extdist.wmflabs.org/dist/extensions/.*?.tar.gz' \
-        | head -1
+    url_page=$(curl -s "https://www.mediawiki.org/wiki/Special:ExtensionDistributor?extdistname=$1&extdistversion=$2")
+
+    if [[ "$!" != "0" ]];
+    then
+        echo $url_page | grep -oP 'https://extdist.wmflabs.org/dist/extensions/.*?.tar.gz' | head -1
+    else
+        echo "Extension version page download failed. Retrying in 1s."
+        sleep 1
+
+        fetch_extension_url "$@"
+    fi
 }
 
 function fetch_skin_url() {
