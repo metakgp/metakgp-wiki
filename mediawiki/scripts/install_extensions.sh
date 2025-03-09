@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -xe
+set -e
 
 MEDIAWIKI_RELEASE=REL1_43
 
@@ -25,7 +25,7 @@ function fetch_extension_url() {
     then
         echo $url_page | grep -oP 'https://extdist.wmflabs.org/dist/extensions/.*?.tar.gz' | head -1
     else
-        echo "Extension version page download failed. Retrying in 1s."
+        echo "Extension version page download failed. Retrying in 1s." >&2
         sleep 1
 
         fetch_extension_url "$@"
