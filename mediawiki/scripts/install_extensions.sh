@@ -2,7 +2,7 @@
 
 set -xe
 
-MEDIAWIKI_RELEASE=REL1_40
+MEDIAWIKI_RELEASE=REL1_43
 
 # Install extensions from extension distributor
 declare -a extension_names=( \

@@ -17,10 +17,10 @@ RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
 
 # Install mediawiki
 WORKDIR /tmp
-RUN wget -q https://releases.wikimedia.org/mediawiki/1.40/mediawiki-1.40.0.tar.gz
-RUN tar -xzf mediawiki-1.40.0.tar.gz
+RUN wget -q https://releases.wikimedia.org/mediawiki/1.43/mediawiki-1.43.0.tar.gz
+RUN tar -xzf mediawiki-1.43.0.tar.gz
 RUN mkdir -p /srv
-RUN mv /tmp/mediawiki-1.40.0 /srv/mediawiki
+RUN mv /tmp/mediawiki-1.43.0 /srv/mediawiki
 
 # Set work directory
 WORKDIR /srv/mediawiki
