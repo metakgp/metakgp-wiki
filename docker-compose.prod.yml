@@ -22,3 +22,8 @@ services:
       - mediawiki-volume:/srv/mediawiki
       - db-volume:/var/lib/mysql
       - static-volume:/srv/static
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "100m"
+            max-file: "3"
