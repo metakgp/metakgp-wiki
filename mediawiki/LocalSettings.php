@@ -286,6 +286,12 @@ $wgGroupPermissions['*']['edit'] = false;
 $wgGroupPermissions['user']['edit'] = true;
 $wgGroupPermissions['sysop']['edit'] = true;
 
+# Spam mitigation
+$wgGroupPermissions['user']['createtalk'] = false; # No user talk pages
+$wgGroupPermissions['user']['sendemail'] = false;  # No email send
+$wgGroupPermissions['user']['delete'] = false;     # No deletion
+$wgNamespaceProtection[NS_USER] = ['nobody'];      # No user page editing/creation
+
 # Autoconfirm
 $wgAutoConfirmAge = 3 * 24 * 3600;
 $wgAutoConfirmCount = 5;
