@@ -244,7 +244,7 @@ $wgDefaultUserOptions['visualeditor-enable'] = 1;
 
 $wgVisualEditorAvailableNamespaces = [
   "Help" => true,
-  "Metakgp" => true,
+  $wgMetaNamespace => true,
   "Template" => true,
 ];
 
