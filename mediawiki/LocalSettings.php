@@ -245,6 +245,7 @@ $wgDefaultUserOptions['visualeditor-enable'] = 1;
 $wgVisualEditorAvailableNamespaces = [
   "Help" => true,
   "Metakgp" => true,
+  "Template" => true,
 ];
 
 wfLoadExtension( 'Parsoid', "$IP/vendor/wikimedia/parsoid/extension.json" );
