@@ -6,9 +6,11 @@ ENV TZ=Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install https://github.com/aptible/supercronic as a cron replacement
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.26/supercronic-linux-amd64 \
-    SUPERCRONIC=supercronic-linux-amd64 \
-    SUPERCRONIC_SHA1SUM=7a79496cf8ad899b99a719355d4db27422396735
+# Latest releases available at https://github.com/aptible/supercronic/releases
+# Each release also contains a sample Dockerfile
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.34/supercronic-linux-amd64 \
+    SUPERCRONIC_SHA1SUM=e8631edc1775000d119b70fd40339a7238eece14 \
+    SUPERCRONIC=supercronic-linux-amd64
 
 RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
