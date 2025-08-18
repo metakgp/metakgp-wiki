@@ -24,7 +24,7 @@ RUN pip install -qr requirements.txt
 COPY pywikibot ./pywikibot
 
 COPY crontab update_top_trending.sh MetaMaint.sh update_spam_denylist.sh logrotate.conf ./
-RUN chmod 644 logrotate.conf && groupadd -g 999 mysql && useradd mysql -u 999 -g 999
+RUN chmod 644 logrotate.conf && groupadd mysql && useradd mysql -g mysql
 
 COPY backup/ ./backup
 
