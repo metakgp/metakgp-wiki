@@ -372,8 +372,8 @@ $wgGroupPermissions['whitelisted-bot']['editprotected'] = true;
 wfLoadExtension('Maps');
 
 # ArticleFeedbackv5
-wfLoadExtension('ArticleFeedbackv5');
-$wgArticleFeedbackv5LotteryOdds = 100;
+# wfLoadExtension('ArticleFeedbackv5');
+# $wgArticleFeedbackv5LotteryOdds = 100;
 
 # StopForumSpam
 wfLoadExtension('StopForumSpam');
