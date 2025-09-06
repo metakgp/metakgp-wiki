@@ -6,7 +6,7 @@ WORKDIR /srv/mediawiki
 # Install composer for installing some extensions
 RUN apt-get update
 # wget is also used by the install extension script
-RUN apt-get install wget
+RUN apt-get install wget unzip
 RUN wget -cO - https://getcomposer.org/composer-2.phar > composer.phar
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_IGNORE_PLATFORM_REQS=1
