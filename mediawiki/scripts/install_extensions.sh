@@ -55,6 +55,8 @@ declare -a composer_extension_names=( \
     mediawiki/simple-batch-upload \
 )
 
+php composer.phar config --no-plugins allow-plugins.composer/installers
+
 for extension_name in "${composer_extension_names[@]}"; do
     php composer.phar require "${extension_name}"
 done
