@@ -139,8 +139,14 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 **The legacy google analytics features used here are now deprecated. This needs to be reworked.**
 
 ## Maintainer(s)
-- [Rajiv Harlalka](https://github.com/rajivharlalka)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
+
+## Past Maintainer(s)
+- [Rajiv Harlalka](https://github.com/rajivharlalka)
+- [Arpit Bhardwaj](https://github.com/proffapt)
+- [Shivam Kumar Jha](https://github.com/thealphadollar)
+- [Siddharth Kannan](https://github.com/icyflame)
+- [Vikrant Varma](https://github.com/amrav)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
