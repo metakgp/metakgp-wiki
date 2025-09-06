@@ -238,6 +238,8 @@ $wgEnableSidebarCache = true;
 
 # Visual Editor
 wfLoadExtension('VisualEditor');
+wfLoadExtension('TemplateData');
+wfLoadExtension('CategoryTree');
 
 // Enable by default for everybody
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
