@@ -1,31 +1,12 @@
-FROM php:8.2-fpm-bookworm
-
-### INSTALLING MEDIAWIKI AND ITS EXTENSIONS ###
-# Install tools and dependencies
-RUN apt-get update && apt-get install -y git wget unzip
-
-# Install extensions required for the wiki runtime
-RUN apt-get install -y build-essential git-core gnupg2 \
-	graphicsmagick imagemagick libfreetype6-dev \
-	libicu-dev libjpeg62-turbo-dev libpng-dev \
-	wget
-
-# Install other php extensions
-RUN pecl install apcu
-RUN pear install Numbers_Words-beta
-RUN docker-php-ext-install -j$(nproc) gd intl mysqli opcache
-
-# Install mediawiki
-WORKDIR /tmp
-RUN wget -q https://releases.wikimedia.org/mediawiki/1.43/mediawiki-1.43.0.tar.gz
-RUN tar -xzf mediawiki-1.43.0.tar.gz
-RUN mkdir -p /srv
-RUN mv /tmp/mediawiki-1.43.0 /srv/mediawiki
+FROM mediawiki:1.44-fpm
 
 # Set work directory
 WORKDIR /srv/mediawiki
 
 # Install composer for installing some extensions
+RUN apt-get update
+# wget is also used by the install extension script
+RUN apt-get install wget
 RUN wget -cO - https://getcomposer.org/composer-2.phar > composer.phar
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_IGNORE_PLATFORM_REQS=1
