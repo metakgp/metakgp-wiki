@@ -114,9 +114,14 @@ $wgRightsIcon = "{$wgResourceBasePath}/resources/assets/licenses/cc-by-sa.png";
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
 
-## Default skin: you can change the default skin. Use the internal symbolic
-## names, ie 'vector', 'monobook':
-$wgDefaultSkin = "vector";
+## Skin configuration
+$wgDefaultSkin = "vector-2022";
+
+# Night mode is in beta and gated by a feature flag
+$wgVectorNightMode['beta'] = true;
+$wgVectorNightMode['logged_out'] = true;
+$wgVectorNightMode['logged_in'] = true;
+$wgDefaultUserOptions['vector-theme'] = 'day'; # Light by default
 
 # End of automatically generated settings.
 # Add more configuration options below.
