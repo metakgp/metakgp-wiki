@@ -33,7 +33,7 @@ $metakgpLogo = "$wgScriptPath/resources/assets/metakgp_logo.png";
 $wgLogos = [
   'icon' => $metakgpLogo,
   '1x' => $metakgpLogo
-]
+];
 $wgFavicon = "$wgScriptPath/resources/assets/metakgp_favicon.png";
 
 ## UPO means: this is also a user preference option
