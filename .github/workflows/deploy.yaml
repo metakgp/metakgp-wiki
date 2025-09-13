@@ -35,6 +35,28 @@ jobs:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+            - name: Cache Docker layers for Wiki Mediawiki
+              uses: actions/cache@v3
+              with:
+                  path: /tmp/.buildx-cache-wiki
+                  key: ${{ runner.os }}-buildx-wiki-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-buildx-wiki-
+
+            - name: Build & Push Wiki Mediawiki
+              uses: docker/build-push-action@v5
+              with:
+                  context: ./mediawiki
+                  push: true
+                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/wiki:latest
+                  cache-from: type=local,src=/tmp/.buildx-cache-wiki
+                  cache-to: type=local,dest=/tmp/.buildx-cache-wiki-new,mode=max
+
+            - name: Move Wiki Mediawiki cache
+              run: |
+                  rm -rf /tmp/.buildx-cache-wiki
+                  mv /tmp/.buildx-cache-wiki-new /tmp/.buildx-cache-wiki
+
             - name: Cache Docker layers for Wiki DB
               uses: actions/cache@v3
               with:
@@ -100,28 +122,6 @@ jobs:
               run: |
                   rm -rf /tmp/.buildx-cache-wiki-nginx
                   mv /tmp/.buildx-cache-wiki-nginx-new /tmp/.buildx-cache-wiki-nginx
-
-            - name: Cache Docker layers for Wiki Mediawiki
-              uses: actions/cache@v3
-              with:
-                  path: /tmp/.buildx-cache-wiki
-                  key: ${{ runner.os }}-buildx-wiki-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-buildx-wiki-
-
-            - name: Build & Push Wiki Mediawiki
-              uses: docker/build-push-action@v5
-              with:
-                  context: ./mediawiki
-                  push: true
-                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/wiki:latest
-                  cache-from: type=local,src=/tmp/.buildx-cache-wiki
-                  cache-to: type=local,dest=/tmp/.buildx-cache-wiki-new,mode=max
-
-            - name: Move Wiki Mediawiki cache
-              run: |
-                  rm -rf /tmp/.buildx-cache-wiki
-                  mv /tmp/.buildx-cache-wiki-new /tmp/.buildx-cache-wiki
 
     push:
         name: Push Code Stage
