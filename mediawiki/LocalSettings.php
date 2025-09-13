@@ -29,7 +29,11 @@ $wgStylePath = "$wgScriptPath/skins";
 
 ## The relative URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo = "$wgScriptPath/resources/assets/metakgp_logo.png";
+$metakgpLogo = "$wgScriptPath/resources/assets/metakgp_logo.png";
+$wgLogos = [
+  'icon' => $metakgpLogo,
+  '1x' => $metakgpLogo
+]
 $wgFavicon = "$wgScriptPath/resources/assets/metakgp_favicon.png";
 
 ## UPO means: this is also a user preference option
