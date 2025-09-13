@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-
 set -e
 
-MEDIAWIKI_RELEASE=REL1_43
+# Installs all extensions available on the extension distributor: https://www.mediawiki.org/wiki/Special:ExtensionDistributor
 
-# Install extensions from extension distributor
+MEDIAWIKI_RELEASE="REL$(echo $MEDIAWIKI_MAJOR_VERSION | tr . _)"
+
 declare -a extension_names=( \
-    CheckUser \
     CommonsMetadata \
     ContributionScores \
     MobileFrontend \
@@ -43,37 +42,8 @@ for extension_name in "${extension_names[@]}"; do
     versioned_extension_url=$(fetch_extension_url $extension_name $version)
     versioned_extension_name=$(echo $versioned_extension_url | awk -F"/" '{print $(NF)}')
 
-    wget -q $versioned_extension_url
+    curl -qO $versioned_extension_url
     tar -xzf "$versioned_extension_name"
     mv $extension_name /srv/mediawiki/extensions/
 done
-popd
-
-# Install extensions from composer
-declare -a composer_extension_names=( \
-    mediawiki/maps \
-    mediawiki/simple-batch-upload \
-)
-
-php composer.phar config --no-plugins allow-plugins.composer/installers true
-
-for extension_name in "${composer_extension_names[@]}"; do
-    php composer.phar require "${extension_name}"
-done
-php composer.phar update
-
-# Install SlackNotifications extension
-pushd /tmp
-wget https://github.com/metakgp/SlackNotifications/archive/master.zip
-
-unzip master.zip
-mv SlackNotifications-master/ /srv/mediawiki/extensions/SlackNotifications/
-popd
-
-# Download an IP denylist for the StopForumSpam extension
-pushd /tmp
-wget https://www.stopforumspam.com/downloads/listed_ip_30_all.zip
-
-unzip listed_ip_30_all.zip
-mv listed_ip_30_all.txt /srv/mediawiki/extensions/StopForumSpam/
 popd
