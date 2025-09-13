@@ -116,12 +116,16 @@ $wgDiff3 = "/usr/bin/diff3";
 
 ## Skin configuration
 $wgDefaultSkin = "vector-2022";
-
 # Night mode is in beta and gated by a feature flag
 $wgVectorNightMode['beta'] = true;
 $wgVectorNightMode['logged_out'] = true;
 $wgVectorNightMode['logged_in'] = true;
 $wgDefaultUserOptions['vector-theme'] = 'day'; # Light by default
+# Menu locations
+$wgDefaultUserOptions['vector-main-menu-pinned'] = 0; # Main menu in hamburger
+$wgDefaultUserOptions['vector-page-tools-pinned'] = 0;
+$wgDefaultUserOptions['vector-toc-pinned'] = 1; # Table of contents on the left sidebar
+$wgDefaultUserOptions['vector-appearance-pinned'] = 1; # Appearance menu on the right sidebar
 
 # End of automatically generated settings.
 # Add more configuration options below.
