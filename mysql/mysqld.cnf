@@ -10,6 +10,10 @@ long_query_time=5.0
 # Error logging
 log_error=/var/lib/mysql/mysql_error.log
 
+# Reduce binlog sizes
+binlog_expire_logs_seconds = 86400  # 1 day
+max_binlog_size = 104857600         # 100M
+
 innodb_temp_data_file_path=ibtmp1:12M:autoextend:max:5G
 
 # Processes limiting
