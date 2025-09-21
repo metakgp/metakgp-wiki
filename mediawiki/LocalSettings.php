@@ -258,8 +258,8 @@ wfLoadExtension('CategoryTree');
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
 
 $wgVisualEditorAvailableNamespaces = [
-  "Help" => true,
-  4 => true,
+  NS_HELP => true,
+  NS_PROJECT => true,
   "Template" => true,
 ];
 
@@ -302,6 +302,9 @@ $wgGroupPermissions['rm-spam']['nuke'] = true;
 $wgGroupPermissions['*']['edit'] = false;
 $wgGroupPermissions['user']['edit'] = true;
 $wgGroupPermissions['sysop']['edit'] = true;
+
+# Allow anyone to edit the Metakgp namespace
+$wgNamespaceProtection[NS_PROJECT] = ['edit'];
 
 # Spam mitigation
 $wgGroupPermissions['user']['createtalk'] = false; # No user talk pages
