@@ -30,4 +30,4 @@ RUN chmod 644 logrotate.conf && groupadd mysql && useradd mysql -g mysql
 
 COPY backup/ ./backup
 
-CMD ["supercronic", "/root/crontab"]
+CMD ["/usr/bin/supercronic", "/root/crontab"]
