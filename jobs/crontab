@@ -1,7 +1,7 @@
 # [second(s)] minute(s) hour(s) day(s)_of_month month(s) day(s)_of_week command
 
-11 * * * * /root/update_top_trending.sh
-13 3 * * 1 /root/MetaMaint.sh
+# 11 * * * * /root/update_top_trending.sh
+# 13 3 * * 1 /root/MetaMaint.sh
 47 3 * * * /root/update_spam_denylist.sh
 02 3 * * * logrotate /root/logrotate.conf
 23 3 * * * /root/backup/run_backup.sh >> /var/log/backups.log 2>&1
