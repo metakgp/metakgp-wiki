@@ -21,7 +21,17 @@ function fetch_extension_url() {
 
     if [[ "$!" != "0" ]];
     then
-        echo $url_page | grep -oP 'https://extdist.wmflabs.org/dist/extensions/.*?.tar.gz' | head -1
+        tarball_url=$(echo $url_page | grep -oP 'https://extdist.wmflabs.org/dist/extensions/.*?.tar.gz' | head -1)
+
+        if [[ "$tarball_url" == "" ]];
+        then
+            echo "No tarball URL found in extension download page. Retrying in 1s." >&2
+
+            sleep 1
+            fetch_extension_url "$@"
+        else
+            echo $tarball_url
+        fi
     else
         echo "Extension version page download failed. Retrying in 1s." >&2
         sleep 1
