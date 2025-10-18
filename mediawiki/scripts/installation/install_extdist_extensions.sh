@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -xe
 
 # Installs all extensions available on the extension distributor: https://www.mediawiki.org/wiki/Special:ExtensionDistributor
 
