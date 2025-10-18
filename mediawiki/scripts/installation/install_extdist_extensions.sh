@@ -55,5 +55,8 @@ for extension_name in "${extension_names[@]}"; do
     curl -qO $versioned_extension_url
     tar -xzf "$versioned_extension_name"
     mv $extension_name /srv/mediawiki/extensions/
+
+    echo "Waiting 2s to prevent rate limiting."
+    sleep 2
 done
 popd
