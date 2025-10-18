@@ -380,7 +380,9 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 # DNS-based real-time spam blacklist
 $wgEnableDnsBlacklist = true;
 $wgDnsBlacklistUrls = array('sbl.spamhaus.org.');
-$wgUseRealIPs = true; # Use the X-Forwarded-For header to get the real ip address of the user for spam detection
+$wgCdnServersNoPurge = [ '0.0.0.0/0' ]; # This is not really recommended but since all requests will be coming via nginx via docker network, i _think_ it should be safe
+$wgAutoblockExemptions = [ getenv('ALLOW_IP_RANGE', true) ];
+
 
 wfLoadExtension('SimpleBatchUpload');
 
