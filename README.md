@@ -95,6 +95,7 @@ Environment variables can be set using a `.env` file(use `.env.template` file fo
 - `MYSQL_PASSWORD`: A secret password for the MySQL database.
 - `SERVER_PORT`: Port on which the wiki server is exposed to the host. (Default: `8080`)
 - `SERVER_NAME`: Base URL of the wiki (eg: `https://wiki.metakgp.org`).
+- `ALLOW_IP_RANGE`: A [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) specifying a range of IP addresses to explicitly unblock from spam filters. Currently only supports a single range. (eg: `127.0.0.0/24`)
 - `MAILGUN_EMAIL`: The email ID used for sending emails via Mailgun. (eg: `admin@wiki.metakgp.org`)
 - `MAILGUN_PASSWORD`: Mailgun SMTP password for sending official mails from the wiki.
 - `WG_SECRET_KEY`: Secret key used for encryption by mediawiki. Make it a long, random, secret string ([Reference](https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:$wgSecretKey)).
