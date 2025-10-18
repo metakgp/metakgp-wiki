@@ -380,6 +380,7 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 # DNS-based real-time spam blacklist
 $wgEnableDnsBlacklist = true;
 $wgDnsBlacklistUrls = array('sbl.spamhaus.org.');
+$wgUseRealIPs = true; # Use the X-Forwarded-For header to get the real ip address of the user for spam detection
 
 wfLoadExtension('SimpleBatchUpload');
 
