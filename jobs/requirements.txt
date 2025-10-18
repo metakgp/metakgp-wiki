@@ -1,5 +1,4 @@
-requests
-google-api-python-client
+# google-api-python-client
 oauth2client
 dropbox
-pywikibot
+# pywikibot
