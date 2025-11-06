@@ -379,7 +379,7 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 
 # DNS-based real-time spam blacklist
 $wgEnableDnsBlacklist = true;
-$wgDnsBlacklistUrls = array('sbl.spamhaus.org.');
+$wgDnsBlacklistUrls = array('dnsbl.sorbs.net.');
 $wgCdnServersNoPurge = [ '0.0.0.0/0' ]; # This is not really recommended but since all requests will be coming via nginx via docker network, i _think_ it should be safe
 $wgAutoblockExemptions = [ getenv('ALLOW_IP_RANGE', true) ];
 
