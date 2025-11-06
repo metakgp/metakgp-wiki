@@ -34,7 +34,7 @@ mkdir -p "${backups_path}/${backup_dir}"
 echo -e '$wgReadOnly = "Automatic backup in progress; access will be restored in a few seconds.";' >>"$settings_file"
 
 # Take a mysql dump
-mysqldump --no-tablespaces \
+mysqldump --no-tablespaces --skip-ssl \
     -h mysql-docker \
     -u metakgp_user \
     -p"$MYSQL_PASSWORD" \
