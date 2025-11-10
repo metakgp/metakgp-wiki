@@ -307,10 +307,11 @@ $wgGroupPermissions['sysop']['edit'] = true;
 $wgNamespaceProtection[NS_PROJECT] = ['edit'];
 
 # Spam mitigation
-$wgGroupPermissions['user']['createtalk'] = false; # No user talk pages
+$wgGroupPermissions['user']['createtalk'] = false; # No talk pages creation
 $wgGroupPermissions['user']['sendemail'] = false;  # No email send
 $wgGroupPermissions['user']['delete'] = false;     # No deletion
 $wgNamespaceProtection[NS_USER] = ['nobody'];      # No user page editing/creation
+$wgNamespaceProtection[NS_USER_TALK] = ['nobody']; # No user talk pages
 
 # Autoconfirm
 $wgAutoConfirmAge = 3 * 24 * 3600;
