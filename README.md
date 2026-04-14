@@ -16,7 +16,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/metakgp/metakgp-wiki">
-    <img width="140" alt="image" src="https://raw.githubusercontent.com/metakgp/design/main/logos/logo.jpg">
+    <img width="140" alt="MetaKGP Logo" src="https://raw.githubusercontent.com/metakgp/design/master/logos/m-black.svg">
   </a>
 
   <h3 align="center">MetaKGP Wiki</h3>
