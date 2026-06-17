@@ -140,9 +140,12 @@ The Slack notifications are sent via [webhooks](https://api.slack.com/messaging/
 **The legacy google analytics features used here are now deprecated. This needs to be reworked.**
 
 ## Maintainer(s)
-- [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
+> [!WARNING]
+> **THIS PROJECT IS IN NEED OF A MAINTAINER.**
+> Please contact us on [Slack](https://slack.metakgp.org) if you want to volunteer. See [the wiki page](https://wiki.metakgp.org/w/Metakgp:Project_Maintainer) for more information.
 
 ## Past Maintainer(s)
+- [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
 - [Rajiv Harlalka](https://github.com/rajivharlalka)
 - [Arpit Bhardwaj](https://github.com/proffapt)
 - [Shivam Kumar Jha](https://github.com/thealphadollar)
